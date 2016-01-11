@@ -51,8 +51,8 @@ public class BrandStoryTelling extends Browser {
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    //Thread.sleep(5000);
 	    
 	    //Access Brand Story Telling page via PDP's View All link
 	    driver.get(ConfigurationFunctions.accessURL+"/wine/champagne-sparkling-wine/champagne/brut/mailly-brut-collection-vtg/p/130286015");

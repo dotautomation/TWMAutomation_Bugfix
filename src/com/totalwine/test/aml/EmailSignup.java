@@ -56,8 +56,8 @@ public class EmailSignup extends Browser {
 		Thread.sleep(2000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(2000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(2000);
+	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    //Thread.sleep(2000);
     	driver.findElement(By.cssSelector("span.footer-Email-text.analyticsJoinOurEmail")).click();
     	Thread.sleep(2000);
     	driver.switchTo().frame(driver.findElement(By.id("iframe-signup-overlay")));

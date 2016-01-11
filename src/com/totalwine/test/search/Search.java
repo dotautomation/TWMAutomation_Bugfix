@@ -45,7 +45,7 @@ public class Search extends Browser {
 	
 	@DataProvider(name="SearchParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray("C:\\totalwine\\TWMAutomation\\Resources\\AutomatedFlows.xls","Search", "search");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Search", "search");
         return(retObjArr);
     }
 	
@@ -57,8 +57,8 @@ public class Search extends Browser {
 		driver.findElement(By.id("btnYes")).click();
 		//driver.findElement(By.cssSelector("div.modal-content > div.modal-body > div.pdp-store-modal-wrapper > div.store-modal-content > div.ageGatingMain > div.ageGatingContainer > div.ageGatingButtons > form.add_to_cart_form.clear_fix > button.btn.btn-red")).click();
 		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    //Thread.sleep(5000);
 		
 		driver.findElement(By.id("header-search-text")).clear();
 	    driver.findElement(By.id("header-search-text")).sendKeys(searchTerm);
