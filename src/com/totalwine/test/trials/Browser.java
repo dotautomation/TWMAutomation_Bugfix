@@ -52,9 +52,13 @@ public class Browser {
 		if(browser.equalsIgnoreCase("FF")) {
 			ProfilesIni profile = new ProfilesIni();
 			//FirefoxProfile testProfile = profile.getProfile("WebDriver");
-			FirefoxProfile testProfile = profile.getProfile("default");
-			driver = new FirefoxDriver(testProfile);
-			testProfile.setEnableNativeEvents(true);
+			FirefoxProfile testProfile = profile.getProfile("Automation");
+			//FirefoxProfile automationProfile = new FirefoxProfile();
+			//File pathToBinary = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+			//FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+			//testProfile.setPreference("webdriver.load.strategy", "unstable");
+			driver = new FirefoxDriver();
+			//testProfile.setEnableNativeEvents(true);
 		}
 		//IE
 		if (browser.equalsIgnoreCase("IE")) {
