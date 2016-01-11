@@ -80,8 +80,8 @@
     </classes>
   </test>
   <!--ISP Checkout (Guest)-->
-  <test name="ISP Checkout on FF">
-	<parameter name="browser" value="FF">
+  <test name="ISP Checkout on Chrome">
+	<parameter name="browser" value="Chrome">
 	</parameter>
     <classes>
        <class name="com.totalwine.test.checkout.ISPCheckout"/>

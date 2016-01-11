@@ -37,6 +37,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.Select;
 
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -45,7 +46,7 @@ public class ISPCheckout extends Browser {
 
 	@DataProvider(name="CheckoutParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "ISPcheckoutBF");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "ISPcheckoutBFCI");
         return(retObjArr);
     } 
 	
@@ -125,6 +126,7 @@ public class ISPCheckout extends Browser {
 	    driver.findElement(By.id("custom_card_type")).click();
 	    driver.findElement(By.cssSelector("div[class=\"inputHolder month\"]")).click();
 	    driver.findElement(By.xpath("//td[2]/div/div/div/div/div/div/ul/li[2]")).click();
+	    //driver.findElement(By.xpath("//li[5]")).click();
 	    driver.findElement(By.cssSelector("div[class=\"inputHolder year\"]")).click();
 	    driver.findElement(By.xpath("//td[2]/div[2]/div/div/div/div/div/ul/li[3]")).click();
 	    driver.findElement(By.id("ssl_cvv2cvc2")).clear();

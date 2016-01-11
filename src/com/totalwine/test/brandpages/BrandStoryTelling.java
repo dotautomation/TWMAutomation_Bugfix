@@ -23,6 +23,8 @@ import java.io.IOException;
 import jxl.read.biff.BiffException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -73,6 +75,11 @@ public class BrandStoryTelling extends Browser {
 	    
 	    //Validate elements of Brand List page are absent
 	    Assert.assertEquals(driver.findElements(By.id("plp-aty-tab")).isEmpty(),true);
+	    
+	    //Page Down
+	    WebElement scroll_Country = driver.findElement(By.cssSelector("a.analyticsProductName"));
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    
 	    //Click the first link and validate that the PDP appears
 	    String BrandSPName = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();

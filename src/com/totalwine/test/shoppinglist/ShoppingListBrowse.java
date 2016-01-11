@@ -78,7 +78,11 @@ public class ShoppingListBrowse extends Browser {
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
 	    //driver.findElement(By.cssSelector("html")).click();
 	    Thread.sleep(6000);
-
+	    
+	    //Check for the merge cart modal
+	    if (driver.findElements(By.cssSelector("button.btn.btn-red.cartMergeBtn")).size()!=0)
+	    	driver.findElement(By.cssSelector("button.btn.btn-red.cartMergeBtn")).click();
+	    
 	    //Verify Page Elements on Shopping List 
         //WebElement webelement1= driver.switchTo().activeElement();
 	    //webelement1.click();

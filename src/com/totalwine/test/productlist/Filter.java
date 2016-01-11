@@ -98,11 +98,19 @@ public class Filter extends Browser {
 	    	Thread.sleep(3000);
 	    	
 		//Country
-	    WebElement scroll_Country = driver.findElement(By.id("check_box_showmoreCaliforniastate"));
+	    
+	    WebElement scroll_Country = driver.findElement(By.xpath("//a[contains(text(),'Country/State')]"));
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.xpath("//a[contains(text(),'Country/State')]")).click();
+	    Thread.sleep(2000);
+	    //WebElement scroll_Country = driver.findElement(By.id("check_box_showmoreCaliforniastate"));
+	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    
 	    driver.findElement(By.id("check_box_showmoreCaliforniastate")).click();
 	    Thread.sleep(3000);

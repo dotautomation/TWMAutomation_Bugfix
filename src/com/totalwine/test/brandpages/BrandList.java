@@ -65,7 +65,7 @@ public class BrandList extends Browser {
 	    Assert.assertEquals(BLPName.toLowerCase().contains("Cloud Break".toLowerCase()),true);
 	    Assert.assertEquals(driver.findElements(By.id("plp-aty-tab")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("plp-productfull-tabs")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.linkText("Stores")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(By.linkText("Stores Near You")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Wine Category")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Wine Varietal/Type")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Brand")).isEmpty(),false);

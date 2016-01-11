@@ -122,7 +122,7 @@ public class LARERules extends Browser {
 	    Thread.sleep(2000);
 	    //driver.findElement(By.cssSelector("button.btn.btn-gray")).click();
 	    driver.findElement(By.xpath("//button[@onclick='closeModalSetLARE(this);']")).click();
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
 	    Assert.assertEquals("Sacramento (Arden) , CA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
 	}
 

@@ -100,10 +100,12 @@ public class PDPTabs extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-right.anPDPTab")).isEmpty(),false);
 	    
 	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
+	    Thread.sleep(2000);
 	    
 	    //Tab 2 - Product Details
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.css-details-pd")).isEmpty(),false);
 	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
+	    Thread.sleep(2000);
 	    
 	    //Tab 3 - BazaarVoice
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.BVDITitle.BVDI_QTTitle")).isEmpty(),false);
