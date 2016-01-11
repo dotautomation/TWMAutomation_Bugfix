@@ -20,6 +20,8 @@ package com.totalwine.test.pricingpromos;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -60,6 +62,13 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("12");
+	    
+	    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -70,6 +79,11 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your promotion has been applied successfully.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
+	    WebElement scroll = driver.findElement(By.id("checkout"));
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	}
@@ -96,6 +110,13 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("6");
+	    
+	    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -106,6 +127,11 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
+	    WebElement scroll = driver.findElement(By.id("checkout"));
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	}
@@ -132,6 +158,11 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("6");
+		    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
+		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -142,6 +173,11 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
+	    WebElement scroll = driver.findElement(By.id("checkout"));
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	}
@@ -168,6 +204,13 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("6");
+	    
+	    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -178,6 +221,11 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
+	    WebElement scroll = driver.findElement(By.id("checkout"));
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	}
@@ -204,6 +252,13 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("2");
+	    
+	    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -214,6 +269,11 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
+	    WebElement scroll = driver.findElement(By.id("checkout"));
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	}

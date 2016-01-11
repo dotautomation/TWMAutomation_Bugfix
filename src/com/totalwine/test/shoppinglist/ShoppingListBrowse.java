@@ -107,13 +107,4 @@ public class ShoppingListBrowse extends Browser {
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Account")).isEmpty(),false);
 	}
-	
-	@AfterMethod
-	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException { 
-		if(testResult.getStatus() == ITestResult.FAILURE) { 
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("c:\\totalwine\\TWMAutomation\\FailureScreenshots\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png")); 
-		}
-		driver.close();
-	}
 }

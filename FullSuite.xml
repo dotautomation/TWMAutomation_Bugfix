@@ -201,13 +201,6 @@
     </classes>
   </test>
   <!--PDP Display Validation-->
-    <test name="PDP on IE">
-	<parameter name="browser" value="IE">
-	</parameter>
-    <classes>
-	   <class name="com.totalwine.test.pdp.PDPTabs"/>
-    </classes>
-  </test>
   <test name="PDP on FF">
 	<parameter name="browser" value="FF">
 	</parameter>

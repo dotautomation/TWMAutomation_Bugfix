@@ -41,7 +41,7 @@ public class PDPTabs extends Browser {
 	
 	@DataProvider(name="PDPParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "pdpprod");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "pdpbf");
         return(retObjArr);
     } 
 	
@@ -69,7 +69,6 @@ public class PDPTabs extends Browser {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", plpnav);
 		Thread.sleep(5000);
-		
 		
 		
 		//Access the PDP
@@ -113,11 +112,12 @@ public class PDPTabs extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVRRTrustMarkOverlayImage")).isEmpty(), false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#BVRRRatingSummaryLinkWriteID")).isEmpty(),false);
 	    
-	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
-	    Thread.sleep(5000);
+	    
+	  //Commented till RR is enabled in BF
+	    //driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
+	    //Thread.sleep(5000);
 	    
 	    //Tab 4 - RichRelevance 
-	    //Commented till RR is enabled in BF
 	    /*Assert.assertEquals(driver.findElements(By.cssSelector("div.rr-strat-msg")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.rr-priceContainer")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.rr-image-asset")).isEmpty(),false);
