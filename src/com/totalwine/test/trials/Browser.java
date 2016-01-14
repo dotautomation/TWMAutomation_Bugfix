@@ -40,7 +40,7 @@ import org.testng.annotations.BeforeMethod;
 import com.totalwine.test.config.ConfigurationFunctions;
 
 public class Browser {
-
+//
 	protected WebDriver driver;
 	protected String hubURL = "http://prt-6rkhd12.totalwine.com:5566/wd/hub";
 	
