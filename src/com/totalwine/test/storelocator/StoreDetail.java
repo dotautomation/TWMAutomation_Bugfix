@@ -90,6 +90,8 @@ public class StoreDetail extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("address.right-rail-typo")).isEmpty(), false);//Address
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsWeeklyAd[href*=\"totalwine.inserts2online.com/\"]")).isEmpty(), false);//Weekly ad
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.store-details-hours")).isEmpty(), false);//Hours
+	    driver.findElement(By.cssSelector("a.analyticsTastingHours")).sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.cssSelector("a.analyticsTastingHours")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.cssSelector("a.analyticsTastingHours")).click();
 	    Thread.sleep(2000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.modal-body > div.hours-body")).isEmpty(), false);//Sampling hours

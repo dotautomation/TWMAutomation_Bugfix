@@ -72,10 +72,10 @@ public class WebAccountRegistration extends Browser {
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 		
-	    driver.findElement(By.linkText("Account")).click();
+	    driver.findElement(By.xpath("//header/div/div/ul/li/a[contains(text(),'Account')]")).click();
 	    Thread.sleep(2000);
 	    
     	Assert.assertEquals(driver.findElements(By.linkText("Sign into your account")).isEmpty(),false);
