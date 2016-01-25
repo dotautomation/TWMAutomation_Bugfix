@@ -35,14 +35,9 @@ import com.totalwine.test.trials.Browser;
 public class ShoppingListBrowse extends Browser {
 	
 	public String IP = "71.193.51.0";
-	//public WebDriver driver;
-	//ProfilesIni profile = new ProfilesIni();
-	//FirefoxProfile testProfile = profile.getProfile("WebDriver");
 
 	@BeforeMethod
 	public void setUp() throws Exception {
-		//this.driver = ConfigurationFunctions.driver;
-		//driver = new FirefoxDriver(testProfile);
 		driver.manage().window().maximize();
 	  } 
 
@@ -53,8 +48,8 @@ public class ShoppingListBrowse extends Browser {
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 	    
 	    
 	    driver.findElement(By.linkText("Shopping List")).click();

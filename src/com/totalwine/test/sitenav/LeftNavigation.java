@@ -171,7 +171,7 @@ public class LeftNavigation extends Browser {
 		    driver.findElement(By.cssSelector("a[class=\"search-right-cont-mini-search-logo analyticsSearch\"]")).click();
 		    Thread.sleep(3000);
 		    Assert.assertEquals(driver.findElements(By.linkText("Search categories")).isEmpty(),false);
-		    Assert.assertEquals(driver.findElements(By.linkText("Stores")).isEmpty(),false);
+		    Assert.assertEquals(driver.findElements(By.linkText("Stores Near You")).isEmpty(),false);
 		    Assert.assertEquals(driver.findElements(By.linkText("Department")).isEmpty(),false);
 
 		    //Validate the left nav on the SRP
@@ -179,6 +179,7 @@ public class LeftNavigation extends Browser {
 		    	Assert.assertEquals(driver.findElements(By.cssSelector("div.inner-items-wrapper > ul > li > a[href*=\""+srpfacet+"\"]")).isEmpty(),false);//Check for presence of filter
 		    	driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li > a[href*=\""+srpfacet+"\"]")).click(); //Click on facet
 		    	Thread.sleep(3000);
+		    	System.out.println(srpfacet);
 		    	Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains(srpfacet.toLowerCase())); //Validate the URL
 		    	driver.navigate().back();//Go back to SRP
 		    	Thread.sleep(3000);

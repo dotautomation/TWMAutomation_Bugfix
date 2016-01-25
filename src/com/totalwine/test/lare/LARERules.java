@@ -44,7 +44,12 @@ public class LARERules extends Browser {
 		//Rule: User entered location/selected store or ship-to-state
 		//Action: User accesses site and changes store via global store selector
 		//Validation: Customer is shopping only in the globally selected store (store is 0.0 miles away in the Store Selector)
-		connect(IP);
+		driver.get(ConfigurationFunctions.locationSet+IP);
+		Thread.sleep(5000);
+		driver.findElement(By.id("btnYes")).click();
+		Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 		driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).click();
 		Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("div.header-location-nearby-stores.flyover > div.location-near-by-store-locator > table > tbody > tr > td > a.header-change-location")).click();
@@ -66,7 +71,7 @@ public class LARERules extends Browser {
 		Thread.sleep(5000);
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
-		Assert.assertEquals("Towson (Beltway), MD (0.0 miles)", driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li.act > a > span.checkStyle > label")).getText());
+		Assert.assertEquals("Towson (Beltway), MD (0.0 miles)", driver.findElement(By.cssSelector("li.toggle.separator > div.inner-items-wrapper > ul > li:nth-child(1) > a > span > label")).getText());
 	}
 	
 	@Test
@@ -87,7 +92,12 @@ public class LARERules extends Browser {
 		//Rule: Profile Store set to Always Use
 		//Action: User accesses site and then logs in
 		//Validation: Global store header changes to the profile store marked as always use (rsud@totalwine.com/grapes123)
-		connect(IP);
+		driver.get(ConfigurationFunctions.locationSet+IP);
+		Thread.sleep(5000);
+		driver.findElement(By.id("btnYes")).click();
+		Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 		driver.findElement(By.linkText("Account")).click();
 		Thread.sleep(2000);
 	    driver.findElement(By.linkText("Sign into your account")).click();
