@@ -45,7 +45,7 @@ public class GoodBadPassword extends Browser {
 	
 	@DataProvider(name="UserPwdParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"aml", "goodbadpwd");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"aml", "goodbadpwdBF");
         return(retObjArr);
     }
 	
