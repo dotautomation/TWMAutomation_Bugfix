@@ -31,7 +31,6 @@ import java.util.Random;
 
 import jxl.read.biff.BiffException;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;

@@ -37,8 +37,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.ui.Select;
-
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
