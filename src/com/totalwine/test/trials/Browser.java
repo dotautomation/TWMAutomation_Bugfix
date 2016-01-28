@@ -37,14 +37,22 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.BeforeMethod;
 
+import com.relevantcodes.extentreports.DisplayOrder;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 
 public class Browser {
 //
 	protected WebDriver driver;
 	protected String hubURL = "http://prt-6rkhd12.totalwine.com:5566/wd/hub";
+	//protected ExtentReports report;
+	protected ExtentTest logger;
+	private static ExtentReports report;
 	
 	@BeforeMethod
+	
 	
 	@Parameters("browser") 
 	public void openBrowser(String browser) {
@@ -179,13 +187,24 @@ public class Browser {
 	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException, InterruptedException { 
 		if(testResult.getStatus() == ITestResult.FAILURE) { 
 			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png")); 
+			FileUtils.copyFile(scrFile, new File("C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png"));
+			String screenshot = logger.addScreenCapture(scrFile.getPath());
+			logger.log(LogStatus.FAIL, testResult.getName()+" failed",screenshot);
 		}
+		report.endTest(logger);
+		report.flush();
 		driver.close();
 	}
 	
 	@AfterClass
 	public void quit() throws IOException { 
 		driver.quit();	
+	}
+	
+	public static synchronized ExtentReports getReporter() {
+		if (report == null) {
+			report = new ExtentReports("C:\\twmautomation\\TWMAutomation_Bugfix\\BugfixResults1.html", true, DisplayOrder.NEWEST_FIRST);
+		}
+		return report;
 	}
 }
