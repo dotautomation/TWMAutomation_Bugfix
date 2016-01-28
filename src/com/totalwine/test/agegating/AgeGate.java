@@ -46,7 +46,6 @@ public class AgeGate extends Browser {
 	
 	@Test
 	public void AgeGateTest () throws InterruptedException {
-		//report=new ExtentReports("C:\\twmautomation\\TWMAutomation_Bugfix\\BugfixResults.html");
 		logger=report.startTest("Age Gate Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
