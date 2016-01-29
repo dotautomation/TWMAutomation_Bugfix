@@ -205,7 +205,8 @@ public class Browser {
 	
 	public static synchronized ExtentReports getReporter() {
 		if (report == null) {
-			report = new ExtentReports(ConfigurationFunctions.RESULTSPATH+"BugfixTestResults "+ConfigurationFunctions.now()+".html", true, DisplayOrder.NEWEST_FIRST);
+			//report = new ExtentReports(ConfigurationFunctions.RESULTSPATH+"BugfixTestResults "+ConfigurationFunctions.now()+".html", true, DisplayOrder.NEWEST_FIRST);
+			report = new ExtentReports(ConfigurationFunctions.RESULTSPATH+"BugfixTestResults.html", true, DisplayOrder.NEWEST_FIRST);
 		}
 		return report;
 	}
