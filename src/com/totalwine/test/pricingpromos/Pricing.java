@@ -75,6 +75,7 @@ public class Pricing extends Browser {
 		
 		//Validate Pricing on PLP
 		String plpPrice = driver.findElement(By.cssSelector("span.price")).getText();
+		logger.log(LogStatus.PASS, "Retrieve PLP pricing");
 		//driver.findElement(By.cssSelector("a.analyticsProductName")).getAttribute("id");
 		//String productID = driver.findElement(By.cssSelector("a.analyticsProductName")).getCssValue("href");
 		//System.out.println(productID);
@@ -84,7 +85,7 @@ public class Pricing extends Browser {
 		Thread.sleep(5000);
 		String pdpPrice = driver.findElement(By.cssSelector("span.price-style-mid")).getText();
 		String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
-		
+		logger.log(LogStatus.PASS, "Retrieve PDP pricing");
 		/*//Click the ATC button and validate price on ATC interstitial, then close the ATC interstitial
 		wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
@@ -105,17 +106,21 @@ public class Pricing extends Browser {
 	    String cartUnitPrice = driver.findElement(By.cssSelector("span.price-text")).getText();
 	    String cartTotalPrice = driver.findElement(By.cssSelector("span.price-text.item-total")).getText();
 	    String cartTotalinclTax = driver.findElement(By.id("estimTotal")).getText();
+	    logger.log(LogStatus.PASS, "Retrieve cart unit pricing");
+	    logger.log(LogStatus.PASS, "Retrieve cart total pricing");
+	    logger.log(LogStatus.PASS, "Retrieve cart total incl. taxes pricing");
 	    
 		//Navigate to ELP
 	    driver.findElement(By.linkText("Classes & Events")).click();
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Navigate to ELP");
 	    String elpPrice = driver.findElement(By.cssSelector("span.price")).getText();
-	    		
+	    logger.log(LogStatus.PASS, "Retrieve event pricing from ELP");
 		//Click through to first available EDP and validate pricing match on EDP against ELP
 	    driver.findElement(By.cssSelector("a.analyticsEventName")).click();
 	    Thread.sleep(3000);
 	    String edpPrice = driver.findElement(By.cssSelector("section.store-right-hours-tasting > div.search-result-list-buy-ctrls > div.search-product-buy-price > span.price")).getText();
-	    
+	    logger.log(LogStatus.PASS, "Retrieve event pricing from EDP");
 	    System.out.println("PLP Price: "+plpPrice+"\n"+"PDP Price: "+pdpPrice+"\n"+"Cart Unit Price: "+cartUnitPrice+"\n"+"Cart Total Price: "+cartTotalPrice+"\n"+"Cart Total Incl. Taxes Price: "+cartTotalinclTax);
 	    Assert.assertTrue(plpPrice.equals(pdpPrice)&&pdpPrice.equals(cartUnitPrice)&&cartUnitPrice.equals("$ "+cartTotalPrice));
 	    logger.log(LogStatus.PASS, "Pricing in PLP, PDP, Cart is the same");
