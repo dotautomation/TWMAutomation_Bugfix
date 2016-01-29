@@ -31,6 +31,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -48,7 +49,7 @@ public class Pricing extends Browser {
 	
 	@Test 
 	public void PricingTest () throws InterruptedException, BiffException, IOException, AWTException {
-		
+		logger=report.startTest("Pricing Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -70,6 +71,7 @@ public class Pricing extends Browser {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
+		logger.log(LogStatus.PASS, "Access wine PLP");
 		
 		//Validate Pricing on PLP
 		String plpPrice = driver.findElement(By.cssSelector("span.price")).getText();
@@ -116,5 +118,6 @@ public class Pricing extends Browser {
 	    
 	    System.out.println("PLP Price: "+plpPrice+"\n"+"PDP Price: "+pdpPrice+"\n"+"Cart Unit Price: "+cartUnitPrice+"\n"+"Cart Total Price: "+cartTotalPrice+"\n"+"Cart Total Incl. Taxes Price: "+cartTotalinclTax);
 	    Assert.assertTrue(plpPrice.equals(pdpPrice)&&pdpPrice.equals(cartUnitPrice)&&cartUnitPrice.equals("$ "+cartTotalPrice));
+	    logger.log(LogStatus.PASS, "Pricing in PLP, PDP, Cart is the same");
 	}
 }

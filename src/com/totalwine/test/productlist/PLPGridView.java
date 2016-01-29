@@ -36,6 +36,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -50,7 +51,7 @@ public class PLPGridView extends Browser {
 	
 	@Test 
 	public void PLPGridTest () throws InterruptedException, BiffException, IOException, AWTException {
-		
+		logger=report.startTest("PLP Grid Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -69,18 +70,20 @@ public class PLPGridView extends Browser {
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
 		Thread.sleep(2000);
-		
-	    //Apply a facet on the default list view
+		logger.log(LogStatus.PASS, "Navigate to PLP");
+	    
+		//Apply a facet on the default list view
 		driver.findElement(By.id("check_box_showmoreCabernet Sauvignonvarietaltype")).click(); //Cabernet Sauvignon facet
 		Thread.sleep(3000);
 		Assert.assertEquals(driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li > a.filter-link > span.filter-value")).getText(), "Cabernet Sauvignon");
-	    
+		logger.log(LogStatus.PASS, "Apply the varietal facet");
 		//Access the Grid View
 		driver.findElement(By.cssSelector("a.show-grid.analyticsViewAsGrid")).click();
 		Thread.sleep(3000);
 		
 	    //Validate that the previously applied facet persists
 		Assert.assertEquals(driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li > a.filter-link > span.filter-value")).getText(), "Cabernet Sauvignon");
+		logger.log(LogStatus.PASS, "The varietal facet persists when the Grid view is switched to");
 		
 	    //Validate presence of elements (Store, Item Size, Price, Badges, Expert Rating, Customer Rating, Customer Reviews, ATC, ATL
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-wdlogo")).isEmpty(), false); //WD Logo
@@ -104,6 +107,7 @@ public class PLPGridView extends Browser {
 		
 	    //Validate absence of elements (Product code, Product attributes, Expert review)
 		Assert.assertEquals(driver.findElement(By.cssSelector("div.plp-product-code")).getText(), ""); //Product Code
+		logger.log(LogStatus.PASS, "Grid View page elements");
 		
 	    //Sort Grid PLP
 	    driver.findElement(By.cssSelector("div.dropdown.plp-product-sorting-sortby-dropdown > div > span.itemval")).click(); //Sort dropdown
@@ -119,5 +123,6 @@ public class PLPGridView extends Browser {
 	    driver.findElement(By.cssSelector("a.pager-next.analyticsPageView")).click(); //Next page
 	    Thread.sleep(3000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.plp-product-content.grid")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Item sort in grid view");
 	}
 }

@@ -37,6 +37,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.ExtentReports;
@@ -46,13 +47,10 @@ import com.totalwine.test.trials.Browser;
 
 public class WebAccountRegistration extends Browser {
 	
-	private ExtentReports report = Browser.getReporter();
-	
 	@BeforeMethod
-	  public void setUp() throws Exception {
-		//this.driver = ConfigurationFunctions.driver;
-	    driver.manage().window().maximize();
-	  }  
+	public void setUp() throws Exception {
+		driver.manage().window().maximize();
+	}
 	
 	@Test 
 	public void RegistrationTest () throws InterruptedException, BiffException, IOException {

@@ -32,6 +32,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -39,7 +40,7 @@ public class MobileWebRegistration extends Browser {
 	
 	@Test 
 	public void MobileWebRegistrationTest () throws InterruptedException {
-		
+		logger=report.startTest("Mobile Web Registration Test");
 		Random rand = new Random();
 	    int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
 	    int randomNum_2 = rand.nextInt((1000 - 1) + 1) + 1;
@@ -60,7 +61,7 @@ public class MobileWebRegistration extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button#btnAccLoginfrmLogin")).isEmpty(),false); //Sign in Button
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.lg-btns-frgt")).isEmpty(),false); //Reset password
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.btn.btn-red.anGetStarted")).isEmpty(),false); //Create an account
-	    
+	    logger.log(LogStatus.PASS, "Mobile Account Registration screen");
 	    driver.findElement(By.cssSelector("a.btn.btn-red.anGetStarted")).click();
 	    Thread.sleep(3000);
 	    
@@ -84,6 +85,7 @@ public class MobileWebRegistration extends Browser {
 	    
 	    driver.findElement(By.cssSelector("button#btnRegNext")).click();
 	    Thread.sleep(2000);
+	    logger.log(LogStatus.PASS, "Mobile account registration step 1");
 	    
 	    //Create an account - Step 2
 	    Assert.assertEquals(driver.findElements(By.cssSelector("select.store-loc-search-by-state")).isEmpty(),false); //Preferred Store dropdown
@@ -91,6 +93,7 @@ public class MobileWebRegistration extends Browser {
 	    Select preferredStoreOption = new Select(driver.findElement(By.cssSelector("select.store-loc-search-by-state")));
 	    preferredStoreOption.selectByIndex(1);
 	    driver.findElement(By.cssSelector("button#btnNextNoStores")).click();
+	    logger.log(LogStatus.PASS, "Mobile account registration step 2");
 	    
 	    //Create an account - Step 3
 	    driver.findElement(By.id("address1")).clear();
@@ -107,7 +110,7 @@ public class MobileWebRegistration extends Browser {
 	    driver.findElement(By.cssSelector("input#termsAndCondCheck")).click();
 	    driver.findElement(By.cssSelector("button#btnRegNextstep3")).click();
 	    Thread.sleep(6000);
-	    
+	    logger.log(LogStatus.PASS, "Mobile account registration step 3");
 	    
 	    //Confirmation Screen
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.btn-continue.clearfix")).isEmpty(),false);
@@ -119,6 +122,7 @@ public class MobileWebRegistration extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("select#birthDay")).isEmpty(),false); //Birth Day
 	    driver.findElement(By.id("btnSaveAccount")).click();
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Mobile account registration confirmation");
 	    
 	    //Account homepage (same as desktop)
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.ahp-heading")).isEmpty(),false);
@@ -159,7 +163,8 @@ public class MobileWebRegistration extends Browser {
 	    //Assert.assertEquals(driver.findElements(By.xpath("(//a[contains(text(),'Learn More')])[4]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Online order history")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a[class=analyticsPrefStore]")).isEmpty(),false);
-		
+	    logger.log(LogStatus.PASS, "Mobile account home page (same as desktop)");
+	    
 	    //Logout
 	    driver.findElement(By.linkText("Welcome, Automated")).click();
 	    //driver.findElement(By.linkText("Log out")).click();

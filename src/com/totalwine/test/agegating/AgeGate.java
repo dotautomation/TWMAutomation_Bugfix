@@ -24,6 +24,7 @@ package com.totalwine.test.agegating;
  */
 
 import org.testng.*;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
@@ -37,12 +38,11 @@ import com.totalwine.test.trials.Browser;
 public class AgeGate extends Browser {
 	
 	private String IP="71.193.51.0";
-	private ExtentReports report = Browser.getReporter(); 	//Reporting v2
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver.manage().window().maximize();
-	}  
+	}
 	
 	@Test
 	public void AgeGateTest () throws InterruptedException {
@@ -53,7 +53,7 @@ public class AgeGate extends Browser {
 		Thread.sleep(1000);
 		//Splash screen validation
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.ageGatingError")).isEmpty(),false);
-		logger.log(LogStatus.INFO, "New Site Intro is validated");
+		logger.log(LogStatus.PASS, "Screen notification upon clicking No");
 		//Validate URL for responsibility.org
 		Thread.sleep(10000);
 		String url = driver.getCurrentUrl();

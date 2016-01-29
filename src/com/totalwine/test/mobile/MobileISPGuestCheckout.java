@@ -30,6 +30,8 @@ import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -39,7 +41,7 @@ public class MobileISPGuestCheckout extends Browser {
 	
 	@Test
 	public void MobileISPGuestCheckoutTest () throws InterruptedException {
-		
+		logger=report.startTest("Mobile ISP Guest Checkout Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -50,12 +52,14 @@ public class MobileISPGuestCheckout extends Browser {
 		Thread.sleep(5000);
 		driver.get(ConfigurationFunctions.accessURL+"/beer/lager/light-lager/bud-light/p/31123");
 		Thread.sleep(3000);
-		
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: PDP access");
+
 		//Add to Cart and access cart
 		driver.findElement(By.cssSelector("button.btnAddToCartPDP")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("em.mobile-cart")).click();
 		Thread.sleep(3000);
+		logger.log(LogStatus.PASS, "Mobile ISP Checkout: Cart");
 		
 		//Initiate Checkout
 		 // Shopping Cart
@@ -65,6 +69,7 @@ public class MobileISPGuestCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
 	    driver.findElement(By.id("checkout")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Initiate checkout");
 	    
 	    // Next Page (Login/Checkout as Guest)
 	    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
@@ -75,6 +80,7 @@ public class MobileISPGuestCheckout extends Browser {
 	    JavascriptExecutor executor = (JavascriptExecutor)driver;
 	    executor.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#checkoutGuestForm > div > button.btn.btn-red.anCheckoutContinue")));
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Guest/Registered user selection");
 	    
 	    // Checkout Tab 1
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.instorepickup-tab")).isEmpty(),false);
@@ -90,6 +96,7 @@ public class MobileISPGuestCheckout extends Browser {
 	    driver.findElement(By.id("pickup-phoneNumber")).sendKeys("410-428-2222");
 	    driver.findElement(By.id("btnPickup")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Checkout tab 1");
 	    
 	    // Checkout Tab 2
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.billing-tab")).isEmpty(),false);
@@ -124,6 +131,7 @@ public class MobileISPGuestCheckout extends Browser {
 	    driver.findElement(By.id("ssl_avs_zip")).sendKeys("20817");
 	    driver.findElement(By.name("process")).click();
 	    Thread.sleep(10000);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Checkout tab 2");
 	    
 	    // Checkout Tab 3
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.review-tab")).isEmpty(),false);
@@ -134,6 +142,7 @@ public class MobileISPGuestCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_2\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total anTax\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total co-pr-item-total\"]")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Checkout tab 3");
 	    
 	    driver.findElement(By.id("check_box_age")).click();
 	    driver.findElement(By.cssSelector("button.btn-red.btn-place-order.anPlaceOrder")).click();
@@ -142,8 +151,6 @@ public class MobileISPGuestCheckout extends Browser {
 	    // Order Confirmation
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
-		
-		
-		
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Order confirmation");
 	}
 }

@@ -41,6 +41,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -57,7 +58,7 @@ public class ShoppingListAddItem extends Browser {
 	//Create new shopping list and add item to it
 	@Test
 	public void ShoppingListAddItemNewTest () throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("New Shopping List Add/Edit/Delete Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -68,11 +69,11 @@ public class ShoppingListAddItem extends Browser {
 		//Navigate to PDP
 	    driver.navigate().to(ConfigurationFunctions.accessURL+"/wine/white-wine/chardonnay/cloud-break-chardonnay/p/110892750");
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Access PDP");
 		//Add to Shopping List
 	    driver.findElement(By.cssSelector("section#pdpTabs.pdp-carousel > section.item.pdp-tab-overview section.pdp-tab-overview-type > div.pdp-buy > button.btn.btn-red.anAddToListInit")).click();
 	    Thread.sleep(2000);
-	    
+	    logger.log(LogStatus.PASS, "Add item to new shopping list");
 	    //Login to Account
 	    driver.switchTo().frame("iframe-signin-overlay");
 	    driver.findElement(By.id("j_username")).clear();
@@ -81,7 +82,7 @@ public class ShoppingListAddItem extends Browser {
 	    driver.findElement(By.id("j_password")).sendKeys("yoyo55");
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
 	    Thread.sleep(8000);
-	    
+	    logger.log(LogStatus.PASS, "Login to account");
 		//Add to new shopping list
 	    driver.findElement(By.cssSelector("div#dWishListName > div.customselect")).click();
 	    driver.findElement(By.cssSelector("button.btn.btn-red.btn-create-list")).click();
@@ -89,12 +90,12 @@ public class ShoppingListAddItem extends Browser {
 	    Assert.assertEquals("Your new shopping list has been created!", driver.findElement(By.cssSelector("div.add-list-confirm-right > div.add-list-success")).getText());
 	    driver.findElement(By.cssSelector("button#addToList")).click();
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Create new shopping list");
 	    //Validate that item is present in existing shopping list
 	    driver.findElement(By.cssSelector("button.btn-red.an_ProdView")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Cloud Break Chardonnay")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "Validate that items is inserted into new shopping list");
 	    //Delete item from Shopping List (so it can be added again)
 	    WebElement scroll_Price = driver.findElement(By.linkText("Cloud Break Chardonnay"));
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
@@ -103,25 +104,26 @@ public class ShoppingListAddItem extends Browser {
 	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("#frmDeleteProduct > div.send-list-btn > button.btn-red")).click();
 	    Thread.sleep(2000);
-	    
+	    logger.log(LogStatus.PASS, "Delete item from shopping list");
 	    //Delete Shopping list
 	    driver.findElement(By.cssSelector("a.analyticsDeleteList")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("div.modal-dialog > div > div > div > form#dd > div > button.btn-red")).click();
 	    Thread.sleep(2000);
-	    
+	    logger.log(LogStatus.PASS, "Delete new list");
 	    //Validate Login and then Log out
 	    Assert.assertEquals(driver.findElements(By.linkText("Welcome, Rajat")).isEmpty(),false);
 	    driver.findElement(By.linkText("Welcome, Rajat")).click();
 	    driver.findElement(By.linkText("Log out")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Account")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Log out of account");
 	}
 		
 	//Add item to existing shopping list
 	@Test
 	public void ShoppingListAddItemExistingTest () throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("Existing Shopping List Add/Edit/Delete Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -132,11 +134,11 @@ public class ShoppingListAddItem extends Browser {
 		//Navigate to PDP
 	    driver.navigate().to(ConfigurationFunctions.accessURL+"/wine/white-wine/chardonnay/cloud-break-chardonnay/p/110892750");
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Access PDP");
 		//Add to Shopping List
 	    driver.findElement(By.cssSelector("section#pdpTabs.pdp-carousel > section.item.pdp-tab-overview section.pdp-tab-overview-type > div.pdp-buy > button.btn.btn-red.anAddToListInit")).click();
 	    Thread.sleep(2000);
-	    
+	    logger.log(LogStatus.PASS, "Add item to shopping list");
 		//Login to Account
 	    driver.switchTo().frame("iframe-signin-overlay");
 	    driver.findElement(By.id("j_username")).clear();
@@ -145,19 +147,19 @@ public class ShoppingListAddItem extends Browser {
 	    driver.findElement(By.id("j_password")).sendKeys("yoyo55");
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
 	    Thread.sleep(8000);
-	    
+	    logger.log(LogStatus.PASS, "Login to account");
 	    //Add to existing shopping list
 	    driver.findElement(By.cssSelector("div#dWishListName > div.customselect")).click();
 	    //driver.findElement(By.cssSelector("div#dWishListName > div.customselect > div > div > div > ul > li[data-val=icongo]")).click();
 	    driver.findElement(By.xpath("//div/div/div/div/ul/li[2]")).click();
 	    driver.findElement(By.cssSelector("button#addToList")).click();
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Add item to existing shopping list");
 		//Validate that item is present in existing shopping list
 	    driver.findElement(By.cssSelector("button.btn-red.an_ProdView")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Cloud Break Chardonnay")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "Validate that item is present in existing shopping list");
 	    //Delete item from Shopping List (so it can be added again)
 	    WebElement scroll_Price = driver.findElement(By.linkText("Cloud Break Chardonnay"));
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
@@ -166,12 +168,13 @@ public class ShoppingListAddItem extends Browser {
 	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("#frmDeleteProduct > div.send-list-btn > button.btn-red")).click();
 	    Thread.sleep(2000);
-	    
+	    logger.log(LogStatus.PASS, "Delete item from shopping list");
 	    //Validate Login and then Log out
 	    Assert.assertEquals(driver.findElements(By.linkText("Welcome, Rajat")).isEmpty(),false);
 	    driver.findElement(By.linkText("Welcome, Rajat")).click();
 	    driver.findElement(By.linkText("Log out")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Account")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Logout of account");
 	}
 }

@@ -29,6 +29,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -43,7 +44,7 @@ public class ShoppingListBrowse extends Browser {
 
 	@Test
 	public void ShoppingListBrowseTest () throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("Shopping List Browse Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -54,7 +55,7 @@ public class ShoppingListBrowse extends Browser {
 	    
 	    driver.findElement(By.linkText("Shopping List")).click();
 	    Thread.sleep(5000);
-
+	    logger.log(LogStatus.PASS, "Clicking the shopping list link");
 	    //Login to retrieve Shopping List
 	    driver.switchTo().frame("iframe-signin-overlay");
         //WebElement webelement= driver.switchTo().activeElement();
@@ -66,7 +67,7 @@ public class ShoppingListBrowse extends Browser {
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
 	    //driver.findElement(By.cssSelector("html")).click();
 	    Thread.sleep(6000);
-	    
+	    logger.log(LogStatus.PASS, "Logging in to access the shopping list(s)");
 	    //Check for the merge cart modal
 	    if (driver.findElements(By.cssSelector("button.btn.btn-red.cartMergeBtn")).size()!=0)
 	    	driver.findElement(By.cssSelector("button.btn.btn-red.cartMergeBtn")).click();
@@ -89,16 +90,17 @@ public class ShoppingListBrowse extends Browser {
 	    Assert.assertEquals(driver.findElements(By.linkText("Email")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Print")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Delete")).isEmpty(),false);
-
+	    logger.log(LogStatus.PASS, "Shopping List page elements");
 	    //Navigate to PDP from Shopping List
 	    driver.findElement(By.cssSelector("a.plp-product-title")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.pdp-wrapper")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "PDP access from shopping list");
 	    //Validate Login and then Log out
 	    Assert.assertEquals(driver.findElements(By.linkText("Welcome, Rajat")).isEmpty(),false);
 	    driver.findElement(By.linkText("Welcome, Rajat")).click();
 	    driver.findElement(By.linkText("Log out")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Account")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Log out of account");
 	}
 }

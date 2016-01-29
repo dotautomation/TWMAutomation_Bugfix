@@ -47,10 +47,9 @@ public class Browser {
 //
 	protected WebDriver driver;
 	protected String hubURL = "http://prt-6rkhd12.totalwine.com:5566/wd/hub";
-	//protected ExtentReports report;
 	protected ExtentTest logger;
-	private static ExtentReports report;
-	
+	protected static ExtentReports report = getReporter(); //Reporting v2
+
 	@BeforeMethod
 	
 	
@@ -206,7 +205,7 @@ public class Browser {
 	
 	public static synchronized ExtentReports getReporter() {
 		if (report == null) {
-			report = new ExtentReports("C:\\twmautomation\\TWMAutomation_Bugfix\\BugfixResults1.html", true, DisplayOrder.NEWEST_FIRST);
+			report = new ExtentReports(ConfigurationFunctions.RESULTSPATH+"BugfixTestResults "+ConfigurationFunctions.now()+".html", true, DisplayOrder.NEWEST_FIRST);
 		}
 		return report;
 	}

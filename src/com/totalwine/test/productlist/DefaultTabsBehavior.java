@@ -30,6 +30,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -53,7 +54,7 @@ public class DefaultTabsBehavior extends Browser {
 	public void PLPDefaultTabsTest (String IP,String Store,String Wine,String WinePLP,String Beer,String BeerPLP,String Spirits,String SpiritsPLP,
 			String Acc,String AccPLP,String DefaultWine,String DefaultBeer,String DefaultSpirits,String DefaultAcc,String ATYWineSubTab,String ATYBeerSubTab,
 			String ATYSpiritsSubTab,String ATYAccSubTab) throws InterruptedException {
-		
+		logger=report.startTest("PLP Default Tabs Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -98,6 +99,7 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
+		logger.log(LogStatus.PASS, "PLP Wine default tabs");
 		
 	    //Access Beer PLP
 		WebElement beerNav = driver.findElement(By.xpath("//a[contains(@href,'"+Beer+"')]")); 
@@ -130,6 +132,7 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
+		logger.log(LogStatus.PASS, "PLP Beer default tabs");
 		
 	    //Access Spirits PLP
 		WebElement spiritsNav = driver.findElement(By.xpath("//a[contains(@href,'"+Spirits+"')]")); 
@@ -161,6 +164,7 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
+		logger.log(LogStatus.PASS, "PLP Spirits default tabs");
 		
 	    //Access Accessories PLP
 		WebElement accNav = driver.findElement(By.xpath("//a[contains(@href,'"+Acc+"')]")); 
@@ -192,5 +196,6 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
+		logger.log(LogStatus.PASS, "PLP Accessories default tabs");
 	}
 }

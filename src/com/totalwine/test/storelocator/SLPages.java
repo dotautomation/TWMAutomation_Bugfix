@@ -28,6 +28,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -47,6 +48,7 @@ public class SLPages extends Browser {
 	
 	@Test //Charity/Donations Page
 	public void SLCharityPageTest () throws InterruptedException {
+		logger=report.startTest("Charity Page");
 		AccessStoreLocator();
 		//Access footer
 		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
@@ -60,10 +62,12 @@ public class SLPages extends Browser {
 		driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).click(); //Donation Requests
 		Thread.sleep(3000);
 		Assert.assertEquals(driver.findElements(By.cssSelector("a[href*=\"totalwine.requestitem.com\"]")).isEmpty(),false); //Submit a request button
+		logger.log(LogStatus.PASS, "Charity Page access");
 	}
 	
 	@Test //Careers Page
 	public void CareersPageTest () throws InterruptedException {
+		logger=report.startTest("Careers Page");
 		AccessStoreLocator();
 		//Access footer
 		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
@@ -81,10 +85,12 @@ public class SLPages extends Browser {
 		    action.moveToElement(toplevelnav).build().perform(); 
 			Assert.assertEquals(driver.findElements(By.cssSelector("a[href*=\"totalwine.csod.com/ats/careersite/search.aspx\"]")).isEmpty(),false);
 		}
+		logger.log(LogStatus.PASS, "Careers page acces");
 	}
 	
 	@Test //All Stores Page
 	public void SLAllStoresPageTest () throws InterruptedException {
+		logger=report.startTest("SL: All Stores page");
 		AccessStoreLocator();
 		driver.findElement(By.cssSelector("a.analyticsFindAllStores")).click();
 		Thread.sleep(3000);
@@ -108,9 +114,10 @@ public class SLPages extends Browser {
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#tx\"]")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#va\"]")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#wa\"]")).isEmpty(),false);
-
+		logger.log(LogStatus.PASS, "All states in which we have stores are displayed");
 		//Validate default expanded tab (Arizona)
 		Assert.assertEquals(driver.findElement(By.xpath("//address/p[1]/a")).isDisplayed(), true);
+		logger.log(LogStatus.PASS, "AZ tab is expanded by default");
 	}
 	
 	private void AccessStoreLocator () throws InterruptedException {

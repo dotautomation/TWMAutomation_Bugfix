@@ -32,6 +32,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -52,7 +53,7 @@ public class PDPTabs extends Browser {
 	
 	@Test (dataProvider = "PDPParameters")
 	public void PDPTest (String toplevel,String plp) throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("PDP Tabs Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -69,7 +70,7 @@ public class PDPTabs extends Browser {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", plpnav);
 		Thread.sleep(5000);
-		
+		logger.log(LogStatus.PASS, "PDP Access");
 		
 		//Access the PDP
 		WebElement plpmove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
@@ -97,7 +98,7 @@ public class PDPTabs extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.anPDPImage.active")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.breadcrumbs")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-right.anPDPTab")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "PDP Tab 1");
 	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
 	    Thread.sleep(2000);
 	    
@@ -105,13 +106,13 @@ public class PDPTabs extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.css-details-pd")).isEmpty(),false);
 	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
 	    Thread.sleep(2000);
-	    
+	    logger.log(LogStatus.PASS, "PDP Tab 2");
 	    //Tab 3 - BazaarVoice
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.BVDITitle.BVDI_QTTitle")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVImgOrSprite")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVRRTrustMarkOverlayImage")).isEmpty(), false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#BVRRRatingSummaryLinkWriteID")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "PDP Tab 3");
 	    
 	  //Commented till RR is enabled in BF
 	    //driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
@@ -123,6 +124,7 @@ public class PDPTabs extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.rr-image-asset")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToCart")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToListInit")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-left.anPDPTab")).isEmpty(),false);*/
+	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-left.anPDPTab")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "PDP Tab 4");*/
 	}
 }

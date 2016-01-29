@@ -34,12 +34,14 @@ package com.totalwine.test.storelocator;
  */
 
 import java.awt.AWTException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -52,8 +54,9 @@ public class StoreDetail extends Browser {
 		driver.manage().window().maximize();
 	 } 
 	
-	@Test //Stores by State dropdown
+	@Test 
 	public void StoreDetailTest () throws InterruptedException, AWTException {
+		logger=report.startTest("Store Detail Page");
 		String IP = "71.193.51.0";
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
@@ -65,7 +68,7 @@ public class StoreDetail extends Browser {
 	    //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Navigate to SL page");
 	    //Navigate to the McLean Store Detail page
 	    driver.findElement(By.id("storelocator-query")).click();
 	    driver.findElement(By.id("storelocator-query")).clear();
@@ -74,7 +77,7 @@ public class StoreDetail extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.cssSelector("a.analyticsStoreLink > p")).click(); //First result - McLean
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Navigate to McLean store detail page");
 	    //Validate the presence of all elements
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#notificationDiv")).isEmpty(), false); //State-wide notification
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.jumbo-image")).isEmpty(), false); //Store image
@@ -111,10 +114,11 @@ public class StoreDetail extends Browser {
 	    
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.events-classes-items-content")).isEmpty(), false);//Upcoming Store Events
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a#upcomingEventLink")).isEmpty(), false);//See all events
-	    
+	    logger.log(LogStatus.PASS, "Validate elements in store detail page");
 		//Click Make this my store button and validate store session change
 	    driver.findElement(By.cssSelector("button#startInStoreBtn")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(), "McLean , VA");
+	    logger.log(LogStatus.PASS, "Click and validate the \"Start In-store order\" button");
 	}
 }

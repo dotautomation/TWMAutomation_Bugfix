@@ -36,6 +36,7 @@ import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -50,7 +51,7 @@ public class MobileHomePage extends Browser {
 	
 	@Test
 	public void MobileHomePageTest () throws InterruptedException {
-		
+		logger=report.startTest("Mobile Homepage Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		
@@ -66,6 +67,7 @@ public class MobileHomePage extends Browser {
 		String url = driver.getCurrentUrl();
 		System.out.println(url);
 		Assert.assertEquals(url, "http://responsibility.org/");
+		logger.log(LogStatus.PASS, "Mobile Age Gate: Clicking no directs to responsibility.org");
 		
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
@@ -81,5 +83,6 @@ public class MobileHomePage extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("ul.mob-footer-follow-us-icons")).isEmpty(),false); //Social Icons
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.mob-footer-terms")).isEmpty(),false); //Terms
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.mob-footer-copyright")).isEmpty(),false); //Copyright
+	    logger.log(LogStatus.PASS, "Mobile Age Gate: Clicking yes directs to Mobile homepage");
 	}
 }

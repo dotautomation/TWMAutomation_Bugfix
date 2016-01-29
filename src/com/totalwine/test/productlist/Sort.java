@@ -40,6 +40,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -59,13 +60,13 @@ public class Sort extends Browser {
 	
 	@Test 
 	public void SortTest () throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("PLP Sorting Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 		
 		//Hover over the "Wine" top-level menu
 		Actions action = new Actions(driver);
@@ -75,18 +76,19 @@ public class Sort extends Browser {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", winePLPNav);
 		Thread.sleep(5000);
-		
+		logger.log(LogStatus.PASS, "Navigate to Wine CLP");
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
 		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
-		
+		logger.log(LogStatus.PASS, "Click through to the Wine PLP");
 		//driver.get(ConfigurationFunctions.accessURL+"/white-wine/c/013005");
 		Thread.sleep(5000);
 	    driver.findElement(By.xpath("//div[2]/div/span/span")).click();
 	    driver.findElement(By.xpath("//div[2]/div/div[2]/div/div/div/div/ul/li[2]")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("option[value=our-favorites]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div[class=plp-list-img-wdlogo]")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Sort by Our Favorites and validate that a WD-logo'd item appears on top");
 	    driver.findElement(By.xpath("//div[2]/div/span/span")).click();
 	    driver.findElement(By.xpath("//div[2]/div/div[2]/div/div/div/div/ul/li[3]")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span.plp-product-desc-winespec-left-badge")).isEmpty(),false);
@@ -108,7 +110,6 @@ public class Sort extends Browser {
 	    String ProductNameAlphaSort = driver.findElement(By.cssSelector("a[class=analyticsProductName]")).getText();
 	    driver.navigate().refresh();
 	    driver.findElement(By.xpath("//div[2]/div/span/span")).click();
-	    
 	    //do 
 	    WebElement scroll1 = driver.findElement(By.xpath("//div[2]/div/span/span"));
 	    	scroll1.sendKeys(Keys.ARROW_DOWN);
@@ -123,15 +124,8 @@ public class Sort extends Browser {
 	    String ProductNameReverseAlphaSort = driver.findElement(By.cssSelector("a[class=analyticsProductName]")).getText();
 	    
 	    Assert.assertEquals(ProductNameAlphaSort.startsWith("1"),true);
+	    logger.log(LogStatus.PASS, "Sort by Product Name");
 	    Assert.assertEquals(ProductNameReverseAlphaSort.startsWith("Z"),true);
-	}
-	
-	@AfterMethod 
-	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException { 
-		if(testResult.getStatus() == ITestResult.FAILURE) { 
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("c:\\totalwine\\TWMAutomation\\FailureScreenshots\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png")); 
-		}
-		driver.close();
+	    logger.log(LogStatus.PASS, "Sort by Product Name (reverse)");
 	}
 }
