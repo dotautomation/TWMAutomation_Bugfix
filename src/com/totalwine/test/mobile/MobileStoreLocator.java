@@ -15,7 +15,7 @@ package com.totalwine.test.mobile;
  * 			Maximize browser window
  * 	2. Test (Workflow)
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;

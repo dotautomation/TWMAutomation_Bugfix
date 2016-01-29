@@ -19,7 +19,7 @@ package com.totalwine.test.storelocator;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;

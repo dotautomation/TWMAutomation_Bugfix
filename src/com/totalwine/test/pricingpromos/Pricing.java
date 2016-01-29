@@ -17,7 +17,7 @@ package com.totalwine.test.pricingpromos;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.awt.AWTException;
 import java.io.IOException;
 

@@ -16,7 +16,7 @@ package com.totalwine.test.lare;
  * 			Take screenshot, in case of failure
  * 			Close webdriver
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;

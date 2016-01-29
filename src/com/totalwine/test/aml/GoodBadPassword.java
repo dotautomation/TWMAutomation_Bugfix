@@ -22,7 +22,7 @@ package com.totalwine.test.aml;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import org.testng.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

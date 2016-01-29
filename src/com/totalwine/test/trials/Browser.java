@@ -9,7 +9,7 @@ package com.totalwine.test.trials;
  * 6. iOS Safari (Apple iPhone 6)
  * 7. Android (Samsung Galaxy S4)
  */
-
+//@author=rsud
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;

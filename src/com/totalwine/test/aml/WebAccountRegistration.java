@@ -24,7 +24,7 @@ package com.totalwine.test.aml;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 
 import java.io.IOException;
 import java.util.Random;

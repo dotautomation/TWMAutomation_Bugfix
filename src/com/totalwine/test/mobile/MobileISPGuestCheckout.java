@@ -24,7 +24,7 @@ package com.totalwine.test.mobile;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;

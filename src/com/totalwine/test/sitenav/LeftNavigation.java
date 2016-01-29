@@ -7,7 +7,7 @@ package com.totalwine.test.sitenav;
  * 	2. Validate the presence of facets in the left navigation 
  * 	3. Click through facets and validate results
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
