@@ -1,1 +1,1 @@
-java -cp bin;lib/* org.testng.TestNG testng_bugfix.xml
+java -cp bin;lib* org.testng.TestNG testng_bugfix.xml
