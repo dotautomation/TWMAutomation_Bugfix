@@ -16,7 +16,7 @@ package com.totalwine.test.lare;
  * 			Take screenshot, in case of failure
  * 			Close webdriver
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -25,6 +25,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -32,7 +33,7 @@ public class LARERules extends Browser {
 	
 	private String IP="71.193.51.0"; //Sacramento
 	private String UnknownIP="10.150.16.1"; //Unknown IP
-	//http://bugfix.totalwine.com/?remoteTestIPAddress=12.71.77.208
+
 	@BeforeMethod
 	  public void setUp() throws Exception {
 	    driver.manage().window().maximize();
@@ -40,7 +41,7 @@ public class LARERules extends Browser {
 	
 	@Test 
 	public void LAREUserEnteredLocationTest () throws InterruptedException {
-		
+		logger=report.startTest("LARE: User Entered Location Test");
 		//Rule: User entered location/selected store or ship-to-state
 		//Action: User accesses site and changes store via global store selector
 		//Validation: Customer is shopping only in the globally selected store (store is 0.0 miles away in the Store Selector)
@@ -72,6 +73,7 @@ public class LARERules extends Browser {
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
 		Assert.assertEquals("Towson (Beltway), MD (0.0 miles)", driver.findElement(By.cssSelector("li.toggle.separator > div.inner-items-wrapper > ul > li:nth-child(1) > a > span > label")).getText());
+		logger.log(LogStatus.PASS, "LARE: User entered location/selected store or ship-to-state");
 	}
 	
 	@Test
@@ -79,12 +81,14 @@ public class LARERules extends Browser {
 		//Rule: Deep Link
 		//Action: User accesses site via a deep link containing the store information
 		//Validation: Global store header should have the deep link's store
+		logger=report.startTest("LARE: Deep Link Access Test");
 		connect(IP);
 		driver.get(ConfigurationFunctions.accessURL+"/wine/white-wine/chardonnay/null/j-lohr-arroyo-vista-chardonnay/p/91517750?s=205"); //McLean, VA
 		Thread.sleep(3000);
 		driver.navigate().refresh();
 		Thread.sleep(3000);
 		Assert.assertEquals("McLean , VA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+		logger.log(LogStatus.PASS, "LARE: Deep Link");
 	}
 		
 	@Test
@@ -92,6 +96,7 @@ public class LARERules extends Browser {
 		//Rule: Profile Store set to Always Use
 		//Action: User accesses site and then logs in
 		//Validation: Global store header changes to the profile store marked as always use (rsud@totalwine.com/grapes123)
+		logger=report.startTest("LARE: User profile preferred store set to \"Always Use\"");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -113,6 +118,7 @@ public class LARERules extends Browser {
 	    Thread.sleep(5000);
 	    driver.switchTo().activeElement();
 	    Assert.assertEquals("Fairfax , VA", driver.findElement(By.cssSelector("div.store-details > span.store-details-store-name.flyover-src")).getText());
+	    logger.log(LogStatus.PASS, "LARE: User profile preferred store set to \"Always Use\"");
 	}
 	
 	@Test
@@ -120,6 +126,7 @@ public class LARERules extends Browser {
 		//Rule: Default Web Store
 		//Action: User accesses the site from outside the US or user's location cannot be determined
 		//Validation: Global store header is DWS (1108)
+		logger=report.startTest("LARE: Default Web Store");
 		driver.get(ConfigurationFunctions.locationSet+UnknownIP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -134,6 +141,7 @@ public class LARERules extends Browser {
 	    driver.findElement(By.xpath("//button[@onclick='closeModalSetLARE(this);']")).click();
 	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
 	    Assert.assertEquals("Sacramento (Arden) , CA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+	    logger.log(LogStatus.PASS, "LARE: Default Web Store");
 	}
 
 	public void connect(String Address) throws InterruptedException {

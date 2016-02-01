@@ -3,11 +3,18 @@
 
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests"-->
 <suite name="MultiBrowserSuite" verbose="2">
-  <test name="Negative Inventory Test">
+  <test name="1">
 	<parameter name="browser" value="Chrome">
 	</parameter>
     <classes>
-	   <class name="com.totalwine.test.aml.GoodBadPassword"/>
+	   <class name="com.totalwine.test.agegating.AgeGate"/>
+    </classes>
+  </test>
+  <test name="2">
+	<parameter name="browser" value="Chrome">
+	</parameter>
+    <classes>
+	   <class name="com.totalwine.test.aml.WebAccountRegistration"/>
     </classes>
   </test>
 </suite>

@@ -20,7 +20,7 @@ package com.totalwine.test.search;
  * 	5. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.util.List;
 
 import org.testng.*;
@@ -30,6 +30,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -51,29 +52,29 @@ public class Search extends Browser {
 	
 	@Test (dataProvider = "SearchParameters")
 	public void SearchTest (String searchTerm) throws InterruptedException {
-		
+		logger=report.startTest("Search Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
-		//driver.findElement(By.cssSelector("div.modal-content > div.modal-body > div.pdp-store-modal-wrapper > div.store-modal-content > div.ageGatingMain > div.ageGatingContainer > div.ageGatingButtons > form.add_to_cart_form.clear_fix > button.btn.btn-red")).click();
 		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 		
 		driver.findElement(By.id("header-search-text")).clear();
 	    driver.findElement(By.id("header-search-text")).sendKeys(searchTerm);
 	    driver.findElement(By.cssSelector("a[class=\"search-right-cont-mini-search-logo analyticsSearch\"]")).click();
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "Enter "+searchTerm+" as a search term");
 	    //Search Page Elements
 	    Assert.assertEquals(driver.findElements(By.linkText("Search categories")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.inner-items-wrapper > ul > li > a > span")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.xpath("//li[2]/a/span")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.xpath("//li[3]/a/span")).isEmpty(),false);
-
+	    logger.log(LogStatus.PASS, "Validate SRP elements");
 	    //Search Term Presence on Page
 	    List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + searchTerm + "')]"));
 	    System.out.println(searchTerm+": "+list.size());
 	    Assert.assertEquals(list.size() > 1,true);
+	    logger.log(LogStatus.PASS, list.size()+" results are returned for "+searchTerm);
 	}
 }

@@ -24,43 +24,37 @@ package com.totalwine.test.aml;
  * 	4. AfterClass
  * 			Quit webdriver
  */
+//@author=rsud
 
-
-import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
 import jxl.read.biff.BiffException;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
 public class WebAccountRegistration extends Browser {
 	
-	//private WebDriver driver;
-
 	@BeforeMethod
-	  public void setUp() throws Exception {
-		//this.driver = ConfigurationFunctions.driver;
-	    driver.manage().window().maximize();
-	  }  
+	public void setUp() throws Exception {
+		driver.manage().window().maximize();
+	}
 	
 	@Test 
 	public void RegistrationTest () throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("Web Registration Test");
 		Random rand = new Random();
 	    int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
 	    int randomNum_2 = rand.nextInt((1000 - 1) + 1) + 1;
@@ -86,7 +80,7 @@ public class WebAccountRegistration extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.pgmtxt")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Learn more")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.signinup-items")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "Options within the Account modal");
 	    driver.findElement(By.linkText("Sign up")).click();
 	    Thread.sleep(1000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.aml-heading")).isEmpty(),false);
@@ -102,6 +96,7 @@ public class WebAccountRegistration extends Browser {
 	    driver.findElement(By.id("checkEmail")).sendKeys(email);
 	    driver.findElement(By.id("pwd")).sendKeys("grapes");
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.passwordstrength > ul > li.active")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Password strength indicator");
 	    driver.findElement(By.id("pwd")).sendKeys("grapes123");
 	    Assert.assertEquals(driver.findElements(By.xpath("//form[@id='newuserregistration']/section/div[2]/div[5]/div[11]/div/ul/li[3]")).isEmpty(),false);
 	    driver.findElement(By.id("pwd")).clear();
@@ -119,23 +114,17 @@ public class WebAccountRegistration extends Browser {
 	    driver.findElement(By.id("address2")).sendKeys("Suite 210");
 	    driver.findElement(By.id("city")).clear();
 	    driver.findElement(By.id("city")).sendKeys("Bethesda");
-	    //driver.findElement(By.cssSelector("span[tabindex=12]")).click();
 	    
-	    ///////////// OLD
-	    //driver.findElement(By.xpath("//div[10]/div/div/span/span")).click();
-	    ///////////// NEW
 	    WebElement element = driver.findElement(By.xpath("//div[10]/div/div/span/span"));  
         new Actions(driver).moveToElement(element).perform();  
         element.click();
-	    ///////////// NEW(END)
+	    
 	    Thread.sleep(2000);
 	    driver.findElement(By.xpath("//div[10]/div/div/div/div/div/ul/li[2]")).click();
 	    driver.findElement(By.id("zipCode")).clear();
 	    driver.findElement(By.id("zipCode")).sendKeys("20817");
-	    //driver.findElement(By.cssSelector("section.formbg.storepreferences")).click();
-	    //driver.findElement(By.cssSelector("#storePreferenceText > label")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("input[name=preferredStoreDefault]")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "Preferred Store Indication");
 	    WebElement scroll = driver.findElement(By.cssSelector("input[name=ageCheck]"));
 	 	scroll.sendKeys(Keys.ARROW_DOWN);
 	    
@@ -154,6 +143,7 @@ public class WebAccountRegistration extends Browser {
 	    Assert.assertEquals(driver.findElements(By.id("c0050")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("em.icon.birthday")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("em.icon.mobilephone")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Wine/Beer/Spirits/Accessories Preferences");
 	    scroll = driver.findElement(By.id("btnSaveAccount"));
 	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("btnSaveAccount")).click();
@@ -166,9 +156,10 @@ public class WebAccountRegistration extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a[class=analyticsUpdateAcc]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Online order history")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a[class=analyticsPrefStore]")).isEmpty(),false);
-	    
+	    logger.log(LogStatus.PASS, "Left Navigation on Account home page");
 	    //Logout and attempt to re-login using registration information
 	    driver.findElement(By.linkText("Welcome, Automated")).click();
 	    driver.findElement(By.linkText("Log out")).click();
+	    logger.log(LogStatus.PASS, "Successful logout");
 	}
 }

@@ -1,5 +1,5 @@
 package com.totalwine.test.config;
-
+//@author=rsud
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -48,6 +48,8 @@ public class ConfigurationFunctions {
 	public static final String resourcePath = "C:\\twmautomation\\TWMAutomation_Prod\\Resources\\AutomatedFlows.xls";
 	public static final String CHROMEDRIVERPATH = "C:/twmautomation/lib/lib/chromedriver.exe";
 	public static final String IEDRIVERPATH = "C:/twmautomation/lib/lib/IEDriverServer.exe";
+	//public static final String RESULTSPATH = "C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\Results\\";
+	public static final String RESULTSPATH = "C:\\Users\rsud\\.jenkins\\jobs\\Regression Suite (Bugfix)\\reports\\html\\";
 	
 	public static void DeleteCookies() {
 		WebDriver driver = new FirefoxDriver(testProfile);

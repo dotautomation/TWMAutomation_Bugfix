@@ -25,7 +25,7 @@ package com.totalwine.test.checkout;
  * 	5. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.io.IOException;
 
 import jxl.read.biff.BiffException;

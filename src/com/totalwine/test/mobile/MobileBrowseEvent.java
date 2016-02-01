@@ -19,11 +19,12 @@ package com.totalwine.test.mobile;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -34,6 +35,7 @@ public class MobileBrowseEvent extends Browser {
 	
 	@Test 
 	public void MobileBrowseEventTest () throws InterruptedException {
+		logger=report.startTest("Mobile ELP/EDP Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		if (driver.findElement(By.id("btn-continue")).isDisplayed())
@@ -48,6 +50,7 @@ public class MobileBrowseEvent extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.btn-brown.anFilter")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.elp-event-img")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.eventCalender.anAddToCalendar")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Mobile ELP");
 	    
 	    driver.findElement(By.xpath("//a[contains(@href,'/e/ec')]")).click();
 	    Thread.sleep(3000);
@@ -59,5 +62,6 @@ public class MobileBrowseEvent extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("li.print-container.anPrintEventDetails")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Events")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.xpath("//form[@id='eventInfoIcs']/button")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Mobile EDP");
 	}
 }

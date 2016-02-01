@@ -19,7 +19,7 @@ package com.totalwine.test.mobile;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -27,6 +27,8 @@ import java.awt.event.KeyEvent;
 import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
+
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -37,7 +39,7 @@ public class MobilePDP extends Browser {
 	
 	@Test 
 	public void MobilePDPTest () throws InterruptedException, AWTException {
-		
+		logger=report.startTest("Mobile PDP Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		if (driver.findElement(By.id("btn-continue")).isDisplayed())
@@ -49,6 +51,7 @@ public class MobilePDP extends Browser {
 		//driver.findElement(By.xpath("//a[contains(@href,'.totalwine.com/c/c0020/')]")).click();
 		driver.findElement(By.cssSelector("section.wrapper-data > section.hp-way-fndg > section.mb > div.hp-way-fndg-cat > a.btn.btn-red.analyticsLinkComp")).click();
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Mobile top level Wine Nav");
 	    
 	    //Access Mobile PDP for first item on PLP
 	    driver.findElement(By.cssSelector("a.analyticsProductName")).click();
@@ -63,7 +66,7 @@ public class MobilePDP extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsProdCategs")).isEmpty(),false); //Category
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span.pdp-wine-spec-text-desc")).isEmpty(),false); //Review
 	    Assert.assertEquals(driver.findElements(By.cssSelector("select.pdp-dropdown-amount")).isEmpty(),false); //Volume Dropdown
-	    
+
 	    Robot robot = new Robot(); //for scrolling
 	    
 	    robot.keyPress(KeyEvent.VK_PAGE_DOWN);
@@ -86,5 +89,7 @@ public class MobilePDP extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anPDPAddToCart.btnAddToCartPDP")).isEmpty(),false); //ATC Button
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.btn-share.anProdShare")).isEmpty(),false); //Email
 	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.rr-item")).isEmpty(),false); //Email
+	    logger.log(LogStatus.PASS, "Mobile PDP template elements");
+
 	}
 }

@@ -7,7 +7,7 @@ package com.totalwine.test.sitenav;
  * 	2. Validate the presence of facets in the left navigation 
  * 	3. Click through facets and validate results
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,6 +16,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -32,7 +33,7 @@ public class LeftNavigation extends Browser {
 	//CLP Left Navigation
 	@Test
 	public void CLPLeftNavTest () throws InterruptedException {
-		
+		logger=report.startTest("Site Navigation (Left Nav) Test");
 		//Access site
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
@@ -49,10 +50,11 @@ public class LeftNavigation extends Browser {
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", toplevelnav);
 		Thread.sleep(5000);
-		
+		logger.log(LogStatus.PASS, "Navigate to Wine CLP");
 		//Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsHeroLink")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.clpviewall-view")).isEmpty(),false);
-		
+		logger.log(LogStatus.PASS, "Validate the \"View All Wine\" link");
+		logger.log(LogStatus.PASS, "");
 		for (String wineclplink : wineclplinks) {
 			Assert.assertEquals(driver.findElements(By.cssSelector("div.inner-items-wrapper > ul > li > a[href*=\""+wineclplink+"\"]")).isEmpty(),false);
 			driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li > a[href*=\""+wineclplink+"\"]")).click();
@@ -62,6 +64,7 @@ public class LeftNavigation extends Browser {
 			action.moveToElement(toplevelnav).build().perform();
 			js.executeScript("arguments[0].click();", toplevelnav);
 			Thread.sleep(3000);
+			logger.log(LogStatus.PASS, wineclplink+" appears in the Wine CLP left nav");
 		}
 		
 		
@@ -73,7 +76,7 @@ public class LeftNavigation extends Browser {
 		js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", toplevelnav);
 		Thread.sleep(5000);
-		
+		logger.log(LogStatus.PASS, "Navigate to Beer CLP");
 		//Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsHeroLink")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.clpviewall-view")).isEmpty(),false);
 		
@@ -86,6 +89,7 @@ public class LeftNavigation extends Browser {
 			action.moveToElement(toplevelnav).build().perform();
 			js.executeScript("arguments[0].click();", toplevelnav);
 			Thread.sleep(3000);
+			logger.log(LogStatus.PASS, beerclplink+" appears in the Beer CLP left nav");
 		}
 	    
 	    //Navigate to Spirits CLP and validate left nav
@@ -96,7 +100,7 @@ public class LeftNavigation extends Browser {
 		js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", toplevelnav);
 		Thread.sleep(5000);
-		
+		logger.log(LogStatus.PASS, "Navigate to Spirits CLP");
 		//Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsHeroLink")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.clpviewall-view")).isEmpty(),false);
 		
@@ -109,6 +113,7 @@ public class LeftNavigation extends Browser {
 			action.moveToElement(toplevelnav).build().perform();
 			js.executeScript("arguments[0].click();", toplevelnav);
 			Thread.sleep(3000);
+			logger.log(LogStatus.PASS, spiritsclplink+" appears in the Spirits CLP left nav");
 		}
 		
 		
@@ -120,7 +125,7 @@ public class LeftNavigation extends Browser {
 		js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", toplevelnav);
 		Thread.sleep(5000);
-		
+		logger.log(LogStatus.PASS, "Navigate to Accessories CLP");
 		//Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsHeroLink")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.clpviewall-view")).isEmpty(),false);
 		
@@ -133,6 +138,7 @@ public class LeftNavigation extends Browser {
 			action.moveToElement(toplevelnav).build().perform();
 			js.executeScript("arguments[0].click();", toplevelnav);
 			Thread.sleep(3000);
+			logger.log(LogStatus.PASS, accclplink+" appears in the Accessories CLP left nav");
 		}
 	    
 	}
@@ -154,7 +160,7 @@ public class LeftNavigation extends Browser {
 	//SRP Left Navigation (Filters)
 	@Test
 	public void SRPLeftNavTest () throws InterruptedException {
-		
+		logger=report.startTest("Search Results Page (Left Nav) Test");
 		String[] searchTerms = {"red wine","walker"};
 		String[] srpfacets = {"/search/product?","/search/event?","/search/content?"};
 		driver.get(ConfigurationFunctions.locationSet+IP);
@@ -173,7 +179,7 @@ public class LeftNavigation extends Browser {
 		    Assert.assertEquals(driver.findElements(By.linkText("Search categories")).isEmpty(),false);
 		    Assert.assertEquals(driver.findElements(By.linkText("Stores Near You")).isEmpty(),false);
 		    Assert.assertEquals(driver.findElements(By.linkText("Department")).isEmpty(),false);
-
+		    logger.log(LogStatus.PASS, "SRP is displayed for "+searchTerm);
 		    //Validate the left nav on the SRP
 		    for (String srpfacet : srpfacets) {
 		    	Assert.assertEquals(driver.findElements(By.cssSelector("div.inner-items-wrapper > ul > li > a[href*=\""+srpfacet+"\"]")).isEmpty(),false);//Check for presence of filter
@@ -183,6 +189,7 @@ public class LeftNavigation extends Browser {
 		    	Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains(srpfacet.toLowerCase())); //Validate the URL
 		    	driver.navigate().back();//Go back to SRP
 		    	Thread.sleep(3000);
+		    	logger.log(LogStatus.PASS, srpfacet+" appears in the SRP left nav for "+searchTerm);
 		    }
 	    }
 	}

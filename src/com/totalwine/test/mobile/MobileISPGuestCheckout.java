@@ -1,12 +1,12 @@
-package com.totalwine.test.checkout;
+package com.totalwine.test.mobile;
 
 /*
- * Checkout Workflow
+ * Mobile Checkout Workflow
  * Workflow:
- * 	1. Access PDP for item
+ * 	1. Access the Mobile PDP for item via the mobile homepage/PLP
  * 	2. Add to cart
  * 	3. View Cart
- * 	4. Initial Guest Checkout
+ * 	4. Initiate Guest Checkout
  * 	5. Enter email address associated with guest checkout
  * 	6. Tab 1 Checkout
  *  7. Tab 2 Checkout (Billing Details)
@@ -14,86 +14,62 @@ package com.totalwine.test.checkout;
  *  9. Order Confirmation Page
  *  
  * Technical Modules:
- * 	1. DataProvider: Checkout test input parameters
- * 	2. BeforeMethod (Test Pre-requisites):
+ * 	1. BeforeMethod (Test Pre-requisites):
  * 			Invoke webdriver
  * 			Maximize browser window
- * 	3. Test (Workflow)
- * 	4. AfterMethod
- * 			Take screenshot
+ * 	2. Test (Workflow)
+ * 	3. AfterMethod
+ * 			Take screenshot, in case of failure
  * 			Close webdriver
- * 	5. AfterClass
+ * 	4. AfterClass
  * 			Quit webdriver
  */
 //@author=rsud
-import java.io.IOException;
-
-import jxl.read.biff.BiffException;
-
 import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
-public class ISPCheckout extends Browser {
-
-	@DataProvider(name="CheckoutParameters")
-    public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "ISPcheckoutBFCI");
-        return(retObjArr);
-    } 
+public class MobileISPGuestCheckout extends Browser {
 	
-	@BeforeMethod
-	  public void setUp() throws Exception {
-		//driver = new FirefoxDriver(testProfile);
-	    driver.manage().window().maximize();	
-		   
-	  }  
+		private String IP="71.193.51.0";
 	
-	@Test (dataProvider = "CheckoutParameters")
-	public void ISPCheckoutTest (String Location,String StoreName,String PDP,String ISPOption,String Quantity,String Email,String CreditCard,String ExpirationMonth,String ExpirationYear,
-			String CVV,String FirstName,String LastName,String Company,String Address1,String Address2,String City,String State,String Zip) throws InterruptedException, BiffException, IOException {
-		logger=report.startTest("ISP Guest Checkout Test");
-		driver.get(ConfigurationFunctions.locationSet+Location);
+	@Test
+	public void MobileISPGuestCheckoutTest () throws InterruptedException {
+		logger=report.startTest("Mobile ISP Guest Checkout Test");
+		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
-	    Assert.assertEquals(StoreName, driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
-	    logger.log(LogStatus.PASS, "The site is configured for an ISP order");
-	    ConfigurationFunctions.highlightElement(driver,driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")));
 		
-		// Add to Cart
-		driver.get(ConfigurationFunctions.accessURL+PDP);
+		//Navigate to test PDP
+		driver.findElement(By.cssSelector("a.btn.btn-red.analyticsLinkComp[title=Beer]")).click();
+		Thread.sleep(5000);
+		driver.get(ConfigurationFunctions.accessURL+"/beer/lager/light-lager/bud-light/p/31123");
 		Thread.sleep(3000);
-		String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click();
-		//driver.findElement(By.cssSelector("button.btn.btn-red.mini-cart-popup.anAddToCart")).click();
-		Thread.sleep (3000);
-	    //driver.findElement(By.cssSelector("div.cart-popup")).click();
-	    driver.get(ConfigurationFunctions.accessURL+"/cart");
-	    Thread.sleep(3000);
-	    logger.log(LogStatus.PASS, "Item is added to cart");
-	    
-	    // Shopping Cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.PAGE_DOWN);
-	    driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
-	    driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]")).click();
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: PDP access");
+
+		//Add to Cart and access cart
+		driver.findElement(By.cssSelector("button.btnAddToCartPDP")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("em.mobile-cart")).click();
+		Thread.sleep(3000);
+		logger.log(LogStatus.PASS, "Mobile ISP Checkout: Cart");
+		
+		//Initiate Checkout
+		 // Shopping Cart
+	    driver.findElement(By.id("checkout")).sendKeys(Keys.PAGE_DOWN);
+	    //driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
 	    driver.findElement(By.id("checkout")).click();
-	    Thread.sleep(3000);
-	    logger.log(LogStatus.PASS, "Shopping cart");
+	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Initiate checkout");
 	    
 	    // Next Page (Login/Checkout as Guest)
 	    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
@@ -101,9 +77,10 @@ public class ISPCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("forgotPasswordCheckout")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("checkoutSignIn")).isEmpty(),false);
-	    driver.findElement(By.cssSelector("#checkoutGuestForm > div.button-container > button.btn.btn-red")).click();
+	    JavascriptExecutor executor = (JavascriptExecutor)driver;
+	    executor.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#checkoutGuestForm > div > button.btn.btn-red.anCheckoutContinue")));
 	    Thread.sleep(3000);
-	    logger.log(LogStatus.PASS, "Checkout as Guest/LoggedIn user");
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Guest/Registered user selection");
 	    
 	    // Checkout Tab 1
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.instorepickup-tab")).isEmpty(),false);
@@ -115,11 +92,11 @@ public class ISPCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
 	    driver.findElement(By.id("shipping-email")).click();
 	    driver.findElement(By.id("shipping-email")).clear();
-	    driver.findElement(By.id("shipping-email")).sendKeys(Email);
+	    driver.findElement(By.id("shipping-email")).sendKeys("rsud@live.com");
 	    driver.findElement(By.id("pickup-phoneNumber")).sendKeys("410-428-2222");
 	    driver.findElement(By.id("btnPickup")).click();
 	    Thread.sleep(5000);
-	    logger.log(LogStatus.PASS, "Guest ISP Checkout Tab 1");
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Checkout tab 1");
 	    
 	    // Checkout Tab 2
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.billing-tab")).isEmpty(),false);
@@ -127,57 +104,53 @@ public class ISPCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsEditCart")).isEmpty(),false);
 	    driver.findElement(By.id("ssl_account_data")).click();
 	    driver.findElement(By.id("ssl_account_data")).clear();
-	    driver.findElement(By.id("ssl_account_data")).sendKeys(CreditCard);
+	    driver.findElement(By.id("ssl_account_data")).sendKeys("4124939999999990");
 	    driver.findElement(By.id("custom_card_type")).click();
 	    driver.findElement(By.cssSelector("div[class=\"inputHolder month\"]")).click();
-	    driver.findElement(By.xpath("//td[2]/div/div/div/div/div/div/ul/li[2]")).click();
-	    //driver.findElement(By.xpath("//li[5]")).click();
+	    driver.findElement(By.cssSelector("select#expiryMonth > option[value=\"01\"]")).click();
 	    driver.findElement(By.cssSelector("div[class=\"inputHolder year\"]")).click();
-	    driver.findElement(By.xpath("//td[2]/div[2]/div/div/div/div/div/ul/li[3]")).click();
+	    driver.findElement(By.cssSelector("select#expiryYear > option[value=\"18\"]")).click();
 	    driver.findElement(By.id("ssl_cvv2cvc2")).clear();
-	    driver.findElement(By.id("ssl_cvv2cvc2")).sendKeys(CVV);
+	    driver.findElement(By.id("ssl_cvv2cvc2")).sendKeys("123");
 	    driver.findElement(By.id("ssl_first_name")).clear();
-	    driver.findElement(By.id("ssl_first_name")).sendKeys(FirstName);
+	    driver.findElement(By.id("ssl_first_name")).sendKeys("DOT Mobile");
 	    driver.findElement(By.id("ssl_last_name")).clear();
-	    driver.findElement(By.id("ssl_last_name")).sendKeys(LastName);
+	    driver.findElement(By.id("ssl_last_name")).sendKeys("Tester");
 	    driver.findElement(By.id("ssl_avs_address")).clear();
-	    driver.findElement(By.id("ssl_avs_address")).sendKeys(Address1);
+	    driver.findElement(By.id("ssl_avs_address")).sendKeys("6600 rockledge dr");
 	    driver.findElement(By.id("ssl_company")).clear();
-	    driver.findElement(By.id("ssl_company")).sendKeys(Company);
+	    driver.findElement(By.id("ssl_company")).sendKeys("TWM");
 	    driver.findElement(By.id("ssl_address2")).clear();
-	    driver.findElement(By.id("ssl_address2")).sendKeys(Address2);
+	    driver.findElement(By.id("ssl_address2")).sendKeys("");
 	    driver.findElement(By.id("ssl_city")).clear();
-	    driver.findElement(By.id("ssl_city")).sendKeys(City);
-	    driver.findElement(By.xpath("//table[@id='tblAddress']/tbody/tr[7]/td[2]/div/div/span")).click();
-	    driver.findElement(By.cssSelector("li[data-val=\""+State+"\"]")).click();
+	    driver.findElement(By.id("ssl_city")).sendKeys("Bethesda");
+	    driver.findElement(By.cssSelector("select")).click();
+	    //driver.findElement(By.cssSelector("li[data-val=\"Alabama\"]")).click();
+	    driver.findElement(By.cssSelector("select#ssl_state > option[value=\"Maryland\"]")).click();
 	    driver.findElement(By.id("ssl_avs_zip")).clear();
-	    driver.findElement(By.id("ssl_avs_zip")).sendKeys(Zip);
+	    driver.findElement(By.id("ssl_avs_zip")).sendKeys("20817");
 	    driver.findElement(By.name("process")).click();
 	    Thread.sleep(10000);
-	    logger.log(LogStatus.PASS, "Guest ISP Checkout Tab 2");
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Checkout tab 2");
 	    
 	    // Checkout Tab 3
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.review-tab")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw co-rvw-instore\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw co-rvw-pymnt\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw\"]")).isEmpty(),false);
-	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-wdlogo > img")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_1\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_2\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total anTax\"]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total co-pr-item-total\"]")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Checkout tab 3");
 	    
 	    driver.findElement(By.id("check_box_age")).click();
-	    //driver.findElement(By.xpath("//form[@id='placeOrderForm1']/section/div/button")).click();
 	    driver.findElement(By.cssSelector("button.btn-red.btn-place-order.anPlaceOrder")).click();
 	    Thread.sleep(10000);
-	    logger.log(LogStatus.PASS, "Guest ISP Checkout Tab 3");
 	    
 	    // Order Confirmation
-	    //Assert.assertEquals(driver.findElements(By.linkText("Post to Facebook")).isEmpty(),false);
-	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-help-link")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Guest ISP Checkout Order Confirmation");
+	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Order confirmation");
 	}
 }

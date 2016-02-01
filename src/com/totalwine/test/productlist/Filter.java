@@ -22,7 +22,7 @@ package com.totalwine.test.productlist;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.awt.AWTException;
 import java.io.IOException;
 
@@ -37,6 +37,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -56,7 +57,7 @@ public class Filter extends Browser {
 	
 	@Test 
 	public void FilterTest () throws InterruptedException, BiffException, IOException, AWTException {
-		
+		logger=report.startTest("PLP Filter Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -79,7 +80,7 @@ public class Filter extends Browser {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
-		
+		logger.log(LogStatus.PASS, "Access Wine PLP");
 		//Varietal
 	    //driver.findElement(By.xpath("//li[4]/div/ul/li/a/span")).click();
 		//driver.findElement(By.linkText("varietaltype")).click();
@@ -96,7 +97,8 @@ public class Filter extends Browser {
 	    	Assert.assertTrue(varietalType.contains(facetValue));
 	    driver.findElement(By.cssSelector("span.desc-text.clear-all")).click();
 	    	Thread.sleep(3000);
-	    	
+	    logger.log(LogStatus.PASS, "PLP Varietal facet");
+	    
 		//Country
 	    
 	    WebElement scroll_Country = driver.findElement(By.xpath("//a[contains(text(),'Country/State')]"));
@@ -118,6 +120,7 @@ public class Filter extends Browser {
 	    Assert.assertEquals(facetValue, driver.findElement(By.cssSelector("a.analyticsCountryState")).getText());
 	    driver.findElement(By.cssSelector("span.desc-text.clear-all")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "PLP Country facet");
 	    
 	    //Price Range
 	    WebElement wineMove1 = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
@@ -135,7 +138,8 @@ public class Filter extends Browser {
 	    	System.out.println("Price Range: "+facetValue+"|"+priceValue);
 	    driver.findElement(By.cssSelector("span.desc-text.clear-all")).click();
 	    Thread.sleep(5000);
-	    	 
+	    logger.log(LogStatus.PASS, "PLP Price facet");
+	    
 	    //Rating Source
 	    WebElement scroll_RatingSource = driver.findElement(By.linkText("Rating Source"));
 	 	scroll_RatingSource.sendKeys(Keys.ARROW_DOWN);
@@ -147,6 +151,7 @@ public class Filter extends Browser {
 	    Assert.assertEquals(facetValue, driver.findElement(By.cssSelector("span.plp-product-desc-winespec-desc-title")).getText());
 	    driver.findElement(By.cssSelector("span.desc-text.clear-all")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "PLP Rating Source facet");
 	    
 	    //Rating Range
 	    WebElement scroll_RatingRange = driver.findElement(By.linkText("Expert Rating"));
@@ -162,6 +167,7 @@ public class Filter extends Browser {
 	    	System.out.println("Rating Range: "+facetValue+"|"+ratingRange);
 	    driver.findElement(By.cssSelector("span.desc-text.clear-all")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "PLP Top Rated facet");
 	    
 	    //Appellation
 	    WebElement scroll_Appelation = driver.findElement(By.linkText("Appellation"));
@@ -180,5 +186,6 @@ public class Filter extends Browser {
 	    //Assert.assertEquals(facetValue, driver.findElement(By.xpath("(//a[contains(text(),'Alexander Valley')])[2]")).getText());
 	    driver.findElement(By.cssSelector("span.desc-text.clear-all")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "PLP Appellation facet");
 	}
 }

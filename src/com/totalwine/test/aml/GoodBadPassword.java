@@ -22,13 +22,14 @@ package com.totalwine.test.aml;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import org.testng.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -51,6 +52,7 @@ public class GoodBadPassword extends Browser {
 	
 	@Test (dataProvider = "UserPwdParameters")
 	public void GoodBadPasswordTest (String email,String pwd,String valid) throws InterruptedException {
+		logger=report.startTest("Good/Bad Password Combinations");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -77,13 +79,17 @@ public class GoodBadPassword extends Browser {
 	    	Assert.assertEquals(driver.findElements(By.cssSelector(AMLPageHeading)).isEmpty(), true);
 	    	Assert.assertEquals(driver.findElement(By.cssSelector("p.error-msg")).getText(), 
 	    			"Please enter a valid email address in the format example@domain.com"); //Invalid email format validation
+	    	logger.log(LogStatus.PASS, "Invalid email format checked successfully");
 	    }
-	    else if (valid.equals("Y"))
+	    else if (valid.equals("Y")) {
 	    	Assert.assertEquals(driver.findElement(By.cssSelector(AMLPageHeading)).getText(), "Account Home");
+	    	logger.log(LogStatus.PASS, "Account homepage display for valid login credentials");
+	    }
 	    else {
 	    	Assert.assertEquals(driver.findElements(By.cssSelector(AMLPageHeading)).isEmpty(), true);
 	    	Assert.assertEquals(driver.findElement(By.cssSelector("p.error-msg")).getText(), 
 	    			"Sorry, the user name or password entered is incorrect. Please try again."); // Invalid password validation
+	    	logger.log(LogStatus.PASS, "Error notification for invalid login credentials");
 	    }
 	}
 

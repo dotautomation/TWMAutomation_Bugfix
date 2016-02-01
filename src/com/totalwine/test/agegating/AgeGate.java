@@ -22,40 +22,44 @@ package com.totalwine.test.agegating;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import org.testng.*;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
 public class AgeGate extends Browser {
 	
-		private String IP="71.193.51.0";
+	private String IP="71.193.51.0";
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver.manage().window().maximize();
-	}  
+	}
 	
 	@Test
 	public void AgeGateTest () throws InterruptedException {
-		
+		logger=report.startTest("Age Gate Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnNo")).click();
 		Thread.sleep(1000);
 		//Splash screen validation
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.ageGatingError")).isEmpty(),false);
-		
+		logger.log(LogStatus.PASS, "Screen notification upon clicking No");
 		//Validate URL for responsibility.org
 		Thread.sleep(10000);
 		String url = driver.getCurrentUrl();
 		System.out.println(url);
 		Assert.assertEquals(url, "http://responsibility.org/");
-		
+		logger.log(LogStatus.PASS, "Clicking No on the Age Gate redirects customer to responsibility.org");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -63,5 +67,6 @@ public class AgeGate extends Browser {
 	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
 	    //Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#homeCarousel")).isEmpty(),false); //HomePage validation
+	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");
 	}
 }

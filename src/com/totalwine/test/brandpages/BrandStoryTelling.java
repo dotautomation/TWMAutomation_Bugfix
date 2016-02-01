@@ -16,7 +16,7 @@ package com.totalwine.test.brandpages;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.awt.AWTException;
 import java.io.IOException;
 
@@ -29,6 +29,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -48,7 +49,7 @@ public class BrandStoryTelling extends Browser {
 	
 	@Test 
 	public void BrandStoryTellingTest () throws InterruptedException, BiffException, IOException, AWTException {
-		
+		logger=report.startTest("Brand Storytelling Page Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -63,7 +64,7 @@ public class BrandStoryTelling extends Browser {
 	    Thread.sleep(3000);
 	    String BrandSPURL = driver.getCurrentUrl();
 	    Assert.assertEquals(BrandSPURL.toLowerCase().contains("/wine/brand/".toLowerCase()),true);
-	    
+	    logger.log(LogStatus.PASS, "Brand Story Telling page contains /wine/brand in the URL");
 	    //Validate elements of the Brand Story Telling page are present
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.wrapper-bleed > img")).isEmpty(),false);
 	    Assert.assertEquals("MAILLY", driver.findElement(By.cssSelector("div.wrapper-bleed-t > h1")).getText());
@@ -75,6 +76,7 @@ public class BrandStoryTelling extends Browser {
 	    
 	    //Validate elements of Brand List page are absent
 	    Assert.assertEquals(driver.findElements(By.id("plp-aty-tab")).isEmpty(),true);
+	    logger.log(LogStatus.PASS, "Brand Story Telling page elements are correctly presented and PLP is not displayed");
 	    
 	    //Page Down
 	    WebElement scroll_Country = driver.findElement(By.cssSelector("a.analyticsProductName"));
@@ -87,5 +89,6 @@ public class BrandStoryTelling extends Browser {
 	    Thread.sleep(3000);
 	    String PDPName = driver.findElement(By.cssSelector("h1.product-name")).getText();
 	    Assert.assertEquals(BrandSPName,PDPName);
+	    logger.log(LogStatus.PASS, "PDP can be accessed from the Brand Story Telling page");
 	}
 }

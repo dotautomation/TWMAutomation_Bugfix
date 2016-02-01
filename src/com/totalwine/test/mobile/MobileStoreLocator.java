@@ -15,12 +15,13 @@ package com.totalwine.test.mobile;
  * 			Maximize browser window
  * 	2. Test (Workflow)
  */
-
+//@author=rsud
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -29,6 +30,7 @@ private String IP="98.169.134.0";
 	
 	@Test 
 	public void MobileStoreLocatorTest () throws InterruptedException {
+		logger=report.startTest("Mobile Store Locator Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		if (driver.findElement(By.id("btn-continue")).isDisplayed())
@@ -51,12 +53,14 @@ private String IP="98.169.134.0";
 	    String storeName = driver.findElement(By.cssSelector("a.analyticsStoreName")).getText();
 	    System.out.println(storeName);
 	    Assert.assertEquals(storeName,"Alexandria");
+	    logger.log(LogStatus.PASS, "Mobile Store Locator screen");
 	    
 	    //Shipping Options
 	    driver.findElement(By.cssSelector("a.link-ship-option")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("select.shipping-loc-search-by-state")).isEmpty(),false);
 	    driver.findElement(By.xpath("//a[contains(@href,'totalwine.com/store-finder')]")).click();
 		Thread.sleep(3000);
+		logger.log(LogStatus.PASS, "Mobile Store Locator shipping options");
 	    
 	    //Search by Zip
 	    driver.findElement(By.id("storelocator-query")).clear();
@@ -70,5 +74,6 @@ private String IP="98.169.134.0";
 	    driver.findElement(By.cssSelector("button.btn-red.store-locater-button.cart-change-store.anShopThisStore")).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.xpath("//a[contains(@href,'/store-info/1202')]")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Mobile Store Locator search by zip");
 	 }
 }

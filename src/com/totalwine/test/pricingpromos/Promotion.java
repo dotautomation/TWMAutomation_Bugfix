@@ -17,7 +17,7 @@ package com.totalwine.test.pricingpromos;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -26,6 +26,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -42,6 +43,7 @@ public class Promotion extends Browser {
 
 	@Test //Eligible WD Item
 	public void EligiblePromotion () throws InterruptedException {
+		logger=report.startTest("Promotion: Eligible WD Item Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -86,10 +88,12 @@ public class Promotion extends Browser {
 	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
+	    logger.log(LogStatus.PASS, "Promotion is correctly applied to eligible item");
 	}
 	
 	@Test  //Ineligible WD Item
 	public void IneligibleVarietalPromotion () throws InterruptedException {
+		logger=report.startTest("Promotion: Ineligible Item Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -134,10 +138,12 @@ public class Promotion extends Browser {
 	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
+	    logger.log(LogStatus.PASS, "Promotion is not applied to ineligible WD item");
 	}
 	
 	@Test //Ineligible .97 Item
 	public void Ineligible97Promotion () throws InterruptedException {
+		logger=report.startTest("Promotion: Ineligible Ending w/0.97 Item Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -180,10 +186,12 @@ public class Promotion extends Browser {
 	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
+	    logger.log(LogStatus.PASS, "Promotion is not applied to ineligible item with pricing ending  in 0.97");
 	}
 	
 	@Test //Ineligible Category
 	public void IneligibleCategoryPromotion () throws InterruptedException {
+		logger=report.startTest("Promotion: Ineligible Category Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -228,10 +236,12 @@ public class Promotion extends Browser {
 	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
+	    logger.log(LogStatus.PASS, "Promotion is not applied to item belonging in ineligible category");
 	}
 	
 	@Test  //Price restriction
 	public void InEligiblePricePromotion () throws InterruptedException {
+		logger=report.startTest("Promotion: Price Restriction Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -276,5 +286,6 @@ public class Promotion extends Browser {
 	    scroll.sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
+	    logger.log(LogStatus.PASS, "Promotion considers minimum price restriction");
 	}
 }

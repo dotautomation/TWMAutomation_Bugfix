@@ -24,20 +24,20 @@ package com.totalwine.test.aml;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 
 import java.io.IOException;
 import java.util.Random;
 
 import jxl.read.biff.BiffException;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -52,6 +52,7 @@ public class EmailSignup extends Browser {
 	@Test //(dataProvider = "EmailSignup") //Existing Email Address
 	public void EmailSignupTest () throws InterruptedException, BiffException, IOException {
 		//String [] emailAddresses = {"automate1@totalwine.com","automate2@totalwine.com","automate3@totalwine.com","automate4@totalwine.com"};
+		logger=report.startTest("Email Signup (Existing Email Address)");
 		driver.get(ConfigurationFunctions.locationSet+"71.193.51.0");
 		Thread.sleep(2000);
 		driver.findElement(By.id("btnYes")).click();
@@ -72,10 +73,12 @@ public class EmailSignup extends Browser {
 	    action.moveToElement(driver.findElement(By.id("emailuserregister"))).doubleClick().build().perform(); //Double-click
 	    Thread.sleep(3000);
 	    Assert.assertEquals("The email provided matches an existing account. Please try again.", driver.findElement(By.cssSelector("div.email-container-signin > div.notice")).getText());
+	    logger.log(LogStatus.PASS, "Email signup using existing email address presented an error notification");
 	}
 	
 	@Test //New Email Address
 	public void NewEmailSignupTest () throws InterruptedException {
+		logger=report.startTest("Email Signup (New Email Address");
 		Random rand = new Random();
 	    int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
 	    int randomNum2 = rand.nextInt((1000 - 1) + 1) + 1;
@@ -98,6 +101,7 @@ public class EmailSignup extends Browser {
 	    Actions action = new Actions(driver);
 	    action.moveToElement(driver.findElement(By.id("emailuserregister"))).doubleClick().build().perform(); //Double-click
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Email signup with an unregistered email address");
 	    //Assert.assertEquals("Thank you for signing up to receive emails from Total Wine & More!", driver.findElement(By.cssSelector("#email-signup-overlay-success > div.modal-dialog > div.modal-content > div.modal-body > div.heading-h1")).getText());
 	    //Assert.assertEquals(driver.findElements(By.cssSelector("html>body>section#email-signup-overlay-success.modal.fade.in.email-signup-overlay.an-emailSignUpSuccess>div.modal-dialog>div.modal-content>div.modal-body>div#emailCarousel.carousel.slide>div.carousel-inner-container>div.carousel-indicators-wrapper>div.button>a.btn.btn-red.signUpBtn.analyticsRegister")).isEmpty(),false);
 	}

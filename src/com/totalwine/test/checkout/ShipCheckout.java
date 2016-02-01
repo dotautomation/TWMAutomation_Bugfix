@@ -24,7 +24,7 @@ package com.totalwine.test.checkout;
  * 	5. AfterClass
  * 			Quit webdriver
  */
-
+//@author=rsud
 import java.io.IOException;
 
 import jxl.read.biff.BiffException;
@@ -37,6 +37,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.openqa.selenium.Keys;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -61,7 +62,7 @@ public class ShipCheckout extends Browser {
 	
 	@Test (dataProvider = "CheckoutParameters")
 	public void ShipCheckoutTest (String Location,String StoreName,String PDP,String Quantity,String ShipOption,String Email,String Password, String Phone,String FirstName,String LastName,String Company,String Address1,String Address2,String City,String State,String Zip) throws InterruptedException, BiffException, IOException {
-		
+		logger=report.startTest("Ship Registered Checkout Test");
 		driver.get(ConfigurationFunctions.locationSet+Location);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -69,6 +70,7 @@ public class ShipCheckout extends Browser {
 	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
 	    //Thread.sleep(5000);
 	    Assert.assertEquals(StoreName, driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+	    logger.log(LogStatus.PASS, "The site is configured for a Shipping order");
 	    ConfigurationFunctions.highlightElement(driver,driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")));
 		
 		// Add to Cart
@@ -77,13 +79,13 @@ public class ShipCheckout extends Browser {
 		String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
 		System.out.println(productId);
 		Thread.sleep(2000);
-	    //driver.findElement(By.xpath("(//button[@id='"+productId+"'])[3]")).click(); //Clicking the ATC button
 	    driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click(); //Clicking the ATC button
 		//driver.findElement(By.cssSelector("button.btn.btn-red.mini-cart-popup.anAddToCart")).click();
 		Thread.sleep (3000);
 	    driver.get(ConfigurationFunctions.accessURL+"/cart");
 	    Thread.sleep(3000);
-	    
+	    logger.log(LogStatus.PASS, "The test item is successfully added to cart");
+
 	    // Shopping Cart
 	    //WebElement scroll = driver.findElement(By.id("salesTaxId"));
 	    WebElement scroll = driver.findElement(By.id("checkout"));
@@ -102,6 +104,7 @@ public class ShipCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
 	    driver.findElement(By.id("checkout")).click();
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Shopping cart elements");
 	    
 	    // Next Page (Login/Checkout as a registered user)
 	    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
@@ -109,6 +112,7 @@ public class ShipCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("forgotPasswordCheckout")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("checkoutSignIn")).isEmpty(),false);
+	    logger.log(LogStatus.PASS, "Selecting registered/guest checkout");
 	    
 	    //Login
 	    driver.findElement(By.id("j_username")).clear();
@@ -117,6 +121,7 @@ public class ShipCheckout extends Browser {
 	    driver.findElement(By.id("j_password")).sendKeys(Password);
 	    driver.findElement(By.id("checkoutSignIn")).click();
 	    Thread.sleep(3000);
+	    logger.log(LogStatus.PASS, "Login");
 	    
 	    // Checkout Tab 1
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.shipping-tab")).isEmpty(),false);
@@ -131,8 +136,8 @@ public class ShipCheckout extends Browser {
 	    String regd_phone = driver.findElement(By.id("shipping-phoneNumber")).getAttribute("value");
 	    Assert.assertEquals(regd_email, Email);
 	    Assert.assertEquals(regd_phone, Phone);
-	    
-	    ////////////////
+	    logger.log(LogStatus.PASS, "Checkout Tab 1"
+	    		+ "");
 	    driver.findElement(By.id("nickName")).clear();
 	    driver.findElement(By.id("nickName")).sendKeys("test");
 	    driver.findElement(By.id("firstName")).clear();
@@ -145,11 +150,11 @@ public class ShipCheckout extends Browser {
 	    driver.findElement(By.id("addressLine1")).sendKeys(Address1);
 	    driver.findElement(By.id("city")).clear();
 	    driver.findElement(By.id("city")).sendKeys(City);
-	    ////////////////
 	    
 	    
 	    driver.findElement(By.id("btnShipAuth1")).click();
 	    Thread.sleep(5000);
+	    logger.log(LogStatus.PASS, "Registered Ship Checkout Tab 1");
 	    
 	    // Checkout Tab 2
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.billing-tab")).isEmpty(),false);
@@ -158,6 +163,7 @@ public class ShipCheckout extends Browser {
 	    driver.findElement(By.xpath("//div[4]/span")).click();
 	    driver.findElement(By.xpath("//button[@onclick='javascript:selectCard();']")).click();
 	    Thread.sleep(10000);
+	    logger.log(LogStatus.PASS, "Registered Ship Checkout Tab 2");;
 	    
 	    // Checkout Tab 3
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.review-tab")).isEmpty(),false);
@@ -174,6 +180,7 @@ public class ShipCheckout extends Browser {
 	    //driver.findElement(By.xpath("//form[@id='placeOrderForm1']/section/div/button")).click();
 	    driver.findElement(By.cssSelector("button.btn-red.btn-place-order.anPlaceOrder")).click();
 	    Thread.sleep(10000);
+	    logger.log(LogStatus.PASS, "Registered Ship Checkout Tab 3");
 	    
 	    // Order Confirmation 
 	    //Cannot validate as credit card gets declined
@@ -182,13 +189,4 @@ public class ShipCheckout extends Browser {
 	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
 	    //Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
 	}
-	
-	/*@AfterMethod 
-	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException { 
-		if(testResult.getStatus() == ITestResult.FAILURE) { 
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("c:\\totalwine\\TWMAutomation\\FailureScreenshots\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png")); 
-		}
-		driver.close();
-	}*/
 }
