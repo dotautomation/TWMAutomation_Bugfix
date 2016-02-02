@@ -48,7 +48,7 @@ public class EmailSignup extends Browser {
     	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"EmailSignup", "emailaddresses");
         return(retObjArr);
     } 
-	
+//	
 	@Test //(dataProvider = "EmailSignup") //Existing Email Address
 	public void EmailSignupTest () throws InterruptedException, BiffException, IOException {
 		//String [] emailAddresses = {"automate1@totalwine.com","automate2@totalwine.com","automate3@totalwine.com","automate4@totalwine.com"};
