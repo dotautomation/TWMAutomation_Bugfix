@@ -29,14 +29,10 @@ package com.totalwine.test.checkout;
  * 			Quit WebDriver
  */
 
-
 import java.io.IOException;
-import java.util.Random;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -48,26 +44,19 @@ import com.totalwine.test.trials.Browser;
 
 import jxl.read.biff.BiffException;
 
-
-
-		
 		public class RegisteredShipCheckOutUsingSavedCc extends Browser {
-			
-			
-			
+
 			@DataProvider(name="CheckoutParameters")
 		    public Object[][] createData() {
 		    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredShipCheckOutUsingSavedCcBF");
 		        return(retObjArr);
 		    } 
-			
-			
+
 			@BeforeMethod
 			  public void setUp() throws Exception {
 			    driver.manage().window().maximize();	
 				 }  
-			
-			
+
 			@Test (dataProvider = "CheckoutParameters")
 			public void RegisteredUserShipCheckOutUsingSavedCc (String Location,String StoreName,String PDP,String Quantity,String ShipOption,String FirstName,
 					String LastName,String Company,String Address1,String Address2,String City,String State,String Zip,String Email, 
@@ -75,52 +64,42 @@ import jxl.read.biff.BiffException;
 							
 							throws InterruptedException, BiffException, IOException {
 
-				
-				
 				logger=report.startTest("Registered Ship Checkout using saved credit card Test");
 				driver.get(ConfigurationFunctions.locationSet+Location);
 				Thread.sleep(5000);
 				driver.findElement(By.id("btnYes")).click();
 				Thread.sleep(5000);
-			    
-				
+
 			    Assert.assertEquals(StoreName, driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
 			    logger.log(LogStatus.PASS, "The site is configured for an Ship order");
 			    
 			    ConfigurationFunctions.highlightElement(driver,driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")));
-				
-				
-		    	
+
 		   	 	// **  Selecting a product from PDP
 				driver.get(ConfigurationFunctions.accessURL+PDP);
 				Thread.sleep(3000);
-				
-				
+
 				// **  Add to Cart
 				String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
 				System.out.println(productId);
 				Thread.sleep(2000);
-				
-			    
+
 			    driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click(); //Clicking the ATC button
 				Thread.sleep (3000);
 				
 			    driver.get(ConfigurationFunctions.accessURL+"/cart");
 			    Thread.sleep(3000);
-			    
-			    
+
 			    //  ** Shopping Cart
 			    WebElement scroll = driver.findElement(By.id("checkout"));
 
-			    
 			    scroll.sendKeys(Keys.PAGE_DOWN); //  ** Scrolling down page
 			    driver.findElement(By.cssSelector("input[id='zipCode']")).click();
 			    driver.findElement(By.cssSelector("input[id='zipCode']")).clear();
 			    driver.findElement(By.cssSelector("input[id='zipCode']")).sendKeys(Zip);
 		  	    driver.findElement(By.cssSelector("input.anZipForm[value='Submit']")).click();
 			    Thread.sleep(1000);
-			    
-			    
+
 			    driver.findElement(By.cssSelector("#deliveryMode > div.customselect > span.itemval")).click();
 			    driver.findElement(By.cssSelector("li[data-val="+ShipOption+"]")).click();
 			    Thread.sleep(2000);
@@ -132,7 +111,6 @@ import jxl.read.biff.BiffException;
 			    driver.findElement(By.id("checkout")).click();
 			    Thread.sleep(3000);
 			    logger.log(LogStatus.PASS, "Shopping cart elements");
-							    
 
 			    // **  Next Page (Login/Checkout as a registered user)
 			    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
@@ -141,8 +119,7 @@ import jxl.read.biff.BiffException;
 			    Assert.assertEquals(driver.findElements(By.id("forgotPasswordCheckout")).isEmpty(),false);
 			    Assert.assertEquals(driver.findElements(By.id("checkoutSignIn")).isEmpty(),false);
 			    logger.log(LogStatus.PASS, "Selecting registered checkout");
-			    
-			    
+
 			    // **  Login
 			    driver.findElement(By.id("j_username")).clear();
 			    driver.findElement(By.id("j_username")).sendKeys(Email);
@@ -152,24 +129,21 @@ import jxl.read.biff.BiffException;
 			    Thread.sleep(3000);
 			    logger.log(LogStatus.PASS, "Login");
 			    
-			    
+
 			    // **  Checkout Tab-1
 			    Thread.sleep(2000);
 			    
 			    driver.findElement(By.id("shiporderhere_8864324616215")).click();
 			    logger.log(LogStatus.PASS, "Clicking on Ship Order Here Radio button");
-			    
-			    
+
 			    WebElement scroll2 = driver.findElement(By.id("btnShipAuth1")); //  ** Scrolling down page
 			    scroll2.sendKeys(Keys.PAGE_DOWN);
 
-			    
 			    driver.findElement(By.id("btnShipAuth1")).click();
 
 			    Thread.sleep(2000);
 			    logger.log(LogStatus.PASS, "Checkout Tab 1");
-			    
-			    
+
 			    // **  Checkout Tab-2
 			    driver.findElement(By.id("card_8813397442602")).click();
 			    
@@ -180,9 +154,7 @@ import jxl.read.biff.BiffException;
 			    driver.findElement(By.cssSelector(".btn.btn-red.anContinue")).click();
 			    Thread.sleep(2000);
 			    logger.log(LogStatus.PASS, "Checkout Tab 2");
-			    
-			    
-			    
+
 			    // **  Checkout Tab-3
 			    WebElement scroll4 = driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")); //  ** Scrolling down page
 			    scroll4.sendKeys(Keys.PAGE_DOWN);
@@ -193,47 +165,10 @@ import jxl.read.biff.BiffException;
 			    driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")).click();
 			    Thread.sleep(2000);
 			    logger.log(LogStatus.PASS, "Checkout Tab 3");
-			    
-			    
-			    
-			    
+
 			    // Order Confirmation
 			    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
 			    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
 			    logger.log(LogStatus.PASS, "Registered Ship Checkout Order Confirmation");
-			    
-			    
-			    
-			    
-			    
-/************* "switchTo" & "action.moveToElement" code for future use 	      
-//				// **  Clicking Account on header
-//		    	driver.findElement(By.cssSelector(".analyticsHeaderLink[href='#']")).click();
-//		    	Thread.sleep(1000);
-//		    	
-//		    	driver.findElement(By.cssSelector(".btn.btn-red.acc-link.analyticsSignIn")).click();
-//		    	Thread.sleep(1000);
-		    	
-			    
-//				// **  Filling up overlay form
-//		    	driver.switchTo().frame(driver.findElement(By.id("iframe-signin-overlay")));
-//		    	
-//			    driver.findElement(By.id("j_username")).clear();
-//			    driver.findElement(By.id("j_username")).sendKeys(Email);
-//			    
-//		    	driver.findElement(By.id("j_password")).click();
-//		    	driver.findElement(By.id("j_password")).sendKeys(Password);
-//		    			    	
-//		    	driver.findElement(By.cssSelector(".btn.btn-red.anLoginSubmit")).click();
-//		    			    	
-//		    	Thread.sleep(1000);
-//		    	
-//		    	
-//		    	
-//			    Actions action = new Actions(driver);
-//			    action.moveToElement(driver.findElement(By.id("emailuserregister"))).doubleClick().build().perform(); //Double-click
-//			    Thread.sleep(3000);
-**********************************************/
-			    		
 	}
 }

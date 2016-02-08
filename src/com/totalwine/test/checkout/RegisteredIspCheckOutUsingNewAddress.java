@@ -34,7 +34,6 @@ package com.totalwine.test.checkout;
 	import org.openqa.selenium.By;
 	import org.openqa.selenium.Keys;
 	import org.openqa.selenium.WebElement;
-	import org.openqa.selenium.interactions.Actions;
 	import org.testng.Assert;
 	import org.testng.annotations.BeforeMethod;
 	import org.testng.annotations.DataProvider;
@@ -44,23 +43,19 @@ package com.totalwine.test.checkout;
 	import com.totalwine.test.trials.Browser;
 	import jxl.read.biff.BiffException;
 
-			
 			public class RegisteredIspCheckOutUsingNewAddress extends Browser {
-				
-				
+
 				@DataProvider(name="CheckoutParameters")
 			    public Object[][] createData() {
 			    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredIspCheckOutUsingNewAddressBF");
 			        return(retObjArr);
 			    } 
-				
-				
+
 				@BeforeMethod
 				  public void setUp() throws Exception {
 				    driver.manage().window().maximize();	
 					 }  
-				
-				
+
 				@Test (dataProvider = "CheckoutParameters")
 				public void RegisteredIspCheckOutUsingNewAddressTest (String Location,String StoreName,String PDP,String Quantity,String ShipOption,
 						String ISPOption,String FirstName,String LastName,String Company,String Address1,String Address2,String City,String State,
@@ -69,48 +64,39 @@ package com.totalwine.test.checkout;
 								
 								throws InterruptedException, BiffException, IOException {
 
-
 					Random rand = new Random();
 				    int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
 				    int randomNum_2 = rand.nextInt((1000 - 1) + 1) + 1;
-					
-					
+
 					logger=report.startTest("Registered ISP Checkout using New address");
 					driver.get(ConfigurationFunctions.locationSet+Location);
 					Thread.sleep(5000);
 					driver.findElement(By.id("btnYes")).click();
 					Thread.sleep(5000);
-				    
-					
+
 				    Assert.assertEquals(StoreName, driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
 				    logger.log(LogStatus.PASS, "The site is configured for an ISP order");
 				    
 				    ConfigurationFunctions.highlightElement(driver,driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")));
-					
-					
-			    	
+
 			   	 	// **  Selecting a product from PDP
 					driver.get(ConfigurationFunctions.accessURL+PDP);
 					Thread.sleep(3000);
-					
-					
+
 					// **  Adding item to Cart
 					String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
 					System.out.println(productId);
 					Thread.sleep(1000);
-					
-				    
+
 				    driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click();   //** Clicking the ATC button
 					Thread.sleep (3000);
 					
 				    driver.get(ConfigurationFunctions.accessURL+"/cart");
 				    Thread.sleep(3000);
 				    logger.log(LogStatus.PASS, "Item is added to cart");
-				    			    
-				    
+
 				    WebElement scroll3 = driver.findElement(By.id("checkout")); // ** Scrolling page down upto the element
 				    scroll3.sendKeys(Keys.PAGE_DOWN);  
-				    
 
 				    driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
 				    driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]")).click();
@@ -122,7 +108,6 @@ package com.totalwine.test.checkout;
 				    Thread.sleep(3000);
 				    logger.log(LogStatus.PASS, "Shopping cart");
 
-				    
 				    // **  Next Page (Verification Login/Checkout as a registered user)
 				    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
 				    Assert.assertEquals(driver.findElements(By.id("j_password")).isEmpty(),false);
@@ -130,8 +115,7 @@ package com.totalwine.test.checkout;
 				    Assert.assertEquals(driver.findElements(By.id("forgotPasswordCheckout")).isEmpty(),false);
 				    Assert.assertEquals(driver.findElements(By.id("checkoutSignIn")).isEmpty(),false);
 				    logger.log(LogStatus.PASS, "Selecting registered checkout");
-				    
-				    
+
 				    // **  Login
 				    driver.findElement(By.id("j_username")).clear();
 				    driver.findElement(By.id("j_username")).sendKeys(Email);
@@ -140,9 +124,7 @@ package com.totalwine.test.checkout;
 				    driver.findElement(By.id("checkoutSignIn")).click();
 				    Thread.sleep(3000);
 				    logger.log(LogStatus.PASS, "Login");
-				    
-				    
-				    
+
 				    // **  Checkout Tab-1
 				    WebElement scroll5 = driver.findElement(By.id("btnPickup")); //  ** Scrolling down page
 				    scroll5.sendKeys(Keys.PAGE_DOWN);
@@ -150,8 +132,7 @@ package com.totalwine.test.checkout;
 				    driver.findElement(By.id("btnPickup")).click();
 				    Thread.sleep(2000);
 				    logger.log(LogStatus.PASS, "Checkout Tab 1");
-				    
-				    
+
 				    // **  Checkout Tab-2 [ Checkout using New billing address ]
 				    driver.findElement(By.cssSelector("em.icon.icon-edit")).click();
 				    Thread.sleep(8000);
@@ -160,8 +141,7 @@ package com.totalwine.test.checkout;
 				    driver.findElement(By.id("nickName")).click();
 				    driver.findElement(By.id("nickName")).clear();
 				    driver.findElement(By.id("nickName")).sendKeys(CardNickname);
-				    
-				    
+
 					 // ** Creating Random Address Nick Name
 				    driver.findElement(By.id("addressNickName")).clear();
 				    driver.findElement(By.id("addressNickName")).sendKeys("AutoAddressNickName_"+randomNum+"."+randomNum_2+"totalwine");
@@ -212,8 +192,7 @@ package com.totalwine.test.checkout;
 				    driver.findElement(By.cssSelector(".btn.btn-red.anContinue")).click();
 				    Thread.sleep(2000);
 				    logger.log(LogStatus.PASS, "Checkout Tab-2 [ Checkout using New billing address ]");
-				    
-				    
+
 				    // **  Checkout Tab-3
 				    WebElement scroll8 = driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")); //  ** Scrolling down page
 				    scroll8.sendKeys(Keys.PAGE_DOWN);
@@ -224,8 +203,7 @@ package com.totalwine.test.checkout;
 				    driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")).click();
 				    Thread.sleep(2000);
 				    logger.log(LogStatus.PASS, "Checkout Tab 3");
-				    
-				    
+
 				    // Order Confirmation
 				    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
 				    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
