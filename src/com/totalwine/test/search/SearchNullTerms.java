@@ -53,6 +53,7 @@ public class SearchNullTerms {
 	    	//System.out.println(SearchTerm+","+SearchType);
 	    	writer.write(SearchTerm+",");
 	    	writer.write(SearchType+",");
+	    	System.out.println(SearchTerm);
 	    	//Select Search Type
 	    	driver.findElement(By.cssSelector("span.search-left-cont-three-Lines")).click();
 	    	Thread.sleep(2000);
