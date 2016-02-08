@@ -27,13 +27,14 @@ import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 
 public class BrowseEvent extends Browser {
 	
-	//private String IP="71.193.51.0";
-	private String IP="199.241.138.201";
+	private String IP="71.193.51.0";
+	//private String IP="199.241.138.201";
 	
 	@BeforeMethod
 	  public void setUp() throws Exception {
@@ -47,10 +48,10 @@ public class BrowseEvent extends Browser {
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
+	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    Thread.sleep(5000);
 
-	    driver.findElement(By.linkText("Classes & Events")).click();
+	    driver.findElement(PageGlobal.TopNavClassesEvents).click();
 	    Thread.sleep(3000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.event-title")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Stores")).isEmpty(),false);

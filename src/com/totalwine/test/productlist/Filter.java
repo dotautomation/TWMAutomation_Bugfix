@@ -106,7 +106,7 @@ public class Filter extends Browser {
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.xpath("//a[contains(text(),'Country/State')]")).click();
+	    //driver.findElement(By.xpath("//a[contains(text(),'Country/State')]")).click();
 	    Thread.sleep(2000);
 	    //WebElement scroll_Country = driver.findElement(By.id("check_box_showmoreCaliforniastate"));
 	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);

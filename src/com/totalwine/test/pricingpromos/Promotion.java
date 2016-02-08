@@ -81,11 +81,7 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your promotion has been applied successfully.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    //driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is correctly applied to eligible item");
@@ -115,12 +111,8 @@ public class Promotion extends Browser {
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("6");
 	    
-	    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    
+	    //WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
+	    driver.findElement(By.id("voucherCode")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -131,11 +123,7 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is not applied to ineligible WD item");
@@ -164,11 +152,7 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("6");
-		    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
-		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-		    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+		driver.findElement(By.id("voucherCode")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("voucherCode")).sendKeys("1221");
@@ -213,11 +197,7 @@ public class Promotion extends Browser {
 	    driver.findElement(By.name("qty")).clear();
 	    driver.findElement(By.name("qty")).sendKeys("6");
 	    
-	    WebElement scroll_Country = driver.findElement(By.id("voucherCode"));
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.id("voucherCode")).sendKeys(Keys.ARROW_DOWN);
 	    
 	    driver.findElement(By.cssSelector("a.js-update-qty > span")).click();
 	    Thread.sleep(2000);
@@ -229,11 +209,7 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is not applied to item belonging in ineligible category");
@@ -279,11 +255,7 @@ public class Promotion extends Browser {
 	    Assert.assertEquals("Your order doesn't qualify for this promotion. Please check your order to ensure that it meets the requirements.", driver.findElement(By.cssSelector("p.error-msg")).getText());
 
 	    //Empty the cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
-	    scroll.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("RemoveProduct_0")).click();
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion considers minimum price restriction");
