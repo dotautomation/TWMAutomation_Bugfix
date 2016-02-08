@@ -33,6 +33,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 public class AgeGate extends Browser {
@@ -49,7 +50,7 @@ public class AgeGate extends Browser {
 		logger=report.startTest("Age Gate Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
-		driver.findElement(By.id("btnNo")).click();
+		driver.findElement(PageGlobal.AgeGateNo).click();
 		Thread.sleep(1000);
 		//Splash screen validation
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.ageGatingError")).isEmpty(),false);
@@ -62,7 +63,7 @@ public class AgeGate extends Browser {
 		logger.log(LogStatus.PASS, "Clicking No on the Age Gate redirects customer to responsibility.org");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
+		driver.findElement(PageGlobal.AgeGateYes).click();
 		Thread.sleep(5000);
 	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
 	    //Thread.sleep(5000);

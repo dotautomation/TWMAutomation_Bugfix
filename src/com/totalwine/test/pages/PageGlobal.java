@@ -20,6 +20,8 @@ import org.openqa.selenium.By;
 		public static final By TopNavShoppingList = By.cssSelector("a.analyticsHeaderLink[href*=\"/shoppinglist\"]");
 		
 		//Search Bar
+		public static final By SearchBar = By.cssSelector("input#header-search-text");
+		public static final By SearchButton = By.cssSelector("a.search-right-cont-mini-search-logo.analyticsSearch");
 		
 		//Top Level Menu
 		

@@ -32,6 +32,7 @@ import org.testng.annotations.DataProvider;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 
@@ -55,14 +56,14 @@ public class Search extends Browser {
 		logger=report.startTest("Search Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
+		driver.findElement(PageGlobal.AgeGateYes).click();
 		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
 	    Thread.sleep(5000);
 		
-		driver.findElement(By.id("header-search-text")).clear();
-	    driver.findElement(By.id("header-search-text")).sendKeys(searchTerm);
-	    driver.findElement(By.cssSelector("a[class=\"search-right-cont-mini-search-logo analyticsSearch\"]")).click();
+		driver.findElement(PageGlobal.SearchBar).clear();
+	    driver.findElement(PageGlobal.SearchBar).sendKeys(searchTerm);
+	    driver.findElement(PageGlobal.SearchButton).click();
 	    Thread.sleep(3000);
 	    logger.log(LogStatus.PASS, "Enter "+searchTerm+" as a search term");
 	    //Search Page Elements

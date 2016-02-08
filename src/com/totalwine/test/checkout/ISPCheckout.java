@@ -40,6 +40,7 @@ import org.openqa.selenium.Keys;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageShoppingCart;
 import com.totalwine.test.trials.Browser;
 
 public class ISPCheckout extends Browser {
@@ -85,8 +86,7 @@ public class ISPCheckout extends Browser {
 	    logger.log(LogStatus.PASS, "Item is added to cart");
 	    
 	    // Shopping Cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.PAGE_DOWN);
+	    driver.findElement(PageShoppingCart.CheckOutButton).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
 	    driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
