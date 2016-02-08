@@ -32,17 +32,14 @@ package com.totalwine.test.checkout;
  * 			Quit WebDriver
  */
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import org.testng.Assert;
 import jxl.read.biff.BiffException;
-import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.openqa.selenium.Keys;
@@ -50,8 +47,6 @@ import org.openqa.selenium.Keys;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
-
-import com.totalwine.test.pages.CheckoutPage;
 
 
 public class CreateAccountAfterGuestCheckout extends Browser {
@@ -161,13 +156,6 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    Thread.sleep(5000);
 	    logger.log(LogStatus.PASS, "Creating account after Guest Checkout Tab 1");
 	    
-	    
-	    // ** Checkout Tab 2
-
-//	    WebElement radioBtn = driver.findElement(By.xpath(".//*[@value='DISCOVER']"));  //** If paid by Discover card
-//	    WebElement radioBtn = driver.findElement(By.cssSelector("input#custom_card_type[value='AMEX']"));  //** If paid by Amex card
-//	    radioBtn.click();
-	        
 	    driver.findElement(By.id("ssl_account_data")).click();
 	    driver.findElement(By.id("ssl_account_data")).clear();
 	    driver.findElement(By.id("ssl_account_data")).sendKeys(CreditCard);
@@ -235,8 +223,6 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 
 	    driver.findElement(By.xpath(".//*[@id='co-pass']")).sendKeys("grapes123");
 	    driver.findElement(By.xpath(".//*[@id='co-pass-re']")).sendKeys("grapes123");
-
-	    
 	    
 	    //Check for survey pop-up
 	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
