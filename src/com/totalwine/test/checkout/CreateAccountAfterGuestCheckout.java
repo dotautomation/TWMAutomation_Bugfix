@@ -126,6 +126,7 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div[class=\"width-100 totalDotBorder noBorder ship-cost\"]")).isEmpty(),false); //**Validate appearance of shipping cost
 	    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
+	      
 	    driver.findElement(By.id("checkout")).click();
 	    Thread.sleep(3000);
   
@@ -145,8 +146,6 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    driver.findElement(By.id("addressLine1")).sendKeys(Address1);
 	    driver.findElement(By.id("city")).clear();
 	    driver.findElement(By.id("city")).sendKeys(City);
-//	    driver.findElement(By.id("shipping-email")).clear();
-//	    driver.findElement(By.id("shipping-email")).sendKeys(Email);
 	    
 
 	    // *** Creating Random Email
@@ -165,15 +164,10 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    
 	    // ** Checkout Tab 2
 
-//	    WebElement radioBtn = driver.findElement(By.xpath(".//*[@value='DISCOVER']"));
-//	    WebElement radioBtn = driver.findElement(By.cssSelector("input#custom_card_type[value='AMEX']"));
+//	    WebElement radioBtn = driver.findElement(By.xpath(".//*[@value='DISCOVER']"));  //** If paid by Discover card
+//	    WebElement radioBtn = driver.findElement(By.cssSelector("input#custom_card_type[value='AMEX']"));  //** If paid by Amex card
 //	    radioBtn.click();
-	    
-	   
-//	    CheckoutPage.CREDITCARDTEXTFIELD.click();  // Will add later on. linked to  - com.totalwine.test.pages.CheckoutPage.java
-//	    CheckoutPage.CREDITCARDTEXTFIELD.clear();  // Will add later on 
-//	    CheckoutPage.CREDITCARDTEXTFIELD.sendKeys(CreditCard);  // Will add later on 
-	    
+	        
 	    driver.findElement(By.id("ssl_account_data")).click();
 	    driver.findElement(By.id("ssl_account_data")).clear();
 	    driver.findElement(By.id("ssl_account_data")).sendKeys(CreditCard);
@@ -227,20 +221,29 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Creating account after Guest Checkout order confirmation");
 
-	    //  ** Checking for survey Popup
-	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
-	    	driver.findElement(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).click();
+  
 	    
-
 	    //  ** Creating Account
 	    driver.findElement(By.id("btnCreateAcc")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("btnCreateAcc")).click();
-
+	    
+	    
+	    //  ** Checking for survey Popup
+	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
+	    	driver.findElement(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).click();
 	    Thread.sleep(10000);
 
 	    driver.findElement(By.xpath(".//*[@id='co-pass']")).sendKeys("grapes123");
 	    driver.findElement(By.xpath(".//*[@id='co-pass-re']")).sendKeys("grapes123");
 
+	    
+	    
+	    //Check for survey pop-up
+	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
+	    	driver.findElement(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).click();
+	    Thread.sleep(2000);
+	    
+	    
 	    WebElement element = driver.findElement(By.xpath(".//*[@id='frmCOCreateAcc']/table/tbody/tr[5]/td[2]/div/div/div/span/span"));  
         	new Actions(driver).moveToElement(element).perform();   //  ** Selecting element from drop-down
         	element.click();
@@ -270,11 +273,16 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    driver.findElement(By.id("city")).clear();
 	    driver.findElement(By.id("city")).sendKeys("Bethesda");
 	    
-	    WebElement element2 = driver.findElement(By.xpath("//div[10]/div/div/span/span"));  
-        	new Actions(driver).moveToElement(element2).perform();  
-        	element2.click();
-	    Thread.sleep(2000);
-	    driver.findElement(By.xpath("//div[10]/div/div/div/div/div/ul/li[2]")).click();
+	    
+	    
+	    WebElement scroll1 = driver.findElement(By.id("zipCode"));
+	 	scroll1.sendKeys(Keys.ARROW_DOWN);   //** Scrolling down the page upto a specific element 
+	    
+	    WebElement element2 = driver.findElement(By.xpath(".//*[@id='laneuserregistration']/section[2]/div[2]/div/div[10]/div/div/span/span"));  
+        	new Actions(driver).moveToElement(element2).perform();
+        	element2.click();   
+	    Thread.sleep(1000);
+	    driver.findElement(By.xpath(".//*[@id='laneuserregistration']/section[2]/div[2]/div/div[10]/div/div/div/div/div[1]/ul/li[3]")).click();
 	    
 	    driver.findElement(By.id("zipCode")).clear();
 	    driver.findElement(By.id("zipCode")).sendKeys("20817");
