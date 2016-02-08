@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<!--suite name="MultiBrowserSuite" verbose="2" parallel="tests"-->
+<!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
-  <test name="1">
-	<parameter name="browser" value="Chrome">
-	</parameter>
-    <classes>
-
-<!-- <class name="com.totalwine.test.aml.EmailSignup"/> -->
-
-
-<!-- <class name="com.totalwine.test.checkout.NegativeInventoryTest"/> -->
-<!-- <class name="com.totalwine.test.checkout.ShipCheckout"/> --> <!-- Used Registered A/C -->
-<!-- <class name="com.totalwine.test.checkout.ISPCheckout"/> --> <!-- Used Guest A/C -->
-
-
-<!-- <class name="com.totalwine.test.checkout.GuestShipCheckout"/> -->
-<class name="com.totalwine.test.checkout.CreateAccountAfterGuestCheckout"/>
-
-
-<!-- <class name="com.totalwine.test.checkout.RegisteredIspCheckOutSavedCc"/>  -->
-
-
-<!-- <class name="com.totalwine.test.checkout.ModifyCartDuringCheckout"/> -->
-<!-- <class name="com.totalwine.test.checkout.RegisteredIspCheckOutNewAddress"/> -->
-<!-- <class name="com.totalwine.test.checkout.RegisteredIspCheckOutSavedAddress"/> -->
-
-
-    </classes>
-  </test>
+	<test name="1">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.storelocator.SLBrowseByRadius" />
+		</classes>
+	</test>
 </suite>

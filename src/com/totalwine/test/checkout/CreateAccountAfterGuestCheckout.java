@@ -35,8 +35,11 @@ package com.totalwine.test.checkout;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
 import org.testng.Assert;
+
 import jxl.read.biff.BiffException;
+
 import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
@@ -46,9 +49,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.openqa.selenium.Keys;
+
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
-
 import com.totalwine.test.pages.CheckoutPage;
 
 
@@ -245,7 +248,11 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 
 	    driver.findElement(By.xpath(".//*[@id='co-pass']")).sendKeys("grapes123");
 	    driver.findElement(By.xpath(".//*[@id='co-pass-re']")).sendKeys("grapes123");
-
+	    
+	    //Check for survey pop-up
+	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
+	    	driver.findElement(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).click();
+	    Thread.sleep(2000);
 	    
 	//  ** Selecting element from drop-down
 	    WebElement element = driver.findElement(By.xpath(".//*[@id='frmCOCreateAcc']/table/tbody/tr[5]/td[2]/div/div/div/span/span"));  
