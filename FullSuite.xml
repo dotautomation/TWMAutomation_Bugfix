@@ -184,6 +184,16 @@
 	</test>
 	
 
+		<!--Preference Updates -->
+	<test name="Preference Updates">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.aml.PreferenceUpdates" />
+		</classes>
+	</test>
+
+
 	<!--Browse Events (executed on Cross-Browsers) -->
 	<test name="Browse Events on FF">
 		<parameter name="browser" value="FF">
