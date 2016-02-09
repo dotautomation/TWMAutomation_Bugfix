@@ -4,13 +4,10 @@
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
 	<test name="IE Tests">
-		<parameter name="browser" value="IE">
+		<parameter name="browser" value="Chrome">
 		</parameter>
 		<classes>
-			<class name="com.totalwine.test.checkout.ISPCheckout" />
-			<class name="com.totalwine.test.events.BrowseEvent" />
-			<class name="com.totalwine.test.search.Search" />
-			<class name="com.totalwine.test.agegating.AgeGate" />
+			<class name="com.totalwine.test.checkout.ShipCheckout" />
 		</classes>
 	</test>
 </suite>
