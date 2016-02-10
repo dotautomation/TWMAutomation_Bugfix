@@ -76,7 +76,7 @@ public class BrandList extends Browser {
 	    Assert.assertEquals(driver.findElements(By.linkText("Expert Rating")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Rating Source")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Price")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.linkText("Wine Volume")).isEmpty(),false);
+	    //Assert.assertEquals(driver.findElements(By.linkText("Wine Volume")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.dropdown.plp-product-sorting-sortby-dropdown > div.customselect > span.itemval > span")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Pick up or ship")).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Brand List page elements");
