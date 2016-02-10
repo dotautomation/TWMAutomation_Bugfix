@@ -3,12 +3,6 @@
 
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
-	<!-- Results Archiving -->
-	<test name="Archiving Results">
-		<classes>
-			<class name="com.totalwine.test.trials.Results" />
-		</classes>
-	</test>
 	<test name="IE Tests">
 		<parameter name="browser" value="Chrome">
 		</parameter>
