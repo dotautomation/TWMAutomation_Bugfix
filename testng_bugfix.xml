@@ -3,11 +3,11 @@
 
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
-	<test name="1">
+	<test name="IE Tests">
 		<parameter name="browser" value="Chrome">
 		</parameter>
 		<classes>
-			<class name="com.totalwine.test.storelocator.SLPages" />
+			<class name="com.totalwine.test.checkout.ShipCheckout" />
 		</classes>
 	</test>
 </suite>

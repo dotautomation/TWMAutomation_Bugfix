@@ -40,6 +40,8 @@ import org.openqa.selenium.Keys;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
+import com.totalwine.test.pages.PageShoppingCart;
 import com.totalwine.test.trials.Browser;
 
 public class ISPCheckout extends Browser {
@@ -80,13 +82,14 @@ public class ISPCheckout extends Browser {
 		//driver.findElement(By.cssSelector("button.btn.btn-red.mini-cart-popup.anAddToCart")).click();
 		Thread.sleep (3000);
 	    //driver.findElement(By.cssSelector("div.cart-popup")).click();
-	    driver.get(ConfigurationFunctions.accessURL+"/cart");
-	    Thread.sleep(3000);
+	    //driver.get(ConfigurationFunctions.accessURL+"/cart");
+	    driver.findElement(PageGlobal.MiniCart).click();
+	    Thread.sleep(5000);
 	    logger.log(LogStatus.PASS, "Item is added to cart");
 	    
 	    // Shopping Cart
-	    WebElement scroll = driver.findElement(By.id("checkout"));
-	    scroll.sendKeys(Keys.PAGE_DOWN);
+	    driver.findElement(PageShoppingCart.CheckOutButton).sendKeys(Keys.ARROW_DOWN);
+	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
 	    driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);

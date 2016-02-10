@@ -154,12 +154,12 @@ public class Filter extends Browser {
 	    logger.log(LogStatus.PASS, "PLP Rating Source facet");
 	    
 	    //Rating Range
-	    WebElement scroll_RatingRange = driver.findElement(By.linkText("Expert Rating"));
+	    //WebElement scroll_RatingRange = driver.findElement(By.linkText("Expert Rating"));
 	 	/*scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);
-	 	scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);*/
-	 	//driver.findElement(By.xpath("//a[contains(text(),'Expert Rating')]")).click();
+	 	driver.findElement(By.linkText("Expert Rating")).sendKeys(Keys.ARROW_DOWN);
+	 	driver.findElement(By.xpath("//a[contains(text(),'Expert Rating')]")).click();
 	    driver.findElement(By.id("check_box_showmore89 and Belowratingrange")).click();
 	    Thread.sleep(3000);
 	    facetValue = driver.findElement(By.cssSelector("span.filter-value")).getText();
