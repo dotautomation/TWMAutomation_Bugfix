@@ -2,7 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="DOT Desktop Regression Test Suite" verbose="2">
-	<!--Mobile Tests -->
+	<!-- Results Archiving -->
+	<test name="Archiving Results">
+		<classes>
+			<class name="com.totalwine.test.trials.Results" />
+		</classes>
+	</test>
+	<!-- Mobile Tests -->
 	<test name="Android Tests">
 		<parameter name="browser" value="Android">
 		</parameter>
@@ -26,8 +32,8 @@
 			<class name="com.totalwine.test.mobile.MobileISPGuestCheckout" />
 		</classes>
 	</test>
-	<!--End of Mobile -->
-	<!--Desktop Tests -->
+	<!-- End of Mobile -->
+	<!-- Desktop Tests -->
 	<test name="Chrome Tests">
 		<parameter name="browser" value="Chrome">
 		</parameter>
