@@ -12,4 +12,7 @@ public class PageStoreLocator {
 		public static final By RadiusDropdownValues = By.cssSelector("div.dist-dropdown > span");
 		//public static final By SearchResultsStoreNames = By.cssSelector("address > a.analyticsStoreLink");
 		public static final By SearchResultsStoreNames = By.cssSelector("div > address");
+		
+		//Store Detail
+		public static final By StartInStoreOrderButton = By.cssSelector("button#startInStoreBtn");
 	}

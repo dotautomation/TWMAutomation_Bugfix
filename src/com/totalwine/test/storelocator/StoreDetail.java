@@ -43,6 +43,7 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageStoreLocator;
 import com.totalwine.test.trials.Browser;
 
 public class StoreDetail extends Browser {
@@ -116,7 +117,8 @@ public class StoreDetail extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a#upcomingEventLink")).isEmpty(), false);//See all events
 	    logger.log(LogStatus.PASS, "Validate elements in store detail page");
 		//Click Make this my store button and validate store session change
-	    driver.findElement(By.cssSelector("button#startInStoreBtn")).click();
+	    driver.findElement(PageStoreLocator.StartInStoreOrderButton).sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(PageStoreLocator.StartInStoreOrderButton).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(), "McLean , VA");
 	    logger.log(LogStatus.PASS, "Click and validate the \"Start In-store order\" button");

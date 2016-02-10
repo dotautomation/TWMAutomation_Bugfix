@@ -1,7 +1,9 @@
 package com.totalwine.test.search;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -12,7 +14,13 @@ import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.trials.Browser;
 
 import jxl.*;
 import jxl.read.biff.BiffException;
@@ -21,18 +29,20 @@ public class SearchNullTerms {
 	
 	@Test
 	public void SearchNullTermsTest () throws InterruptedException, IOException, BiffException {
-	
+		ExtentTest logger;
+		ExtentReports report = Browser.getReporter(); //Reporting v2
 		String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime())+".csv";
 		File logFile=new File(timeLog);
-		
+		logger=report.startTest("Search Testing");
 		//Instantiate output file
 		BufferedWriter writer = new BufferedWriter(new FileWriter(logFile));
 		writer.write("Search term,Search Type,All stores count,Did you mean?,Top results");
 		writer.newLine();
 		
-		File file = new File(ConfigurationFunctions.CHROMEDRIVERPATH);
-		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-		WebDriver driver = new ChromeDriver();
+		//File file = new File(ConfigurationFunctions.CHROMEDRIVERPATH);
+		//System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+		//WebDriver driver = new ChromeDriver();
+		WebDriver driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get(ConfigurationFunctions.accessURL+"/?remoteTestIPAddress=71.193.51.0");
 		Thread.sleep(5000);
@@ -53,7 +63,6 @@ public class SearchNullTerms {
 	    	//System.out.println(SearchTerm+","+SearchType);
 	    	writer.write(SearchTerm+",");
 	    	writer.write(SearchType+",");
-	    	System.out.println(SearchTerm);
 	    	//Select Search Type
 	    	driver.findElement(By.cssSelector("span.search-left-cont-three-Lines")).click();
 	    	Thread.sleep(2000);
@@ -69,6 +78,7 @@ public class SearchNullTerms {
 			    //System.out.println(SearchTerm+":"+allStoreCount.substring(allStoreCount.indexOf("(") + 1, allStoreCount.indexOf(")"))); 
 			    String s = Objects.toString(allStoreCount.substring(allStoreCount.indexOf("(") + 1, allStoreCount.indexOf(")")), null); //Extract count of search results from All store tab
 				writer.write(s+",");
+				logger.log(LogStatus.PASS, SearchTerm+" returned "+s+" results");
 				//Did you mean?
 				if (driver.findElements(By.cssSelector("div.result-count > a > span")).size()!=0)
 					writer.write(driver.findElement(By.cssSelector("div.result-count > a > span")).getText()+",");
@@ -106,6 +116,8 @@ public class SearchNullTerms {
 	    driver.close();
 		writer.close(); //Close output file
 	    inputWorkbook.close(); //Close input excel file
+	    report.endTest(logger);
+		report.flush();
 	}
 	
 }

@@ -4,8 +4,6 @@
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests"-->
 <suite name="MultiBrowserSuite" verbose="2">
    <test name="Search">
-	<parameter name="browser" value="Chrome">
-	</parameter>
     <classes>
        <class name="com.totalwine.test.search.SearchNullTerms"/>
     </classes>
