@@ -190,7 +190,7 @@ public class Browser {
 			//FileUtils.copyFile(scrFile, new File("C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png"));
 			File FailedFile = new File (scrFileName);
 			FileUtils.copyFile(scrFile, FailedFile);
-			String screenshot = logger.addScreenCapture(FailedFile.getPath());
+			String screenshot = logger.addScreenCapture(FailedFile.getPath().replace("file:\\/\\/\\/C:\\Users\\rsud\\.jenkins\\", "http://prt-dotautotest.totalwine.com:8080/userContent"));
 			logger.log(LogStatus.FAIL, testResult.getName()+" failed",screenshot);
 		}
 		report.endTest(logger);
