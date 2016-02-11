@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 		//Age Gate
 		public static final By AgeGateYes = By.id("btnYes");
 		public static final By AgeGateNo = By.id("btnNo");
+		public static final By AgeGateDate = By.cssSelector("div.ageGatingCheck");
+		public static final By AgeGateNoError = By.cssSelector("div.ageGatingError");
 		
 		//New Site Intro
 		public static final By NewSiteIntroClose = By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close");
@@ -29,7 +31,7 @@ import org.openqa.selenium.WebElement;
 		//Top Level Menu
 		
 		//Footer
-		
+		public static final By FooterEmailSignup = By.cssSelector("span.footer-Email-text.analyticsJoinOurEmail");
 		//Location Intercept
 		public static final By LocationInterceptNo = By.cssSelector("div.ChooseStoreButtons > button.btn.btn-gray");
 		

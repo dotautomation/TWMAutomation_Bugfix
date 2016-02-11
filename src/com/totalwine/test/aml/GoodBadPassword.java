@@ -31,6 +31,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 
@@ -55,9 +56,9 @@ public class GoodBadPassword extends Browser {
 		logger=report.startTest("Good/Bad Password Combinations");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
+		driver.findElement(PageGlobal.AgeGateYes).click();
 		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
 	    Thread.sleep(5000);
 	    
 	    //Access the sign in modal
