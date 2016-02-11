@@ -60,7 +60,7 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 		 }  
 	
 	@Test (dataProvider = "CheckoutParameters")
-	public void PostGuestCheckoutTestAccountCreation (String Location,String StoreName,String PDP,String Quantity,String ShipOption,String FirstName,
+	public void CreateAccountAfterGuestCheckoutTest (String Location,String StoreName,String PDP,String Quantity,String ShipOption,String FirstName,
 			String LastName,String Company,String Address1,String Address2,String City,String State,String Zip,String Email, 
 			String Phone,String CreditCard,String ExpirationMonth,String ExpirationYear,String CVV)
 					
@@ -112,11 +112,11 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    Thread.sleep(2000);
 
 	    driver.findElement(By.cssSelector("input.anZipForm[value='Submit']")).click();
-	    Thread.sleep(6000);
+	    Thread.sleep(7000);
 	    	    
 	    driver.findElement(By.cssSelector("#deliveryMode > div.customselect > span.itemval")).click();
 	    driver.findElement(By.cssSelector("li[data-val="+ShipOption+"]")).click();
-	    Thread.sleep(3000);
+	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div[class=\"width-100 totalDotBorder noBorder ship-cost\"]")).isEmpty(),false); //**Validate appearance of shipping cost
 	    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);

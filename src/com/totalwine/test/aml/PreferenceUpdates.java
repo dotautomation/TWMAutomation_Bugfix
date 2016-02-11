@@ -27,6 +27,7 @@ package com.totalwine.test.aml;
  */
 			import java.io.IOException;
 			import jxl.read.biff.BiffException;
+			import org.openqa.selenium.support.ui.Select;
 			import org.openqa.selenium.By;
 			import org.openqa.selenium.Keys;
 			import org.openqa.selenium.WebElement;
@@ -52,7 +53,7 @@ package com.totalwine.test.aml;
 				}  
 
 				@Test (dataProvider = "amlParameters") 
-				public void PreferenceUpdatesTest (String Email,String Password)
+				public void PreferenceUpdatesTest (String Email,String Password,String StoreNumber)
 						
 						throws InterruptedException, BiffException, IOException {
 					
@@ -124,13 +125,14 @@ package com.totalwine.test.aml;
 				    Thread.sleep(2000);
 				    logger.log(LogStatus.PASS, "Selecting Items checkbox ");
 				    
-			        driver.findElement(By.xpath(".//*[@id='prefFormSubmit']/div[3]/div/div[4]/div/div/span/span")).click();
-			        driver.findElement(By.xpath(".//*[@id='prefFormSubmit']/div[3]/div/div[4]/div/div/div/div/div[1]/ul/li[1]")).click();
-			        Thread.sleep(2000);
-				    logger.log(LogStatus.PASS, "Selecting store from dropdown");
-			        
+//				    driver.findElement(By.xpath(".//*[@id='prefFormSubmit']/div[3]/div/div[4]/div/div/span")).click();
+//				    Select PreferredStore = new Select(driver.findElement(By.xpath(".//*[@id='prefFormSubmit']/div[3]/div/div[4]/div/div/span/span")));
+//				    PreferredStore.selectByVisibleText("Gilbert");
+				    driver.findElement(By.xpath(".//*[@id='prefFormSubmit']/div[3]/div/div[4]/div/div/span")).click();
+//				    driver.findElement(By.xpath(".//*[@id='prefFormSubmit']/div[3]/div/div[4]/div/div/div/div/div[1]/ul/li[1]")).click();
+				    logger.log(LogStatus.PASS, "Selecting store from dropdown");	    
+//				    driver.findElement(By.cssSelector("input[id='checkbox1']")).click();
 			        driver.findElement(By.cssSelector(".btn.btn-red.anPrefSave")).click();
-			        
 			        Assert.assertEquals(driver.findElements(By.cssSelector("div.ahp-heading")).isEmpty(),false);
 				    Assert.assertEquals(driver.findElements(By.linkText("Your account")).isEmpty(),false);
 				    Assert.assertEquals(driver.findElements(By.linkText("Orders")).isEmpty(),false);
