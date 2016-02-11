@@ -27,6 +27,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 import com.totalwine.test.pages.*;
@@ -64,9 +65,11 @@ public class SLBrowseByRadius extends Browser {
  	    for (int i=0;i<availableRadii;i++) {
 	    	Thread.sleep(2000);
 	    	Assert.assertEquals(driver.findElement(By.cssSelector("div.dist-dropdown > span:nth-child("+(i+1)+")")).getText(), expectedRadii[i]);
+	    	logger.log(LogStatus.PASS, "The "+expectedRadii[i]+" in the Browse by Radius selector");
 	    	driver.findElement(By.cssSelector("div.dist-dropdown > span:nth-child("+(i+1)+")")).click(); //Select each radii
 	    	System.out.println(expectedRadii[i]+" : "+driver.findElements(By.cssSelector("button#shopThisStore")).size()+" stores");//Count the number of stores reported
 	    	Assert.assertEquals(driver.findElements(By.cssSelector("button#shopThisStore")).size(), expectedStoreCount[i]);
+	    	logger.log(LogStatus.PASS, expectedStoreCount[i]+" stores were reported in a "+expectedRadii[i]+" radius from geolocated IP address 98.169.134.0");
 	    	driver.findElement(PageStoreLocator.DefaultRadiusDropdown).click();
 	    }
 	}
