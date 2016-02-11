@@ -39,6 +39,8 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageEmailSignupModal;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 public class EmailSignup extends Browser {
@@ -55,22 +57,22 @@ public class EmailSignup extends Browser {
 		logger=report.startTest("Email Signup (Existing Email Address)");
 		driver.get(ConfigurationFunctions.locationSet+"71.193.51.0");
 		Thread.sleep(2000);
-		driver.findElement(By.id("btnYes")).click();
+		driver.findElement(PageGlobal.AgeGateYes).click();
 		Thread.sleep(2000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(2000);
-    	driver.findElement(By.cssSelector("span.footer-Email-text.analyticsJoinOurEmail")).click();
+	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
+	    Thread.sleep(2000);
+    	driver.findElement(PageGlobal.FooterEmailSignup).click();
     	Thread.sleep(2000);
-    	driver.switchTo().frame(driver.findElement(By.id("iframe-signup-overlay")));
-	    driver.findElement(By.id("emailAnonomous")).clear();
-	    driver.findElement(By.id("emailAnonomous")).sendKeys("automate1@totalwine.com");
-	    driver.findElement(By.id("checkEmailAnonomous")).clear();
-	    driver.findElement(By.id("checkEmailAnonomous")).sendKeys("automate1@totalwine.com");
+    	driver.switchTo().frame(driver.findElement(PageEmailSignupModal.Modal));
+	    driver.findElement(PageEmailSignupModal.EmailField).clear();
+	    driver.findElement(PageEmailSignupModal.EmailField).sendKeys("automate1@totalwine.com");
+	    driver.findElement(PageEmailSignupModal.ConfirmEmailField).clear();
+	    driver.findElement(PageEmailSignupModal.ConfirmEmailField).sendKeys("automate1@totalwine.com");
 	    //driver.findElement(By.cssSelector("label")).click();
-	    driver.findElement(By.id("check_box_100")).click();
+	    driver.findElement(PageEmailSignupModal.ConfirmEmailField).click();
 	    //driver.findElement(By.id("emailuserregister")).click();
 	    Actions action = new Actions(driver);
-	    action.moveToElement(driver.findElement(By.id("emailuserregister"))).doubleClick().build().perform(); //Double-click
+	    action.moveToElement(driver.findElement(PageEmailSignupModal.Register)).doubleClick().build().perform(); //Double-click
 	    Thread.sleep(3000);
 	    Assert.assertEquals("The email provided matches an existing account. Please try again.", driver.findElement(By.cssSelector("div.email-container-signin > div.notice")).getText());
 	    logger.log(LogStatus.PASS, "Email signup using existing email address presented an error notification");
@@ -84,22 +86,22 @@ public class EmailSignup extends Browser {
 	    int randomNum2 = rand.nextInt((1000 - 1) + 1) + 1;
 		driver.get(ConfigurationFunctions.locationSet+"71.193.51.0");
 		Thread.sleep(2000);
-		driver.findElement(By.id("btnYes")).click();
+		driver.findElement(PageGlobal.AgeGateYes).click();
 		Thread.sleep(2000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
 	    Thread.sleep(2000);
-    	driver.findElement(By.cssSelector("span.footer-Email-text.analyticsJoinOurEmail")).click();
+    	driver.findElement(PageGlobal.FooterEmailSignup).click();
     	Thread.sleep(2000);
-    	driver.switchTo().frame(driver.findElement(By.id("iframe-signup-overlay")));
-	    driver.findElement(By.id("emailAnonomous")).clear();
-	    driver.findElement(By.id("emailAnonomous")).sendKeys("test"+randomNum+"_"+randomNum2+"@totalwine.com");
-	    driver.findElement(By.id("checkEmailAnonomous")).clear();
-	    driver.findElement(By.id("checkEmailAnonomous")).sendKeys("test"+randomNum+"_"+randomNum2+"@totalwine.com");
+    	driver.switchTo().frame(driver.findElement(PageEmailSignupModal.Modal));
+	    driver.findElement(PageEmailSignupModal.EmailField).clear();
+	    driver.findElement(PageEmailSignupModal.EmailField).sendKeys("test"+randomNum+"_"+randomNum2+"@totalwine.com");
+	    driver.findElement(PageEmailSignupModal.ConfirmEmailField).clear();
+	    driver.findElement(PageEmailSignupModal.ConfirmEmailField).sendKeys("test"+randomNum+"_"+randomNum2+"@totalwine.com");
 	    //driver.findElement(By.cssSelector("label")).click();
-	    driver.findElement(By.id("check_box_100")).click();
+	    driver.findElement(PageEmailSignupModal.Checkbox21Plus).click();
 	    //driver.findElement(By.id("emailuserregister")).click();
 	    Actions action = new Actions(driver);
-	    action.moveToElement(driver.findElement(By.id("emailuserregister"))).doubleClick().build().perform(); //Double-click
+	    action.moveToElement(driver.findElement(PageEmailSignupModal.Register)).doubleClick().build().perform(); //Double-click
 	    Thread.sleep(3000);
 	    logger.log(LogStatus.PASS, "Email signup with an unregistered email address");
 	    //Assert.assertEquals("Thank you for signing up to receive emails from Total Wine & More!", driver.findElement(By.cssSelector("#email-signup-overlay-success > div.modal-dialog > div.modal-content > div.modal-body > div.heading-h1")).getText());
