@@ -186,11 +186,13 @@ public class Browser {
 	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException, InterruptedException { 
 		if(testResult.getStatus() == ITestResult.FAILURE) { 
 			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			String scrFileName = "C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\FAIL_"+testResult.getName()+"_"+ConfigurationFunctions.now()+".png";
+			String scrName = "FAIL_"+testResult.getName()+"_"+ConfigurationFunctions.now()+".png"; //Name of screenshot file
+			String scrFileName = "C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\"+scrName;
 			//FileUtils.copyFile(scrFile, new File("C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\FAIL "+testResult.getName()+"  "+ConfigurationFunctions.now()+".png"));
 			File FailedFile = new File (scrFileName);
 			FileUtils.copyFile(scrFile, FailedFile);
-			String screenshot = logger.addScreenCapture(FailedFile.getPath().replace("file:\\/\\/\\/C:\\Users\\rsud\\.jenkins\\", "http://prt-dotautotest.totalwine.com:8080/userContent"));
+			String relativePath = "/userContent/FailureScreenshots/Bugfix/"+scrName; 
+			String screenshot = logger.addScreenCapture(relativePath);
 			logger.log(LogStatus.FAIL, testResult.getName()+" failed",screenshot);
 		}
 		report.endTest(logger);
