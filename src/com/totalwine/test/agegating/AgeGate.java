@@ -54,7 +54,7 @@ public class AgeGate extends Browser {
 		driver.findElement(PageGlobal.AgeGateNo).click();
 		Thread.sleep(1000);
 		//Splash screen validation
-		Assert.assertEquals(driver.findElements(PageGlobal.AgeGateNoError).isEmpty(),true);
+		Assert.assertEquals(driver.findElements(PageGlobal.AgeGateNoError).isEmpty(),false);
 		logger.log(LogStatus.PASS, "Screen notification upon clicking No");
 		//Validate URL for responsibility.org
 		Thread.sleep(10000);
