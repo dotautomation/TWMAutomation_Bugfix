@@ -46,7 +46,7 @@ public class TopLevelMenu extends Browser {
 	
 	@DataProvider(name="TopLevelMenuParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"global", "toplevelBF");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"global", "toplevel");
         return(retObjArr);
     } 
 	
@@ -57,7 +57,7 @@ public class TopLevelMenu extends Browser {
 	  }  
 	
 	@Test (dataProvider = "TopLevelMenuParameters")
-	public void ISPCheckoutTest (String menu,String position,String tlcontent,String contents) throws InterruptedException, IOException {
+	public void TopLevelMenuTest (String menu,String position,String tlcontent,String contents) throws InterruptedException, IOException {
 		logger=report.startTest("Validate Top Level Menu Contents");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);

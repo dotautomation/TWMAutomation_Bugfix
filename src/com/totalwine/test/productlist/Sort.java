@@ -79,7 +79,7 @@ public class Sort extends Browser {
 		logger.log(LogStatus.PASS, "Navigate to Wine CLP");
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
-		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
+		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
 		logger.log(LogStatus.PASS, "Click through to the Wine PLP");
 		//driver.get(ConfigurationFunctions.accessURL+"/white-wine/c/013005");

@@ -78,7 +78,7 @@ public class Promotion extends Browser {
 	    Thread.sleep(3000);
 	    
 	    //Validate successful application of promotion
-	    Assert.assertEquals("Your promotion has been applied successfully.", driver.findElement(By.cssSelector("p.error-msg")).getText());
+	    Assert.assertEquals(driver.findElement(By.cssSelector("p.error-msg")).getText(),"Your promotion has been applied successfully.");
 
 	    //Empty the cart
 	    //driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);

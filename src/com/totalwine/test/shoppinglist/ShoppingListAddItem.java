@@ -43,6 +43,7 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageShoppingList;
 import com.totalwine.test.trials.Browser;
 
 public class ShoppingListAddItem extends Browser {
@@ -164,8 +165,9 @@ public class ShoppingListAddItem extends Browser {
 	    WebElement scroll_Price = driver.findElement(By.linkText("Cloud Break Chardonnay"));
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.xpath("//a[@onclick=\"setDeleteLineItemForm('110892750-1','205','icongo','Cloud Break Chardonnay')\"]")).click();
-	    Thread.sleep(2000);
+	    //driver.findElement(By.xpath("//a[@onclick=\"setDeleteLineItemForm('110892750-1','205','icongo','Cloud Break Chardonnay')\"]")).click();
+	    driver.findElement(PageShoppingList.DeleteLink).click();
+	 	Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("#frmDeleteProduct > div.send-list-btn > button.btn-red")).click();
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Delete item from shopping list");

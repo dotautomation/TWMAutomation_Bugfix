@@ -61,7 +61,7 @@ public class MobileBrowseEvent extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("ul.right-rail-typo > li")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("li.print-container.anPrintEventDetails")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Events")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.xpath("//form[@id='eventInfoIcs']/button")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(By.cssSelector("main.Event-details.an-eventDetails")).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Mobile EDP");
 	}
 }
