@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 public class LARERules extends Browser {
@@ -117,7 +118,7 @@ public class LARERules extends Browser {
 	    driver.findElement(By.cssSelector("button.btn.btn-red.anLoginSubmit")).click();
 	    Thread.sleep(5000);
 	    driver.switchTo().activeElement();
-	    Assert.assertEquals("Fairfax , VA", driver.findElement(By.cssSelector("div.store-details > span.store-details-store-name.flyover-src")).getText());
+	    Assert.assertEquals(driver.findElement(PageGlobal.StoreSelection).getText(),"Fairfax , VA");
 	    logger.log(LogStatus.PASS, "LARE: User profile preferred store set to \"Always Use\"");
 	}
 	

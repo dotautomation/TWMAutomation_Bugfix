@@ -78,7 +78,7 @@ public class Filter extends Browser {
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
+		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
 		logger.log(LogStatus.PASS, "Access Wine PLP");
 		//Varietal
@@ -101,7 +101,7 @@ public class Filter extends Browser {
 	    
 		//Country
 	    
-	    WebElement scroll_Country = driver.findElement(By.xpath("//a[contains(text(),'Country/State')]"));
+	    WebElement scroll_Country = driver.findElement(By.xpath("//a[contains(text(),'Country & State')]"));
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
@@ -125,7 +125,7 @@ public class Filter extends Browser {
 	    //Price Range
 	    WebElement wineMove1 = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove1).build().perform(); 
-	    WebElement scroll_Price = driver.findElement(By.linkText("Price"));
+	    WebElement scroll_Price = driver.findElement(By.linkText("Price Range"));
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
@@ -158,8 +158,8 @@ public class Filter extends Browser {
 	 	/*scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);
 	 	scroll_RatingRange.sendKeys(Keys.ARROW_DOWN);*/
-	 	driver.findElement(By.linkText("Expert Rating")).sendKeys(Keys.ARROW_DOWN);
-	 	driver.findElement(By.xpath("//a[contains(text(),'Expert Rating')]")).click();
+	 	driver.findElement(By.linkText("Top Rated")).sendKeys(Keys.ARROW_DOWN);
+	 	driver.findElement(By.xpath("//a[contains(text(),'Top Rated')]")).click();
 	    driver.findElement(By.id("check_box_showmore89 and Belowratingrange")).click();
 	    Thread.sleep(3000);
 	    facetValue = driver.findElement(By.cssSelector("span.filter-value")).getText();

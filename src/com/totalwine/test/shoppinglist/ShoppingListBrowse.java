@@ -61,9 +61,9 @@ public class ShoppingListBrowse extends Browser {
         //WebElement webelement= driver.switchTo().activeElement();
 	    //webelement.click();
 	    driver.findElement(By.id("j_username")).clear();
-	    driver.findElement(By.id("j_username")).sendKeys("rsud@totalwine.com");
+	    driver.findElement(By.id("j_username")).sendKeys(ConfigurationFunctions.TESTLOGIN);
 	    driver.findElement(By.id("j_password")).clear();
-	    driver.findElement(By.id("j_password")).sendKeys("grapes123");
+	    driver.findElement(By.id("j_password")).sendKeys(ConfigurationFunctions.TESTPWD);
 	    driver.findElement(By.xpath("//button[@type='button']")).click();
 	    //driver.findElement(By.cssSelector("html")).click();
 	    Thread.sleep(6000);
@@ -91,6 +91,12 @@ public class ShoppingListBrowse extends Browser {
 	    Assert.assertEquals(driver.findElements(By.linkText("Print")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Delete")).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Shopping List page elements");
+	    
+	  //Check for survey popup
+	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
+	    	driver.findElement(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).click();
+	    Thread.sleep(2000);
+	    
 	    //Navigate to PDP from Shopping List
 	    driver.findElement(By.cssSelector("a.plp-product-title")).click();
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.pdp-wrapper")).isEmpty(),false);

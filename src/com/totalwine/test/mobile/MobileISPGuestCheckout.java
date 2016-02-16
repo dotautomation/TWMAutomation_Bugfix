@@ -33,6 +33,7 @@ import org.openqa.selenium.Keys;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageShoppingCart;
 import com.totalwine.test.trials.Browser;
 
 public class MobileISPGuestCheckout extends Browser {
@@ -63,11 +64,11 @@ public class MobileISPGuestCheckout extends Browser {
 		
 		//Initiate Checkout
 		 // Shopping Cart
-	    driver.findElement(By.id("checkout")).sendKeys(Keys.PAGE_DOWN);
+	    driver.findElement(PageShoppingCart.CheckOutButton).sendKeys(Keys.PAGE_DOWN);
 	    //driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
-	    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
-	    driver.findElement(By.id("checkout")).click();
+	    Assert.assertEquals(driver.findElements(PageShoppingCart.PromoCodeSubmitButton).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(PageShoppingCart.QuantityText).isEmpty(),false);
+	    driver.findElement(PageShoppingCart.CheckOutButton).click();
 	    Thread.sleep(5000);
 	    logger.log(LogStatus.PASS, "Mobile ISP Checkout: Initiate checkout");
 	    

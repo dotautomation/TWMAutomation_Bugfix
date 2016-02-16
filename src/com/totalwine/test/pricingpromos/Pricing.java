@@ -69,7 +69,7 @@ public class Pricing extends Browser {
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
+		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
 		logger.log(LogStatus.PASS, "Access wine PLP");
 		
