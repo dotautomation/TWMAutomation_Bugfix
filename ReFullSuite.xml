@@ -40,7 +40,10 @@
 		<classes>
 			<class name="com.totalwine.test.aml.WebAccountRegistration" />
 			<class name="com.totalwine.test.aml.GoodBadPassword" />
-			<class name="com.totalwine.test.aml.PreferenceUpdates" />
+			<class name="com.totalwine.test.aml.PreferenceUpdates" /> 
+			<class name="com.totalwine.test.aml.AccountHome" />
+			<class name="com.totalwine.test.aml.AccountProfile"/>
+			<class name="com.totalwine.test.aml.AddressBook"/>
 			<class name="com.totalwine.test.checkout.ISPCheckout" />
 			<class name="com.totalwine.test.checkout.ShipCheckout" />
 			<class name="com.totalwine.test.checkout.GuestShipCheckout" />
