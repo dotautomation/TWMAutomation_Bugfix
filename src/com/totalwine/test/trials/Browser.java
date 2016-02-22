@@ -12,6 +12,8 @@ package com.totalwine.test.trials;
 //@author=rsud
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -194,6 +196,7 @@ public class Browser {
 			String relativePath = "/userContent/FailureScreenshots/Bugfix/"+scrName; 
 			String screenshot = logger.addScreenCapture(relativePath);
 			logger.log(LogStatus.FAIL, testResult.getName()+" failed",screenshot);
+			//logger.log(LogStatus.FAIL,"Error Stack Trace: "+sw.toString());
 		}
 		report.endTest(logger);
 		report.flush();
