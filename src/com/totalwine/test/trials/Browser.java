@@ -49,7 +49,7 @@ public class Browser {
 //
 	protected WebDriver driver;
 	protected String hubURL = "http://prt-6rkhd12.totalwine.com:5566/wd/hub";
-	protected ExtentTest logger;
+	protected static ExtentTest logger;
 	protected static ExtentReports report = getReporter(); //Reporting v2
 
 	@BeforeMethod
@@ -195,8 +195,13 @@ public class Browser {
 			FileUtils.copyFile(scrFile, FailedFile);
 			String relativePath = "/userContent/FailureScreenshots/Bugfix/"+scrName; 
 			String screenshot = logger.addScreenCapture(relativePath);
+			System.out.println(testResult.getThrowable().toString().split(":")[0]); //Exception Handling
+			String logOutput = ExceptionHandler(testResult.getThrowable().toString().split(":")[0]);
+			
 			logger.log(LogStatus.FAIL, testResult.getName()+" failed",screenshot);
-			//logger.log(LogStatus.FAIL,"Error Stack Trace: "+sw.toString());
+			//logger.log(LogStatus.FAIL,"Error Stack Summary: "+testResult.getThrowable().toString().split(":")[0]);
+			logger.log(LogStatus.FAIL,"Error Stack: "+testResult.getThrowable());
+			logger.log(LogStatus.FAIL,"Error Description: "+logOutput);
 		}
 		report.endTest(logger);
 		report.flush();
@@ -214,5 +219,16 @@ public class Browser {
 			report = new ExtentReports(ConfigurationFunctions.RESULTSPATH+"BugfixTestResults.html", true, DisplayOrder.NEWEST_FIRST);
 		}
 		return report;
+	}
+	
+	public static String ExceptionHandler (String exception) {
+		String log = null;
+		if (exception.contains("AssertionError"))
+			log = "An assertion failed indicating that an element was expected to be present or absent, but it wasn't" ;
+		else if (exception.contains("NoSuchElementException"))
+			log = "An expected element was not located on the page" ;
+		else if (exception.contains("StaleElementReferenceException"))
+			log = "An element no longer appears" ;
+		return log;
 	}
 }

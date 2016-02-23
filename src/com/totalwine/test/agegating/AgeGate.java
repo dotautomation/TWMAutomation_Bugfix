@@ -69,6 +69,5 @@ public class AgeGate extends Browser {
 	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(PageHomepage.HomepageCarousel).isEmpty(),false); //HomePage validation
-	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");
+	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");}
 	}
-}
