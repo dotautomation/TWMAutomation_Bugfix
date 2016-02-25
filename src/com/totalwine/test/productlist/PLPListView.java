@@ -1,33 +1,5 @@
 package com.totalwine.test.productlist;
 
-/*
- * PLP Filter Workflow
- * Workflow:
- * 	1. Access the PLP for Wine > White Wine
- * 	2. Select the facet filters and validate the following elements associated with each selection: 
- * 	  a. Price Range: Validate that the price on the top PLP tile is within the price range selection
- *    b. Rating Source: Validate that the first PLP tile depicts the rating source selected
- *    c. Rating Range: Validate that the rating badge is present on the first PLP tile
- *    d. Country: Validate that the country selected is displayed as an attribute on the first PLP tile
- *    e. Appelation: Validate that the selected appelation is listed on the first PLP tile
- *  
- * Technical Modules:
- * 	1. BeforeMethod (Test Pre-requisites):
- * 			Invoke webdriver
- * 			Maximize browser window
- * 	2. Test (Workflow)
- * 	3. AfterMethod
- * 			Take screenshot, in case of failure
- * 			Close webdriver
- * 	4. AfterClass
- * 			Quit webdriver
- */
-//@author=rsud
-import java.awt.AWTException;
-import java.io.IOException;
-
-import jxl.read.biff.BiffException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -38,12 +10,12 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
-import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageProductList;
 import com.totalwine.test.trials.Browser;
 
 public class PLPListView extends Browser {
 
-	private String IP="71.193.51.0";
+	private String IP="136.160.90.133"; //Maryland
 
 	@BeforeMethod
 	  public void setUp() throws Exception {
@@ -51,7 +23,7 @@ public class PLPListView extends Browser {
 	}  
 	
 	@Test 
-	public void PLPGridTest () throws InterruptedException, BiffException, IOException, AWTException {
+	public void PLPListTest () throws InterruptedException {
 		logger=report.startTest("PLP Grid Test");
 		
 		//Access site
@@ -70,57 +42,51 @@ public class PLPListView extends Browser {
 		Thread.sleep(2000);
 		logger.log(LogStatus.PASS, "Navigate to PLP");
 	    
-		//Apply a facet on the default list view
-		driver.findElement(By.id("check_box_showmoreCabernet Sauvignonvarietaltype")).click(); //Cabernet Sauvignon facet
-		Thread.sleep(3000);
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li > a.filter-link > span.filter-value")).getText(), "Cabernet Sauvignon");
-		logger.log(LogStatus.PASS, "Apply the varietal facet");
-		//Access the Grid View
-		driver.findElement(By.cssSelector("a.show-grid.analyticsViewAsGrid")).click();
-		Thread.sleep(3000);
+		//Validate Contents of PLP List View
+		Assert.assertEquals(driver.findElements(PageProductList.PLPHero).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListViewDefault).isEmpty(),false); //Validate that the list view is the default
+		logger.log(LogStatus.PASS, "List View is displayed by default");
+		Assert.assertEquals(driver.findElements(PageProductList.List).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListImage).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListDesc).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListReadMore).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListStars).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListReviewCount).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListCountry).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListRegion).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListShippingNotAvailBadge).isEmpty(), false); //Wine is not shippable in MD
+		Assert.assertEquals(driver.findElements(PageProductList.ListISPBadge).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListATC).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListATL).isEmpty(), false);
+		Assert.assertEquals(driver.findElements(PageProductList.ListPrice).isEmpty(), false);
+		logger.log(LogStatus.PASS, "List View page elements (Item Image,Description,\"Read More >\",Stars,"
+				+ "Review Counts,Country,Region,Shipping badge,ISP badge,ATC,ATL,Price displayed");
 		
-	    //Validate that the previously applied facet persists
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.inner-items-wrapper > ul > li > a.filter-link > span.filter-value")).getText(), "Cabernet Sauvignon");
-		logger.log(LogStatus.PASS, "The varietal facet persists when the Grid view is switched to");
+		//Validate store selector and number of default selected stores
+		Assert.assertEquals(driver.findElements(By.cssSelector("input[data-chk=true]")).size(),5);
+		logger.log(LogStatus.PASS, "5 stores are selected by default in the store selector");
 		
-	    //Validate presence of elements (Store, Item Size, Price, Badges, Expert Rating, Customer Rating, Customer Reviews, ATC, ATL
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-wdlogo")).isEmpty(), false); //WD Logo
-		Assert.assertEquals(driver.findElements(By.cssSelector("h2.plp-product-title")).isEmpty(), false); //Title
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.plp-product-qty")).getText(), "750ml"); //Item Size
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.product-img-div")).isEmpty(), false); //Product image
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.wine-spectator-div")).isEmpty(), false); //Expert Rating 
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-staff-bot-bust")).isEmpty(), false); //Merchandising badge
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-product-buy-limited")).isEmpty(), false); //Ltd Qty.
+	    //Validate absence of Grid elements 
+		Assert.assertEquals(driver.findElements(By.cssSelector("section.plp-product-content.grid")).isEmpty(), true);
+		logger.log(LogStatus.PASS, "Grid View page elements not displayed");
 		
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-product-buy-price-mix")).isEmpty(), false); //Mix6 price
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-product-buy-actual-price")).isEmpty(), false); //EDLP
-		
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.pdpRatingStars")).isEmpty(), false); //Rating (stars) 
-		Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsProductReviews")).isEmpty(), false); //No. of reviews
-		
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-product-shipping")).isEmpty(), false); //Shipping badge
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-product-delivery")).isEmpty(), false); //Pickup badge
-		Assert.assertEquals(driver.findElements(By.cssSelector("form.add_to_cart_form.clear_fix")).isEmpty(), false); // Add to cart
-		Assert.assertEquals(driver.findElements(By.cssSelector("button.btn.btn-brown-pattern.anAddToListInit")).isEmpty(), false); //Add to list
-		
-	    //Validate absence of elements (Product code, Product attributes, Expert review)
-		Assert.assertEquals(driver.findElement(By.cssSelector("div.plp-product-code")).getText(), ""); //Product Code
-		logger.log(LogStatus.PASS, "Grid View page elements");
-		
-	    //Sort Grid PLP
-	    driver.findElement(By.cssSelector("div.dropdown.plp-product-sorting-sortby-dropdown > div > span.itemval")).click(); //Sort dropdown
-	    Thread.sleep(2000);
-	    driver.findElement(By.cssSelector("li[data-val=our-favorites]")).click(); //Our favorites
-	    Thread.sleep(5000);
-		Assert.assertEquals(driver.findElements(By.cssSelector("section.plp-product-content.grid")).isEmpty(),false);
-		
-	    //Validate grid view is retained during pagination
+	    //Validate Pagination
 		js.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.cssSelector("a.pager-next.analyticsPageView")));
-		
-		//driver.findElement(By.cssSelector("a.pager-next.analyticsPageView")).sendKeys(Keys.PAGE_DOWN);
 	    driver.findElement(By.cssSelector("a.pager-next.analyticsPageView")).click(); //Next page
 	    Thread.sleep(3000);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("section.plp-product-content.grid")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Item sort in grid view");
+	    Assert.assertEquals(driver.findElements(PageProductList.ListDesc).isEmpty(), false);
+	    logger.log(LogStatus.PASS, "Pagination is functional");
+	    
+	    //Regulatory (LARE-specific) message
+	  	driver.findElement(PageProductList.ATYShip).click();
+	  	Thread.sleep(3000);
+	  	Assert.assertTrue(driver.findElement(By.cssSelector("p.msg-noitems")).getText().contains("Due to regulatory constraints, Wine is not eligible for shipping."));
+	  	logger.log(LogStatus.PASS, "LARE-specific message is displayed");
+	    
+	    //Click All stores tab and validate that ATY > Both is not displayed
+	    driver.findElement(PageProductList.PLPAllStores).click();
+	    Thread.sleep(3000);
+	    Assert.assertEquals(driver.findElements(PageProductList.ListViewDefault).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(PageProductList.ATYBoth).isEmpty(),true);
 	}
 }
