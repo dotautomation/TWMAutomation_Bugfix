@@ -23,6 +23,11 @@ package com.totalwine.test.agegating;
  * 			Quit webdriver
  */
 //@author=rsud
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.testng.*;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -51,6 +56,15 @@ public class AgeGate extends Browser {
 		logger=report.startTest("Age Gate Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
+		//Validate Date
+		String ageGateDate = driver.findElement(By.cssSelector("div.ageGatingCheck > div.heading-h1")).getText();
+		DateFormat dateFormat = new SimpleDateFormat("MMMM d yyyy");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -21); //Subtract 21 years from current date
+		Date date = cal.getTime();
+		System.out.println(ageGateDate.replace(",", "")+"|"+dateFormat.format(date));
+		Assert.assertEquals(ageGateDate.replace(",", ""), dateFormat.format(date));
+		
 		driver.findElement(PageGlobal.AgeGateNo).click();
 		Thread.sleep(1000);
 		//Splash screen validation
@@ -69,6 +83,5 @@ public class AgeGate extends Browser {
 	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(PageHomepage.HomepageCarousel).isEmpty(),false); //HomePage validation
-	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");
+	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");}
 	}
-}
