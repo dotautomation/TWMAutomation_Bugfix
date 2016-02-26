@@ -30,6 +30,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
@@ -54,15 +55,10 @@ public class GoodBadPassword extends Browser {
 	@Test (dataProvider = "UserPwdParameters")
 	public void GoodBadPasswordTest (String email,String pwd,String valid) throws InterruptedException {
 		logger=report.startTest("Good/Bad Password Combinations");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(PageGlobal.AgeGateYes).click();
-		Thread.sleep(5000);
-	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 	    
 	    //Access the sign in modal
-	    driver.findElement(By.linkText("Account")).click();
+	    driver.findElement(PageGlobal.TopNavAccount).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("a.btn.btn-red.acc-link.analyticsSignIn")).click();
 	    

@@ -37,6 +37,7 @@ import org.testng.annotations.DataProvider;
 import org.openqa.selenium.interactions.Actions;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -53,18 +54,12 @@ public class TopLevelMenu extends Browser {
 	@BeforeMethod
 	  public void setUp() throws Exception {
 	    driver.manage().window().maximize();	
-		   
 	  }  
 	
 	@Test (dataProvider = "TopLevelMenuParameters")
 	public void TopLevelMenuTest (String menu,String position,String tlcontent,String contents) throws InterruptedException, IOException {
 		logger=report.startTest("Validate Top Level Menu Contents");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 		//Validate top-level menu items
 	    WebElement topLevelMenuItem = driver.findElement(By.cssSelector("ul.nav > li.menu:nth-child("+position+") > a"));

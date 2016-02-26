@@ -31,6 +31,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
@@ -54,12 +55,7 @@ public class Search extends Browser {
 	@Test (dataProvider = "SearchParameters")
 	public void SearchTest (String searchTerm) throws InterruptedException {
 		logger=report.startTest("Search Test");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(PageGlobal.AgeGateYes).click();
-		Thread.sleep(5000);
-	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 		driver.findElement(PageGlobal.SearchBar).clear();
 	    driver.findElement(PageGlobal.SearchBar).sendKeys(searchTerm);

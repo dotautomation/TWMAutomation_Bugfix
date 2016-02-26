@@ -42,6 +42,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageShoppingList;
 import com.totalwine.test.trials.Browser;
@@ -60,12 +61,7 @@ public class ShoppingListAddItem extends Browser {
 	@Test
 	public void ShoppingListAddItemNewTest () throws InterruptedException, BiffException, IOException {
 		logger=report.startTest("New Shopping List Add/Edit/Delete Test");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 	    
 		//Navigate to PDP
 	    driver.navigate().to(ConfigurationFunctions.accessURL+"/wine/white-wine/chardonnay/cloud-break-chardonnay/p/110892750");
@@ -125,12 +121,7 @@ public class ShoppingListAddItem extends Browser {
 	@Test
 	public void ShoppingListAddItemExistingTest () throws InterruptedException, BiffException, IOException {
 		logger=report.startTest("Existing Shopping List Add/Edit/Delete Test");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 		//Navigate to PDP
 	    driver.navigate().to(ConfigurationFunctions.accessURL+"/wine/white-wine/chardonnay/cloud-break-chardonnay/p/110892750");
