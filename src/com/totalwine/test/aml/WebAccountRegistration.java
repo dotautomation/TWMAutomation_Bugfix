@@ -42,11 +42,14 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 public class WebAccountRegistration extends Browser {
 	
+	String IP = "71.193.51.0";
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver.manage().window().maximize();
@@ -59,17 +62,9 @@ public class WebAccountRegistration extends Browser {
 	    int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
 	    int randomNum_2 = rand.nextInt((1000 - 1) + 1) + 1;
 		StringBuffer errorBuffer = new StringBuffer();
-		//ConfigurationFunctions.initialStartUp("71.193.51.0");
 		
-		//driver.manage().window().maximize();
-		driver.get(ConfigurationFunctions.locationSet+"71.193.51.0");
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
-		
-	    driver.findElement(By.xpath("//header/div/div/ul/li/a[contains(text(),'Account')]")).click();
+		SiteAccess.ActionAccessSite(driver, IP);
+	    driver.findElement(PageGlobal.TopNavAccount).click();
 	    Thread.sleep(2000);
 	    
     	Assert.assertEquals(driver.findElements(By.linkText("Sign into your account")).isEmpty(),false);

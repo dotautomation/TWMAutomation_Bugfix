@@ -38,12 +38,15 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageEmailSignupModal;
 import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 public class EmailSignup extends Browser {
+	
+	String IP="71.193.51.0";
 	
 	@DataProvider(name="EmailSignup")
     public Object[][] createData() {
@@ -55,12 +58,7 @@ public class EmailSignup extends Browser {
 	public void EmailSignupTest () throws InterruptedException, BiffException, IOException {
 		//String [] emailAddresses = {"automate1@totalwine.com","automate2@totalwine.com","automate3@totalwine.com","automate4@totalwine.com"};
 		logger=report.startTest("Email Signup (Existing Email Address)");
-		driver.get(ConfigurationFunctions.locationSet+"71.193.51.0");
-		Thread.sleep(2000);
-		driver.findElement(PageGlobal.AgeGateYes).click();
-		Thread.sleep(2000);
-	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
-	    Thread.sleep(2000);
+		SiteAccess.ActionAccessSite(driver, IP);
     	driver.findElement(PageGlobal.FooterEmailSignup).click();
     	Thread.sleep(2000);
     	driver.switchTo().frame(driver.findElement(PageEmailSignupModal.Modal));
@@ -84,12 +82,7 @@ public class EmailSignup extends Browser {
 		Random rand = new Random();
 	    int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
 	    int randomNum2 = rand.nextInt((1000 - 1) + 1) + 1;
-		driver.get(ConfigurationFunctions.locationSet+"71.193.51.0");
-		Thread.sleep(2000);
-		driver.findElement(PageGlobal.AgeGateYes).click();
-		Thread.sleep(2000);
-	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
-	    Thread.sleep(2000);
+	    SiteAccess.ActionAccessSite(driver, IP);
     	driver.findElement(PageGlobal.FooterEmailSignup).click();
     	Thread.sleep(2000);
     	driver.switchTo().frame(driver.findElement(PageEmailSignupModal.Modal));

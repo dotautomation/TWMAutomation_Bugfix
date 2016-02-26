@@ -25,6 +25,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -44,12 +45,7 @@ public class SLGeoLocate extends Browser {
 		//String[] IP = "71.193.51.0","131.228.17.26","208.110.83.202","98.169.134.0","174.28.39.0","208.53.192.14"};
 		String IP = "71.193.51.0";
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		    
 	    //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();
@@ -88,12 +84,7 @@ public class SLGeoLocate extends Browser {
 		//String IP = "131.228.17.26";
 		String IP = "85.90.227.224";
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-		Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 		 //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();

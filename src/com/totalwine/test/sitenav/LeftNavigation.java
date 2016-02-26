@@ -17,6 +17,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -35,12 +36,7 @@ public class LeftNavigation extends Browser {
 	public void CLPLeftNavTest () throws InterruptedException {
 		logger=report.startTest("Site Navigation (Left Nav) Test");
 		//Access site
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 	    
 	    //Navigate to Wine CLP and validate left nav
 	    String[] wineclplinks = {"/c/000009","/c/000002","/c/000005","/c/000024","/c/000063","/c/000262","/c/000270","/c/000278","/c/000263","/c/000279"};
