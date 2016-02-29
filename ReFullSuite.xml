@@ -61,6 +61,7 @@
 			<class name="com.totalwine.test.categorylanding.CatLandNav" />
 			<class name="com.totalwine.test.shoppinglist.ShoppingListBrowse" />
 			<class name="com.totalwine.test.shoppinglist.ShoppingListAddItem" />
+			<class name="com.totalwine.test.shoppingcart.ShoppingCartAll"/>
 			<class name="com.totalwine.test.agegating.AgeGate" />
 			<class name="com.totalwine.test.pdp.PDPTabs" />
 			<class name="com.totalwine.test.pdp.PdpChangeStores"/>
