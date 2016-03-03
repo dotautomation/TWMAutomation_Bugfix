@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
@@ -33,6 +34,8 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -44,15 +47,21 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+
 import org.testng.asserts.SoftAssert;
+/*import io.selendroid.client.SelendroidDriver;
+import io.selendroid.common.SelendroidCapabilities;
+import io.selendroid.standalone.SelendroidConfiguration;
+import io.selendroid.standalone.SelendroidLauncher;*/
 
 public class Browser {
 
 	protected WebDriver driver;
-	protected String hubURL = "http://prt-6rkhd12.totalwine.com:5566/wd/hub";
+	protected String hubURL = "http://prt-dotautotest.totalwine.com:5566/wd/hub";
 	protected static ExtentTest logger;
 	protected static ExtentReports report = getReporter(); //Reporting v2
 	protected static SoftAssert Verify = new SoftAssert();
+	//private static SelendroidLauncher selendroidServer = null;
 	
 	@BeforeMethod
 	
@@ -169,23 +178,32 @@ public class Browser {
 			}
 		}
 		//Grid - iOS (iPhone 6)
-				if (browser.equalsIgnoreCase("iOSGrid")) {
-					DesiredCapabilities cap = DesiredCapabilities.chrome();
-					Map<String, String> mobileEmulation = new HashMap<String, String>();
-					mobileEmulation.put("deviceName", "Apple iPhone 6");
-					Map<String, Object> chromeOptions = new HashMap<String, Object>();
-					chromeOptions.put("mobileEmulation", mobileEmulation);
-					cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-				    cap.setBrowserName("chrome");
-				    cap.setPlatform(Platform.VISTA);
-				    try {
-						driver = new RemoteWebDriver(new URL(hubURL),cap); //Hub URL
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} 
-				}
+		if (browser.equalsIgnoreCase("iOSGrid")) {
+			DesiredCapabilities cap = DesiredCapabilities.chrome();
+			Map<String, String> mobileEmulation = new HashMap<String, String>();
+			mobileEmulation.put("deviceName", "Apple iPhone 6");
+			Map<String, Object> chromeOptions = new HashMap<String, Object>();
+			chromeOptions.put("mobileEmulation", mobileEmulation);
+			cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+		    cap.setBrowserName("chrome");
+		    cap.setPlatform(Platform.VISTA);
+		    try {
+				driver = new RemoteWebDriver(new URL(hubURL),cap); //Hub URL
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} 
+		}
+		/*Actual Android
+		if (browser.equalsIgnoreCase("And")) {
+			if (selendroidServer != null) {
+			      selendroidServer.stopSelendroid();
+			    }
+			    SelendroidConfiguration config = new SelendroidConfiguration();
+			    selendroidServer = new SelendroidLauncher(config);
+			    selendroidServer.launchSelendroid();
+			    driver = new SelendroidDriver();
+	}*/
 	}
-	
 	@AfterMethod
 	public void takeScreenShotOnFailure(ITestResult testResult) throws IOException, InterruptedException { 
 		if(testResult.getStatus() == ITestResult.FAILURE) { 
@@ -236,5 +254,10 @@ public class Browser {
 		else if (exception.contains("ElementNotVisibleException"))
 			log = "Interaction with an expected element did not happen";
 		return log;
+	}
+	
+	public void PageLoad(WebDriver driver) {
+	    new WebDriverWait(driver, 30).until((ExpectedCondition<Boolean>) wd ->
+	            ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 	}
 }
