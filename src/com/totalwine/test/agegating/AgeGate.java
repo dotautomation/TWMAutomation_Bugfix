@@ -29,13 +29,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.testng.*;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageGlobal;
@@ -63,12 +60,12 @@ public class AgeGate extends Browser {
 		cal.add(Calendar.YEAR, -21); //Subtract 21 years from current date
 		Date date = cal.getTime();
 		System.out.println(ageGateDate.replace(",", "")+"|"+dateFormat.format(date));
-		Assert.assertEquals(ageGateDate.replace(",", ""), dateFormat.format(date));
+		Assert.assertEquals(ageGateDate.replace(",", ""), dateFormat.format(date),"Age Gate Date is not correct");
 		
 		driver.findElement(PageGlobal.AgeGateNo).click();
 		Thread.sleep(1000);
 		//Splash screen validation
-		Assert.assertEquals(driver.findElements(PageGlobal.AgeGateNoError).isEmpty(),false);
+		Assert.assertEquals(driver.findElements(PageGlobal.AgeGateNoError).isEmpty(),false,"The Age Gate error didn't appear correctly when the customer clicking \"No\"");
 		logger.log(LogStatus.PASS, "Screen notification upon clicking No");
 		//Validate URL for responsibility.org
 		Thread.sleep(10000);
@@ -83,5 +80,6 @@ public class AgeGate extends Browser {
 	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(PageHomepage.HomepageCarousel).isEmpty(),false); //HomePage validation
-	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");}
-	}
+	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");
+    }
+}

@@ -44,14 +44,16 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
+import org.testng.asserts.SoftAssert;
 
 public class Browser {
-//
+
 	protected WebDriver driver;
 	protected String hubURL = "http://prt-6rkhd12.totalwine.com:5566/wd/hub";
 	protected static ExtentTest logger;
 	protected static ExtentReports report = getReporter(); //Reporting v2
-
+	protected static SoftAssert Verify = new SoftAssert();
+	
 	@BeforeMethod
 	
 	
