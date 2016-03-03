@@ -4,11 +4,10 @@
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
 	<test name="IE Tests">
-		<parameter name="browser" value="Chrome">
+		<parameter name="browser" value="iOS">
 		</parameter>
 		<classes>
-			<class name="com.totalwine.test.brandpages.AllBrands"/>
-			
+			<class name="com.totalwine.test.mobile.MobilePLPSort"/>
 		</classes>
 	</test>
 </suite>
