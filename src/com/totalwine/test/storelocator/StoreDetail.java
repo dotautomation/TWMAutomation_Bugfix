@@ -75,6 +75,13 @@ public class StoreDetail extends Browser {
 	    driver.findElement(By.cssSelector("a.analyticsStoreLink > p")).click(); //First result - McLean
 	    Thread.sleep(3000);
 	    logger.log(LogStatus.PASS, "Navigate to McLean store detail page");
+	    
+	    //Validate the Get Directions link
+	    driver.findElement(By.cssSelector("a.getdir.analyticsGetDir")).click();
+	    Thread.sleep(2000);
+	    Assert.assertTrue(driver.findElement(By.cssSelector("input#SUBMIT")).isDisplayed(),"The map view didn't load upon clicking the Get Directions link");
+	    logger.log(LogStatus.PASS, "Get Directions link is functional and displays the Map View");
+	    
 	    //Validate the presence of all elements
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#notificationDiv")).isEmpty(), false); //State-wide notification
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.jumbo-image")).isEmpty(), false); //Store image
@@ -112,11 +119,12 @@ public class StoreDetail extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.events-classes-items-content")).isEmpty(), false);//Upcoming Store Events
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a#upcomingEventLink")).isEmpty(), false);//See all events
 	    logger.log(LogStatus.PASS, "Validate elements in store detail page");
+	    
 		//Click Make this my store button and validate store session change
 	    driver.findElement(PageStoreLocator.StartInStoreOrderButton).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(PageStoreLocator.StartInStoreOrderButton).click();
 	    Thread.sleep(5000);
-	    Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(), "McLean , VA");
+	    Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(), "McLean, VA");
 	    logger.log(LogStatus.PASS, "Click and validate the \"Start In-store order\" button");
 	}
 }
