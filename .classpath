@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="C:/twmautomation/lib/lib/jsoup-1.8.3.jar"/>
 	<classpathentry kind="lib" path="C:/twmautomation/lib/lib/extentreports-java-2.40.1.jar"/>
 	<classpathentry kind="lib" path="C:/twmautomation/lib/lib/extentreports-2.40.1.jar"/>
+	<classpathentry kind="lib" path="C:/twmautomation/lib/lib/selendroid-standalone-0.17.0.jar"/>
+	<classpathentry kind="lib" path="C:/twmautomation/lib/lib/selendroid-test-app-0.10.0.apk"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

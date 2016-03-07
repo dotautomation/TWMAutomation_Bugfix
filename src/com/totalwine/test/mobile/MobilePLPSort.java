@@ -33,6 +33,7 @@ import jxl.read.biff.BiffException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
@@ -44,11 +45,16 @@ import com.totalwine.test.trials.Browser;
 public class MobilePLPSort extends Browser {
 
 	//private String IP="71.193.51.0";
-
+	@BeforeMethod
+	public void maximize () {
+		driver.manage().window().maximize();
+	}
+	
 	@Test 
-	public void MobileFilterTest () throws InterruptedException, BiffException, IOException {
+	public void MobileSortTest () throws InterruptedException, BiffException, IOException {
 		logger=report.startTest("Mobile PLP Sort Test");
-		SiteAccess.ActionAccessMobileSite(driver, "71.193.51.0");
+		SiteAccess.ActionAccessMobileSite(driver, "98.169.134.0");
+		Thread.sleep(1000);
 		
 		//Access Mobile PLP
 		driver.findElement(PageHomepage.MobileWineButton).click();
@@ -91,9 +97,10 @@ public class MobilePLPSort extends Browser {
 	    //SortOption.selectByVisibleText("Price (highest first)");
 	    driver.findElement(By.cssSelector("option[value=\"price-desc\"]")).click();
 	    Thread.sleep(3000);
-	    int TopPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(1) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", ""));
-	    int SecondPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(2) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", ""));
-	    Assert.assertTrue(TopPrice>SecondPrice);
+	    int TopPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(1) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", "").replaceAll("/[^A-Za-z0-9 ]/", ""));
+	    int SecondPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(2) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", "").replaceAll("/[^A-Za-z0-9 ]/", ""));
+	    System.out.println(TopPrice+"|"+SecondPrice);
+	    Assert.assertTrue(TopPrice>=SecondPrice);
 	    logger.log(LogStatus.PASS, "Descending price sort displays highest priced item on top followed by lower priced items");
 	    
 		//Verify "Price (lowest first)" sort
@@ -101,9 +108,9 @@ public class MobilePLPSort extends Browser {
 	    //SortOption.selectByVisibleText("Price (lowest first)");
 	    driver.findElement(By.cssSelector("option[value=\"price-asc\"]")).click();
 	    Thread.sleep(3000);
-	    TopPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(1) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", ""));
-	    SecondPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(2) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", ""));
-	    Assert.assertTrue(TopPrice<SecondPrice,"Ascending Price sort didn't appear correctly");
+	    TopPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(1) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", "").replaceAll("/[^A-Za-z0-9 ]/", ""));
+	    SecondPrice = (int) Double.parseDouble(driver.findElement(By.cssSelector("ul.plp-list > li:nth-child(2) > div > div.plp-product-price >ul > li.plp-product-price-actual > span.price")).getText().replaceAll("[^\\d.]+", "").replaceAll("/[^A-Za-z0-9 ]/", ""));
+	    Assert.assertTrue(TopPrice<=SecondPrice,"Ascending Price sort didn't appear correctly");
 	    logger.log(LogStatus.PASS, "Ascending price sort displays lowest priced item on top followed by higher priced items");
 	    
 		//Verify "Name (A-Z)" sort
