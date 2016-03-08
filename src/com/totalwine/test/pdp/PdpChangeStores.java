@@ -7,7 +7,7 @@ package com.totalwine.test.pdp;
  * Click on view Cart
  * Change Store / Shipping location 
  * Verify that Shipping or in-store pickup address is changed for the same selected product.  
-
+ * 
  *** Technical Modules:
  * BeforeMethod (Test Pre-requisites):
  * 		Invoke webdriver
@@ -19,7 +19,6 @@ package com.totalwine.test.pdp;
  * AfterClass
  * 		Quit webdriver
  */
-
 import java.io.IOException;
 import jxl.read.biff.BiffException;
 import org.testng.*;
@@ -34,15 +33,16 @@ import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageChangingStore;
 import com.totalwine.test.trials.Browser;
+import com.totalwine.test.actions.*;
 
 public class PdpChangeStores extends Browser {
 	private String IP="71.193.51.0";
 	
 	@DataProvider(name="PDPParameters")
-  public Object[][] createData() {
-  	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "PdpChangeStores");
-      return(retObjArr);
-  } 
+    public Object[][] createData() {
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "PdpChangeStores");
+        return(retObjArr);
+    } 
 	
 	@BeforeMethod
 	  public void setUp() throws Exception {
@@ -50,53 +50,33 @@ public class PdpChangeStores extends Browser {
 	  }  
 	
 	@Test (dataProvider = "PDPParameters")
-	public void PdpChangeStoresTest (String toplevel,String plp,String zip) throws InterruptedException, BiffException, IOException {
-		logger=report.startTest("Pdp Change Stores");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
-	    Actions action=new Actions(driver);
+	public void PDPTest (String toplevel,String plp,String zip) throws InterruptedException, BiffException, IOException {
+		logger=report.startTest("PDP Tabs Test");
+		SiteAccess.ActionAccessSite(driver, IP);
+	    
+		Actions action=new Actions(driver);
 		
-	    // **  Browse to PLP
+		//Browse to PLP
 		WebElement toplevelnav = driver.findElement(By.xpath("//a[contains(@href,'"+toplevel+"')]")); 
 		action.moveToElement(toplevelnav).build().perform(); //Top Level Menu Hover
 		WebElement plpnav=driver.findElement(By.xpath("//a[contains(@href,'"+plp+"')]"));
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", plpnav);
 		Thread.sleep(5000);
+		logger.log(LogStatus.PASS, "PDP Access");
 		
-		// **  Access the PDP
+		//Access the PDP
 		WebElement plpmove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(plpmove).build().perform();
-//		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
-//		Thread.sleep(5000);
-		
+		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
+		Thread.sleep(3000);
 		String winename = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
 		System.out.println(winename);
 		driver.findElement(By.cssSelector("a.analyticsProductName")).click(); //Click the first item link in the PLP
+		//driver.findElement(By.xpath("//div/h2/a")).click();
 		Thread.sleep(5000);
-		
-		// **  Tab 1 - Overview
-		Assert.assertEquals(driver.findElements(By.cssSelector("section.pdp-tab-overview-prod-img > div.pdp-tab-overview-prod-img-bottle-img.pdp-img-zoom-modal-zoom-reset > img.anPDPImage")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("h1.product-name")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div.pdp-tab-overview-desc-name > div.wine_details > ul.wine-right-details > li > h2 > a.analyticsCountryState")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("li.sale-price-present > div > span.price-style-mid")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("#pdpTabs > section.item.pdp-tab-overview > section.pdp-tab-overview-type")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToCart")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToListInit")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div#overview-qty")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("#pdpTabs > section.item.pdp-tab-overview > section.pdp-tab-overview-type > #variantForm > #overview-mililitres > div.customselect > span.itemval")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span.pdp-tabs-ind-left")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("img.anPDPImage.active")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div.breadcrumbs")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-right.anPDPTab")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Verified Tab-1");
-	    Thread.sleep(3000);
-	    
-	    // **  Add to Cart
+
+		// **  Add to Cart
 	 	String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
 	 	System.out.println(productId);
 	 	Thread.sleep(2000);    
@@ -124,7 +104,7 @@ public class PdpChangeStores extends Browser {
 	    Thread.sleep(6000);
 		String winename2 = driver.findElement(By.cssSelector("span.color-dim.analyticsProductCode")).getText();
 		System.out.println(winename2);
-		Assert.assertEquals(driver.findElements(By.cssSelector("span.color-dim.analyticsProductCode")).isEmpty(),false);
+		Assert.assertEquals(driver.findElements(By.cssSelector("span.color-dim.analyticsProductCode")).isEmpty(),false, "if after changing the store item doesn't remain same then the test will fail");
 		logger.log(LogStatus.PASS, "Verified item before and after changing store");
 		Thread.sleep(2000);
 	  }
