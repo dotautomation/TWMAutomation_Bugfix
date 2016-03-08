@@ -44,6 +44,7 @@ import org.testng.annotations.Test;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.pages.PageShoppingList;
 import com.totalwine.test.trials.Browser;
 
@@ -113,7 +114,7 @@ public class ShoppingListAddItem extends Browser {
 	    driver.findElement(By.linkText("Welcome, Rajat")).click();
 	    driver.findElement(By.linkText("Log out")).click();
 	    Thread.sleep(5000);
-	    Assert.assertEquals(driver.findElements(By.linkText("Account")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(PageGlobal.TopNavAccount).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Log out of account");
 	}
 		
@@ -152,10 +153,14 @@ public class ShoppingListAddItem extends Browser {
 	    Thread.sleep(5000);
 	    Assert.assertEquals(driver.findElements(By.linkText("Cloud Break Chardonnay")).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Validate that item is present in existing shopping list");
+	    
+	  //Check for survey popup
+	    if (driver.findElements(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).size()!=0)
+	    	driver.findElement(By.xpath("//img[contains(@src,'https://qdistribution.qualtrics.com/WRQualtricsShared/Graphics//black_popup_x.png')]")).click();
+	    Thread.sleep(2000);
+	    
 	    //Delete item from Shopping List (so it can be added again)
-	    WebElement scroll_Price = driver.findElement(By.linkText("Cloud Break Chardonnay"));
-	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
-	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.linkText("Cloud Break Chardonnay")).sendKeys(Keys.ARROW_DOWN);
 	    //driver.findElement(By.xpath("//a[@onclick=\"setDeleteLineItemForm('110892750-1','205','icongo','Cloud Break Chardonnay')\"]")).click();
 	    driver.findElement(PageShoppingList.DeleteLink).click();
 	 	Thread.sleep(2000);
@@ -167,7 +172,7 @@ public class ShoppingListAddItem extends Browser {
 	    driver.findElement(By.linkText("Welcome, Rajat")).click();
 	    driver.findElement(By.linkText("Log out")).click();
 	    Thread.sleep(5000);
-	    Assert.assertEquals(driver.findElements(By.linkText("Account")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(PageGlobal.TopNavAccount).isEmpty(),false);
 	    logger.log(LogStatus.PASS, "Logout of account");
 	}
 }

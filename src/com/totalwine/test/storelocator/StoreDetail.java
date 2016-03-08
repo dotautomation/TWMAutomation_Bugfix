@@ -36,6 +36,7 @@ package com.totalwine.test.storelocator;
 import java.awt.AWTException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -93,8 +94,9 @@ public class StoreDetail extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsWeeklyAd[href*=\"totalwine.inserts2online.com/\"]")).isEmpty(), false);//Weekly ad
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.store-details-hours")).isEmpty(), false);//Hours
 	    driver.findElement(By.cssSelector("a.analyticsTastingHours")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.cssSelector("a.analyticsTastingHours")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.cssSelector("a.analyticsTastingHours")).click();
+	    JavascriptExecutor js = (JavascriptExecutor)driver;
+	    js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("a.analyticsTastingHours")));
+	    //driver.findElement(By.cssSelector("a.analyticsTastingHours")).click();
 	    Thread.sleep(2000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.modal-body > div.hours-body")).isEmpty(), false);//Sampling hours
 	    driver.findElement(By.cssSelector("div.modal-body > div.hours-header > a.btn-close.analyticsCloseBtn")).click();

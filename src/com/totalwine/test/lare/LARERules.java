@@ -62,7 +62,7 @@ public class LARERules extends Browser {
 	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("button#changeStoreBtn")).click();
 	    Thread.sleep(5000);
-	    Assert.assertEquals("Towson (Beltway) , MD", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+	    Assert.assertEquals("Towson (Beltway), MD", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
 	    
 	    Actions action=new Actions(driver);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -88,7 +88,7 @@ public class LARERules extends Browser {
 		Thread.sleep(3000);
 		driver.navigate().refresh();
 		Thread.sleep(3000);
-		Assert.assertEquals("McLean , VA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+		Assert.assertEquals("McLean, VA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
 		logger.log(LogStatus.PASS, "LARE: Deep Link");
 	}
 		
@@ -104,7 +104,7 @@ public class LARERules extends Browser {
 		Thread.sleep(5000);
 	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
 	    Thread.sleep(5000);
-		driver.findElement(By.linkText("Account")).click();
+		driver.findElement(PageGlobal.TopNavAccount).click();
 		Thread.sleep(2000);
 	    driver.findElement(By.linkText("Sign into your account")).click();
 		Thread.sleep(3000);
@@ -118,7 +118,7 @@ public class LARERules extends Browser {
 	    driver.findElement(By.cssSelector("button.btn.btn-red.anLoginSubmit")).click();
 	    Thread.sleep(5000);
 	    driver.switchTo().activeElement();
-	    Assert.assertEquals(driver.findElement(PageGlobal.StoreSelection).getText(),"Fairfax , VA");
+	    Assert.assertEquals(driver.findElement(PageGlobal.StoreSelection).getText(),"Fairfax, VA");
 	    logger.log(LogStatus.PASS, "LARE: User profile preferred store set to \"Always Use\"");
 	}
 	
@@ -141,7 +141,7 @@ public class LARERules extends Browser {
 	    //driver.findElement(By.cssSelector("button.btn.btn-gray")).click();
 	    driver.findElement(By.xpath("//button[@onclick='closeModalSetLARE(this);']")).click();
 	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Assert.assertEquals("Sacramento (Arden) , CA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+	    Assert.assertEquals("Sacramento (Arden), CA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
 	    logger.log(LogStatus.PASS, "LARE: Default Web Store");
 	}
 

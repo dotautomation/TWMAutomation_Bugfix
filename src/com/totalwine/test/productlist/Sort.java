@@ -61,33 +61,35 @@ public class Sort extends Browser {
 		
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
-		driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
+		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(5000);
 	    
 		//Our Favorites
 		driver.findElement(PageProductList.SortDropdown).click();
-	    driver.findElement(By.cssSelector("div.contSelect > ul > li[data-val=our-favorites]")).click();
+	    driver.findElement(By.cssSelector("li[data-val=our-favorites]")).click();
 	    Thread.sleep(2000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("option[value=our-favorites]")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-wdlogo")).isEmpty(),false);
 	    
 	    //Expert Ratings
 	    driver.findElement(PageProductList.SortDropdown).click();
-	    driver.findElement(By.cssSelector("div.contSelect > ul > li[data-val=expert-ratings]")).click();
+	    driver.findElement(By.cssSelector("li[data-val=expert-ratings]")).click();
 	    Thread.sleep(2000);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span.plp-product-desc-winespec-left-badge")).isEmpty(),false);
 	    
 	    
 	    //Name (A-Z)
 	    driver.findElement(PageProductList.SortDropdown).click();
-	    driver.findElement(By.cssSelector("div.contSelect > ul > li[data-val=name-asc]")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("li[data-val=name-asc]")));
+	    //driver.findElement(By.cssSelector("li[data-val=name-asc]")).click();
 	    Thread.sleep(3000);
 	    String ProductNameAlphaSort = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
 	    driver.navigate().refresh();
 	    
 	    //Name (Z-A)
 	    driver.findElement(PageProductList.SortDropdown).click();
-	    driver.findElement(By.cssSelector("div.contSelect > ul > li[data-val=name-desc]")).click();
+	    //driver.findElement(By.cssSelector("li[data-val=name-desc]")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("li[data-val=name-desc]")));
 	    Thread.sleep(3000);
 	    String ProductNameReverseAlphaSort = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
 	    
