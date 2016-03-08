@@ -9,12 +9,12 @@ package com.totalwine.test.checkout;
  *  4. Access PDP for item
  *  5. Add to cart
  *  6. View Cart
- *  7. Initiate registered user Checkout
+ *  7. Initiate registered user Checkout, which has saved credit card
  *  8. Tab 1 Checkout ( Delivery Address)
  *  9. Tab 2 Checkout (Billing)
  *  10. Tab 3 Checkout (Review and Submit)
  *  11. Order Confirmation Page
- *  12. Verify welcome message (We're happy you've joined the Total Discovery program, ---) displays
+ *  12. Verify welcome message.
 
  * Technical Modules:
  * 	1. DataProvider: Checkout test input parameters
@@ -33,15 +33,15 @@ import java.io.IOException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.Checkout;
+import com.totalwine.test.actions.ShoppingCart;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
-
 import jxl.read.biff.BiffException;
 
 		public class RegisteredShipCheckOutUsingSavedCc extends Browser {
@@ -63,62 +63,40 @@ import jxl.read.biff.BiffException;
 					String Phone,String CreditCard,String ExpirationMonth,String ExpirationYear,String CVV,String Password)
 							
 							throws InterruptedException, BiffException, IOException {
-
 				logger=report.startTest("Registered Ship Checkout using saved credit card");
 				driver.get(ConfigurationFunctions.locationSet+Location);
 				Thread.sleep(5000);
-				driver.findElement(By.id("btnYes")).click();
-				Thread.sleep(5000);
-
-			    Assert.assertEquals(StoreName, driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
-			    logger.log(LogStatus.PASS, "The site is configured for an Ship order");
-			    
-			    ConfigurationFunctions.highlightElement(driver,driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")));
-
+				
+				//** By Passing Age Gate and Welcome Modal
+				Checkout.AgeGateWelcome(driver);
+				
 		   	 	// **  Selecting a product from PDP
 				driver.get(ConfigurationFunctions.accessURL+PDP);
 				Thread.sleep(3000);
 
-				// **  Add to Cart
-				String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
-				System.out.println(productId);
-				Thread.sleep(2000);
-
-			    driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click(); //Clicking the ATC button
-				Thread.sleep (3000);
-				
+				// **  Adding item to Cart
+				ShoppingCart.ATC(driver);
 			    driver.get(ConfigurationFunctions.accessURL+"/cart");
 			    Thread.sleep(3000);
 
 			    //  ** Shopping Cart
-			    WebElement scroll = driver.findElement(By.id("checkout"));
-
-			    scroll.sendKeys(Keys.PAGE_DOWN); //  ** Scrolling down page
+			    WebElement scroll0 = driver.findElement(By.cssSelector("input[id='zipCode']")); 
+			    scroll0.sendKeys(Keys.PAGE_DOWN); //  ** Scrolling down page
+			    WebElement element = driver.findElement(By.cssSelector("input[id='zipCode']"));  
+			    new Actions(driver).moveToElement(element).perform();  
+			    element.click();
 			    driver.findElement(By.cssSelector("input[id='zipCode']")).click();
 			    driver.findElement(By.cssSelector("input[id='zipCode']")).clear();
-			    driver.findElement(By.cssSelector("input[id='zipCode']")).sendKeys(Zip);
-		  	    driver.findElement(By.cssSelector("input.anZipForm[value='Submit']")).click();
-			    Thread.sleep(5000);
-
+			    driver.findElement(By.cssSelector("input[id='zipCode']")).sendKeys(Zip);    
+			    Thread.sleep(2000);
+			    driver.findElement(By.cssSelector("input.anZipForm[value='Submit']")).click();
+			    Thread.sleep(6000);
+			    
 			    driver.findElement(By.cssSelector("#deliveryMode > div.customselect > span.itemval")).click();
 			    driver.findElement(By.cssSelector("li[data-val="+ShipOption+"]")).click();
-			    Thread.sleep(5000);
-			    
-			    Assert.assertEquals(driver.findElements(By.cssSelector("div[class=\"width-100 totalDotBorder noBorder ship-cost\"]")).isEmpty(),false); //Validate appearance of shipping cost
-			    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
-			    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
-			    
+			    Thread.sleep(5000);	    
 			    driver.findElement(By.id("checkout")).click();
 			    Thread.sleep(3000);
-			    logger.log(LogStatus.PASS, "Shopping cart elements");
-
-			    // **  Next Page (Login/Checkout as a registered user)
-			    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
-			    Assert.assertEquals(driver.findElements(By.id("j_password")).isEmpty(),false);
-			    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
-			    Assert.assertEquals(driver.findElements(By.id("forgotPasswordCheckout")).isEmpty(),false);
-			    Assert.assertEquals(driver.findElements(By.id("checkoutSignIn")).isEmpty(),false);
-			    logger.log(LogStatus.PASS, "Selecting registered checkout");
 
 			    // **  Login
 			    driver.findElement(By.id("j_username")).clear();
@@ -127,48 +105,30 @@ import jxl.read.biff.BiffException;
 			    driver.findElement(By.id("j_password")).sendKeys(Password);
 			    driver.findElement(By.id("checkoutSignIn")).click();
 			    Thread.sleep(3000);
-			    logger.log(LogStatus.PASS, "Login");
-			    
 
-			    // **  Checkout Tab-1
-			    Thread.sleep(2000);
-			    
-			    driver.findElement(By.id("shiporderhere_8864324616215")).click();
-			    logger.log(LogStatus.PASS, "Clicking on Ship Order Here Radio button");
-
+			    // **  Checkout Tab-1    
+			    driver.findElement(By.cssSelector("div.shippingaddress-option > span#shiporderhere_8885321596951.twm-radio.anShipOrderHere")).click();
 			    WebElement scroll2 = driver.findElement(By.id("btnShipAuth1")); //  ** Scrolling down page
 			    scroll2.sendKeys(Keys.PAGE_DOWN);
-
 			    driver.findElement(By.id("btnShipAuth1")).click();
-
 			    Thread.sleep(2000);
-			    logger.log(LogStatus.PASS, "Checkout Tab 1");
 
 			    // **  Checkout Tab-2
-			    driver.findElement(By.id("card_8813397442602")).click();
-			    
+			    driver.findElement(By.id("card_8829320003626")).click();
+			    Thread.sleep(3000);
 			    WebElement scroll3 = driver.findElement(By.cssSelector(".btn.btn-red.anContinue")); //  ** Scrolling down page
 			    scroll3.sendKeys(Keys.PAGE_DOWN);
 			    Thread.sleep(1000);
-			    
 			    driver.findElement(By.cssSelector(".btn.btn-red.anContinue")).click();
 			    Thread.sleep(2000);
-			    logger.log(LogStatus.PASS, "Checkout Tab 2");
 
 			    // **  Checkout Tab-3
 			    WebElement scroll4 = driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")); //  ** Scrolling down page
 			    scroll4.sendKeys(Keys.PAGE_DOWN);
 			    Thread.sleep(1000);
+			    Checkout.GuestCheckoutTab3(driver);
 			    
-			    driver.findElement(By.id("check_box_age")).click();
-			    
-			    driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")).click();
-			    Thread.sleep(2000);
-			    logger.log(LogStatus.PASS, "Checkout Tab 3");
-
-			    // Order Confirmation
-			    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
-			    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
-			    logger.log(LogStatus.PASS, "Registered Ship Checkout Order Confirmation");
-	}
+			    //  ** Order Confirmation
+//			    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
+			}
 }

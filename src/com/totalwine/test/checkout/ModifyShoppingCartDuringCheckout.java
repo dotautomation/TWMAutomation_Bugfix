@@ -39,14 +39,13 @@ package com.totalwine.test.checkout;
 	import org.testng.annotations.BeforeMethod;
 	import org.testng.annotations.DataProvider;
 	import org.testng.annotations.Test;
-	import com.relevantcodes.extentreports.LogStatus;
 	import com.totalwine.test.config.ConfigurationFunctions;
 	import com.totalwine.test.trials.Browser;
 	import jxl.read.biff.BiffException;
-			
+	import com.totalwine.test.actions.*;
+
 			public class ModifyShoppingCartDuringCheckout extends Browser {
-				
-				
+
 				@DataProvider(name="CheckoutParameters")
 			    public Object[][] createData() {
 			    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "ModifyShoppingCartDuringCheckoutBF");
@@ -63,41 +62,28 @@ package com.totalwine.test.checkout;
 						String LastName,String Company,String Address1,String Address2,String City,String State,String Zip,String Email, 
 						String Phone,String CreditCard,String ExpirationMonth,String ExpirationYear,String CVV,String Password,String ItemType)
 								
-								throws InterruptedException, BiffException, IOException {
-
+					throws InterruptedException, BiffException, IOException {
 					logger=report.startTest("Modifying Shopping Cart during checkout");
 					driver.get(ConfigurationFunctions.locationSet+Location);
 					Thread.sleep(5000);
-					driver.findElement(By.id("btnYes")).click();
-					Thread.sleep(5000);
-
-				    Assert.assertEquals(StoreName, driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
-				    logger.log(LogStatus.PASS, "The site is configured for an ISP order");
-				    
-				    ConfigurationFunctions.highlightElement(driver,driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")));
+					
+					//** By Passing Age Gate and Welcome Modal
+					Checkout.AgeGateWelcome(driver);
 
 			   	 	// **  Selecting a product from PDP
 					driver.get(ConfigurationFunctions.accessURL+PDP);
 					Thread.sleep(3000);
 
 					// **  Adding item to Cart
-					String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
-					System.out.println(productId);
-					Thread.sleep(1000);
-
-				    driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click();   //** Clicking the ATC button
-					Thread.sleep (3000);
-					
+					ShoppingCart.ATC(driver);
 				    driver.get(ConfigurationFunctions.accessURL+"/cart");
 				    Thread.sleep(3000);
-				    logger.log(LogStatus.PASS, "Item is added to cart");
 
 				    //  ** Shopping Cart Modification during checkout  		    
-				    WebElement scroll = driver.findElement(By.cssSelector("div.col-6 > div.row-1 > div.col-4 > div#overview-qty.qty > form#updateCartForm0 > input#qty.cart-qty.numonly"));
+				    WebElement scroll = driver.findElement(By.cssSelector("form#updateCartForm0 > input#qty.cart-qty.numonly"));
 				    scroll.sendKeys(Keys.PAGE_DOWN);   // ** Scrolling page down upto the element
-				  
-				    driver.findElement(By.cssSelector("div.col-6 > div.row-1 > div.col-4 > div#overview-qty.qty > form#updateCartForm0 > input#qty.cart-qty.numonly")).clear();
-				    driver.findElement(By.cssSelector("div.col-6 > div.row-1 > div.col-4 > div#overview-qty.qty > form#updateCartForm0 > input#qty.cart-qty.numonly")).sendKeys(Quantity);
+				    driver.findElement(By.cssSelector("form#updateCartForm0 > input#qty.cart-qty.numonly")).clear();
+				    driver.findElement(By.cssSelector("form#updateCartForm0 > input#qty.cart-qty.numonly")).sendKeys(Quantity);
 
 				    WebElement scroll2 = driver.findElement(By.id("checkout"));   // ** Scrolling page down upto the element
 				    scroll2.sendKeys(Keys.PAGE_DOWN);
@@ -106,28 +92,14 @@ package com.totalwine.test.checkout;
 				    new Actions(driver).moveToElement(element).perform();  // ** Move to the specific element. Need to use while element can't detect normal way
 				    element.click();
 				    Thread.sleep(2000);
-				    logger.log(LogStatus.PASS, "Shopping Cart Modification during checkout");
 
 				    WebElement scroll3 = driver.findElement(By.id("checkout")); // ** Scrolling page down upto the element
 				    scroll3.sendKeys(Keys.PAGE_DOWN);  
 
 				    driver.findElement(By.cssSelector("#deliveryModeInStore > div.customselect > span.itemval")).click();
 				    driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]")).click();
-				    
-				    Assert.assertEquals(driver.findElements(By.cssSelector("input.anVoucherForm")).isEmpty(),false);
-				    Assert.assertEquals(driver.findElements(By.name("qty")).isEmpty(),false);
-				    
 				    driver.findElement(By.id("checkout")).click();
 				    Thread.sleep(3000);
-				    logger.log(LogStatus.PASS, "Shopping cart");
-
-				    // **  Next Page (Verification Login/Checkout as a registered user)
-				    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
-				    Assert.assertEquals(driver.findElements(By.id("j_password")).isEmpty(),false);
-				    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
-				    Assert.assertEquals(driver.findElements(By.id("forgotPasswordCheckout")).isEmpty(),false);
-				    Assert.assertEquals(driver.findElements(By.id("checkoutSignIn")).isEmpty(),false);
-				    logger.log(LogStatus.PASS, "Selecting registered checkout");
 
 				    // **  Login
 				    driver.findElement(By.id("j_username")).clear();
@@ -136,7 +108,6 @@ package com.totalwine.test.checkout;
 				    driver.findElement(By.id("j_password")).sendKeys(Password);
 				    driver.findElement(By.id("checkoutSignIn")).click();
 				    Thread.sleep(3000);
-				    logger.log(LogStatus.PASS, "Login");
 
 				    // **  Checkout Tab-1
 				    WebElement scroll5 = driver.findElement(By.id("btnPickup")); //  ** Scrolling down page
@@ -144,10 +115,9 @@ package com.totalwine.test.checkout;
 				    
 				    driver.findElement(By.id("btnPickup")).click();
 				    Thread.sleep(2000);
-				    logger.log(LogStatus.PASS, "Checkout Tab 1");
 
 				    // **  Checkout Tab-2
-				    driver.findElement(By.id("card_8813397442602")).click();
+				    driver.findElement(By.id("card_8829320003626")).click();
 				    
 				    WebElement scroll6 = driver.findElement(By.cssSelector(".btn.btn-red.anContinue")); //  ** Scrolling down page
 				    scroll6.sendKeys(Keys.PAGE_DOWN);
@@ -155,7 +125,6 @@ package com.totalwine.test.checkout;
 				    
 				    driver.findElement(By.cssSelector(".btn.btn-red.anContinue")).click();
 				    Thread.sleep(2000);
-				    logger.log(LogStatus.PASS, "Checkout Tab 2");
 
 				    // **  Checkout Tab-3
 				    WebElement scroll4 = driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")); //  ** Scrolling down page
@@ -166,11 +135,5 @@ package com.totalwine.test.checkout;
 				    
 				    driver.findElement(By.cssSelector(".btn-red.btn-place-order.anPlaceOrder")).click();
 				    Thread.sleep(2000);
-				    logger.log(LogStatus.PASS, "Checkout Tab 3");
-
-				    // Order Confirmation
-				    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
-				    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
-				    logger.log(LogStatus.PASS, "Registered ISP Checkout Order Confirmation");
 				}
 			}
