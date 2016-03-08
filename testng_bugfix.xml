@@ -4,10 +4,18 @@
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
 	<test name="IE Tests">
-		<parameter name="browser" value="Chrome">
+		<parameter name="browser" value="iOSGrid">
 		</parameter>
 		<classes>
-			<class name="com.totalwine.test.storelocator.StoreDetail"/>
+			<class name="com.totalwine.test.mobile.MobileISPGuestCheckout"/>
 		</classes>
 	</test>
 </suite>
+
+
+
+<!-- 
+			<methods>
+        		<include name="SRPLeftNavTest" />
+        	</methods>
+ -->

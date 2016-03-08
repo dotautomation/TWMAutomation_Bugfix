@@ -79,7 +79,7 @@ public class Filter extends Browser {
 		logger.log(LogStatus.PASS, "Access Wine PLP");
 		//Varietal
 	    //driver.findElement(By.xpath("//li[4]/div/ul/li/a/span")).click();
-		//driver.findElement(By.linkText("varietaltype")).click();
+		driver.findElement(By.linkText("Wine Varietal & Type")).click();
 		driver.findElement(By.id("check_box_showmoreChardonnayvarietaltype")).click();
 		//driver.findElement(By.id("check_box_showmoreAlbarinovarietaltype")).click();
 		
@@ -96,20 +96,9 @@ public class Filter extends Browser {
 	    logger.log(LogStatus.PASS, "PLP Varietal facet");
 	    
 		//Country
-	    
-	    WebElement scroll_Country = driver.findElement(By.xpath("//a[contains(text(),'Country & State')]"));
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    //driver.findElement(By.xpath("//a[contains(text(),'Country/State')]")).click();
+	    driver.findElement(By.xpath("//a[contains(text(),'Country & State')]")).sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.xpath("//a[contains(text(),'Country & State')]")).click();
 	    Thread.sleep(2000);
-	    //WebElement scroll_Country = driver.findElement(By.id("check_box_showmoreCaliforniastate"));
-	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    //scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    
 	    driver.findElement(By.id("check_box_showmoreCaliforniastate")).click();
 	    Thread.sleep(3000);
 	    facetValue = driver.findElement(By.cssSelector("span.filter-value")).getText();
@@ -121,11 +110,7 @@ public class Filter extends Browser {
 	    //Price Range
 	    WebElement wineMove1 = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove1).build().perform(); 
-	    WebElement scroll_Price = driver.findElement(By.linkText("Price Range"));
-	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
-	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
-	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
-	 	scroll_Price.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.linkText("Price Range")).sendKeys(Keys.ARROW_DOWN);
 	 	driver.findElement(By.xpath("//a[contains(text(),'Price')]")).click();
 	    driver.findElement(By.id("check_box_showmoreUp to $10plppricevalue")).click();
 	    Thread.sleep(3000);
@@ -137,8 +122,7 @@ public class Filter extends Browser {
 	    logger.log(LogStatus.PASS, "PLP Price facet");
 	    
 	    //Rating Source
-	    WebElement scroll_RatingSource = driver.findElement(By.linkText("Rating Source"));
-	 	scroll_RatingSource.sendKeys(Keys.ARROW_DOWN);
+	    driver.findElement(By.linkText("Rating Source")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.xpath("//a[contains(text(),'Rating Source')]")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("check_box_showmoreAntonio Galloniratingsource")).click();

@@ -55,7 +55,6 @@ public class ISPCheckout extends Browser {
 	
 	@BeforeMethod
 	  public void setUp() throws Exception {
-		//driver = new FirefoxDriver(testProfile);
 	    driver.manage().window().maximize();	
 		   
 	  }  
