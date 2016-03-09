@@ -165,36 +165,33 @@ public class ShoppingCartAll extends Browser {
 	    Thread.sleep(3000);
 	    
 	    //**Re-ordering Items from order history
-	    driver.findElement(By.cssSelector("div:nth-child(4) > div.oh-accordion-closed > div:nth-child(5)")).click();
+	    driver.findElement(By.cssSelector("div:nth-child(3) > div.oh-accordion-closed > div:nth-child(5)")).click();
 	    Thread.sleep (3000);
-
-	    String ProductIdReOrder = driver.findElement(By.cssSelector("span.color-dim")).getText();
+	    	    
+		String ProductIdReOrder = driver.findElement(By.cssSelector("span.color-dim")).getText();
 		System.out.println(ProductIdReOrder);
-		Thread.sleep(2000);
-////	    driver.findElement(By.xpath(".//*[@id='"+ProductIdReOrder+"']")).click(); //Clicking the ATC button
-////		Thread.sleep (5000);
+		Thread.sleep(2000);   
+	    driver.findElement(By.xpath(".//*[@id='"+ProductIdReOrder+"']")).click(); //Clicking the ATC button
+		Thread.sleep (5000);
 		
-//	    driver.findElement(By.cssSelector(".btn.btn-red.mini-cart-popup-plp.anReorder")).sendKeys(Keys.ARROW_DOWN);
-//	    driver.findElement(By.cssSelector(".btn.btn-red.mini-cart-popup-plp.anReorder")).click();
+	    String ProductIdReOrder1 = driver.findElement(By.cssSelector("div.pdp-product-nos")).getText();
+		System.out.println(ProductIdReOrder1);
+		Thread.sleep(2000);   
+	    driver.findElement(By.xpath(".//*[@id='"+ProductIdReOrder1+"']")).click(); //Clicking the ATC button
+	    logger.log(LogStatus.PASS, "Validated re-order from order history");
+	    Thread.sleep (5000);
 		
-//	    String ProductIdReOrder1 = driver.findElement(By.cssSelector("div.pdp-product-nos")).getText();
-//		System.out.println(ProductIdReOrder1);
-//		Thread.sleep(2000);   
-//	    driver.findElement(By.xpath(".//*[@id='"+ProductIdReOrder1+"']")).click(); //Clicking the ATC button
-//	    logger.log(LogStatus.PASS, "Validated re-order from order history");
-//	    Thread.sleep (5000);
-//		
-//	    //**Back to main Shopping Cart
-//	    driver.findElement(By.id("cartItemCount")).click();
-//	    Thread.sleep (7000);
-//	    
-//	    //**Move items from Cart to List
-//	    driver.findElement(By.cssSelector(".itemval>span")).click();
-//	    Thread.sleep (1000);
-//	    
-//	    driver.findElement(By.cssSelector(".undefined.anOption[data-val='Shopping List 02/26/2016']")).click();
+	    //**Back to main Shopping Cart
+	    driver.findElement(By.id("cartItemCount")).click();
+	    Thread.sleep (7000);
+	    
+	    //**Move items from Cart to List
+	    driver.findElement(By.cssSelector(".itemval>span")).click();
+	    Thread.sleep (1000);
+	    
+	    driver.findElement(By.cssSelector("li:nth-child(2)")).click();
 //	    Assert.assertEquals(driver.findElements(By.cssSelector(".alert.positive")).isEmpty(),false, "If Move to shopping list confirmation doesn't display then test will fail");
-//	    logger.log(LogStatus.PASS, "Validated item moved from cart to list");
-//	    Thread.sleep (5000);
+	    logger.log(LogStatus.PASS, "Validated item moved from cart to list");
+	    Thread.sleep (5000);
 	}
 }
