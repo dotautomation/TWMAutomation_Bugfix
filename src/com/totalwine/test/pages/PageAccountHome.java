@@ -12,7 +12,6 @@ import org.openqa.selenium.By;
 		public static final By ChangeStore  = By.cssSelector("#topLink1[data-target='#editStore']");
 		public static final By BrowseEvents  = By.cssSelector(".analyticsRegisterEvent");
 		public static final By EditPreferredStore  = By.cssSelector("#editStore > div > div > div > p > a");
-//		public static final By EditPreferredStore  = By.cssSelector("section#editStore.modal.fade.email-signup-overlay.co-create-acc.in div.modal-dialog div.modal-content > div.modal-body > p.close > a.btn-close");
 
 		public static final By YourProfile = By.cssSelector("li:nth-child(1) > ul > li:nth-child(2) > a > span");
 		public static final By EditPersonalInfo = By.cssSelector(".account-edit.analyticsEditProf[data-target='#editProfile']");
