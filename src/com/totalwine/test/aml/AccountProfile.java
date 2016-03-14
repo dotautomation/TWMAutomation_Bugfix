@@ -29,6 +29,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.Checkout;
+import com.totalwine.test.actions.ShoppingList;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 import com.totalwine.test.pages.*;
@@ -64,11 +65,8 @@ public class AccountProfile extends Browser {
 	    driver.findElement(PageSignInModal.ModalSigninButton).click();
 	    Thread.sleep(6000);
 	    
-	    //**Check for presence of merge cart modal
-	    if (driver.findElements(By.cssSelector("button.btn.btn-red.cartMergeBtn")).size()!=0) {
-	    	driver.findElement(By.cssSelector("button.btn.btn-red.cartMergeBtn")).click();
-	    	Thread.sleep(2000);
-	    }
+	    //**Checking for presence of merge cart modal
+	    ShoppingList.MergeCartModal(driver);
 	    
 	    //**Navigate to the User Profile link
 	    driver.findElement(PageAccountHome.YourProfile).click();  

@@ -12,8 +12,8 @@ public class SiteAccess {
 		Thread.sleep(2000);
 		driver.findElement(PageGlobal.AgeGateYes).click();
 		Thread.sleep(2000);
-	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
-	    Thread.sleep(2000);
+//	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
+//	    Thread.sleep(2000);
 	}
 	
 	public static void ActionAccessMobileSite(WebDriver driver,String IP) throws InterruptedException {

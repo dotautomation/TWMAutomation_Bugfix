@@ -32,9 +32,11 @@ package com.totalwine.test.aml;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.BeforeMethod;
 import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.Checkout;
+import com.totalwine.test.actions.ShoppingList;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 import com.totalwine.test.pages.*;
@@ -71,11 +73,8 @@ public class AccountHome extends Browser {
 	    driver.findElement(PageSignInModal.ModalSigninButton).click();
 	    Thread.sleep(6000);
 	    
-	    //**Check for presence of merge cart modal
-	    if (driver.findElements(By.cssSelector("button.btn.btn-red.cartMergeBtn")).size()!=0) {
-	    	driver.findElement(By.cssSelector("button.btn.btn-red.cartMergeBtn")).click();
-	    	Thread.sleep(2000);
-	    }
+	    //**Checking for presence of merge cart modal
+	    ShoppingList.MergeCartModal(driver);
 	    
 	    //**Navigate to the Account home link
 	    driver.findElement(PageAccountHome.AccountHome).click();  
@@ -94,16 +93,20 @@ public class AccountHome extends Browser {
 	    Thread.sleep(6000);
 	    
 	    //** "Change Store link" verification
-	    driver.findElement(PageAccountHome.ChangeStore).click();   
+	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
+	    js1.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.ChangeStore)); 
 	    Assert.assertEquals(driver.findElements(PageAccountHome.ChangeStore).isEmpty(),false,"Verifying Change store link");
-	    Thread.sleep(6000);
-	    driver.findElement(PageAccountHome.EditPreferredStore).click();
+	    Thread.sleep(3000);
+	    
+	    JavascriptExecutor js2 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
+	    js2.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.EditPreferredStore)); 
 	    Assert.assertEquals(driver.findElements(PageAccountHome.EditPreferredStore).isEmpty(),false,"Verifying Preffered Store edit");
 	    Thread.sleep(5000);
 	    logger.log(LogStatus.PASS, "Edit Preferred Store pop-up closed");
 	    
 	    //** "Browser events link" verification
-	    driver.findElement(PageAccountHome.BrowseEvents).click();
+	    JavascriptExecutor js3 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
+	    js3.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.BrowseEvents)); 
 	    driver.navigate().back();
 	    Thread.sleep(6000);
 	    logger.log(LogStatus.PASS, "Browser events link verified");
