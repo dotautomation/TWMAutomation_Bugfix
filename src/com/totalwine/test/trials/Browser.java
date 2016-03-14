@@ -39,6 +39,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.BeforeMethod;
 
@@ -66,8 +67,8 @@ public class Browser {
 	@BeforeMethod
 	
 	
-	@Parameters("browser") 
-	public void openBrowser(String browser) {
+	@Parameters ("browser") 
+	public void openBrowser(@Optional String browser) {
 		//Firefox
 		if(browser.equalsIgnoreCase("FF")) {
 			ProfilesIni profile = new ProfilesIni();
