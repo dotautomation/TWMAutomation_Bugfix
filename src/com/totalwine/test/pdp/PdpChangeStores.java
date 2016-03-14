@@ -50,11 +50,15 @@ public class PdpChangeStores extends Browser {
 	  }  
 	
 	@Test (dataProvider = "PDPParameters")
-	public void PDPTest (String toplevel,String plp,String zip) throws InterruptedException, BiffException, IOException {
-		logger=report.startTest("PDP Tabs Test");
-		SiteAccess.ActionAccessSite(driver, IP);
-	    
-		Actions action=new Actions(driver);
+	public void PdpChangeStoresTest (String toplevel,String plp,String zip) throws InterruptedException, BiffException, IOException {
+		logger=report.startTest("Pdp Change Stores");
+		driver.get(ConfigurationFunctions.locationSet+IP);
+		Thread.sleep(5000);
+		
+		//** By Passing Age Gate and Welcome Modal
+		Checkout.AgeGateWelcome(driver);
+		
+	    Actions action=new Actions(driver);
 		
 		//Browse to PLP
 		WebElement toplevelnav = driver.findElement(By.xpath("//a[contains(@href,'"+toplevel+"')]")); 
@@ -68,12 +72,10 @@ public class PdpChangeStores extends Browser {
 		//Access the PDP
 		WebElement plpmove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(plpmove).build().perform();
-		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
 		Thread.sleep(3000);
 		String winename = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
 		System.out.println(winename);
 		driver.findElement(By.cssSelector("a.analyticsProductName")).click(); //Click the first item link in the PLP
-		//driver.findElement(By.xpath("//div/h2/a")).click();
 		Thread.sleep(5000);
 
 		// **  Add to Cart
