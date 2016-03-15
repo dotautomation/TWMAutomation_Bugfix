@@ -110,6 +110,6 @@ public class PreferenceUpdates extends Browser {
 	    
 	    //** Logout
         driver.findElement(By.cssSelector("div.parent-header-wrapper > div > ul > li:nth-child(4) > a")).click();
-        driver.findElement(By.linkText("Log out")).click();
+	    driver.findElement(By.linkText("Log out")).click();
 	}
 }
