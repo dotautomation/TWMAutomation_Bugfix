@@ -73,6 +73,7 @@ public class ISPCheckout extends Browser {
 		Thread.sleep(3000);
 		String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
 		Thread.sleep(1000);
+		Assert.assertEquals(driver.findElements(By.xpath("(//button[@id='"+productId+"'])[2]")).isEmpty(), false,"The ATC button isn't on the PDP indicating that the test item may be OOS");
 		driver.findElement(By.xpath("(//button[@id='"+productId+"'])[2]")).click();
 		//driver.findElement(By.cssSelector("button.btn.btn-red.mini-cart-popup.anAddToCart")).click();
 		Thread.sleep (3000);
