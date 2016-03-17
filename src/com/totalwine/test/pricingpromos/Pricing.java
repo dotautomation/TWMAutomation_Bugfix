@@ -118,7 +118,12 @@ public class Pricing extends Browser {
 	    String edpPrice = driver.findElement(By.cssSelector("section.store-right-hours-tasting > div.search-result-list-buy-ctrls > div.search-product-buy-price > span.price")).getText();
 	    logger.log(LogStatus.PASS, "Retrieve event pricing from EDP");
 	    System.out.println("PLP Price: "+plpPrice+"\n"+"PDP Price: "+pdpPrice+"\n"+"Cart Unit Price: "+cartUnitPrice+"\n"+"Cart Total Price: "+cartTotalPrice+"\n"+"Cart Total Incl. Taxes Price: "+cartTotalinclTax);
-	    Assert.assertTrue(plpPrice.equals(pdpPrice)&&pdpPrice.equals(cartUnitPrice)&&cartUnitPrice.equals("$ "+cartTotalPrice));
-	    logger.log(LogStatus.PASS, "Pricing in PLP, PDP, Cart is the same");
+	    //Assert.assertTrue(plpPrice.equals(pdpPrice)&&pdpPrice.equals(cartUnitPrice)&&cartUnitPrice.equals("$ "+cartTotalPrice));
+	    System.out.println("PLP Price: "+plpPrice+"\n"+"PDP Price: "+pdpPrice+"\n"+"Cart Unit Price: "+cartUnitPrice+"\n"+"Cart Total Price: "+cartTotalPrice+"\n"+"Cart Total Incl. Taxes Price: "+cartTotalinclTax+"\n"+"ELP Price: "+elpPrice+"\n"+"EDP Price: "+edpPrice);
+	    Assert.assertTrue(plpPrice.equals(pdpPrice),"PLP price is not the same as PDP price");
+	    Assert.assertTrue(pdpPrice.equals(cartUnitPrice),"PDP price is not the same as unit price in cart");
+	    Assert.assertTrue(cartUnitPrice.equals(cartTotalPrice),"Unit price in cart is not the same as total price in cart for the single item");
+	    Assert.assertTrue(elpPrice.equals(edpPrice),"ELP price is not the same as EDP price");
+	    logger.log(LogStatus.PASS, "Pricing in PLP, PDP, Cart is the same for items and events");
 	}
 }
