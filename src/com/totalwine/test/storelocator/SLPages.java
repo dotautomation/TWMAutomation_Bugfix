@@ -21,6 +21,7 @@ package com.totalwine.test.storelocator;
  */
 //@author=rsud
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -29,6 +30,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -53,13 +55,14 @@ public class SLPages extends Browser {
 		//Access footer
 		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
 		Thread.sleep(2000);
-		
+
 		//Access Corporate Philantropy page
-		driver.findElement(By.cssSelector("a[href*=\"/about-us/corporate-philanthropy\"]")).click(); //Corporate Philantropy
+		driver.findElement(By.cssSelector("a[href*=\"/corporate-philanthropy\"]")).click(); //Corporate Philantropy
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).sendKeys(Keys.ARROW_DOWN);
-		driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).sendKeys(Keys.ARROW_DOWN);
-		driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).click(); //Donation Requests
+		//driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).sendKeys(Keys.ARROW_DOWN);
+		//driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).sendKeys(Keys.ARROW_DOWN);
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]"))); //Donation Requests
 		Thread.sleep(3000);
 		Assert.assertEquals(driver.findElements(By.cssSelector("a[href*=\"totalwine.requestitem.com\"]")).isEmpty(),false); //Submit a request button
 		logger.log(LogStatus.PASS, "Charity Page access");
@@ -92,7 +95,8 @@ public class SLPages extends Browser {
 	public void SLAllStoresPageTest () throws InterruptedException {
 		logger=report.startTest("SL: All Stores page");
 		AccessStoreLocator();
-		driver.findElement(By.cssSelector("a.analyticsFindAllStores")).click();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("a.analyticsFindAllStores")));
 		Thread.sleep(3000);
 		//Validate state list
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.our-store-map")).isEmpty(),false);
@@ -122,12 +126,7 @@ public class SLPages extends Browser {
 	
 	private void AccessStoreLocator () throws InterruptedException {
 		String IP = "71.193.51.0";
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		    
 	    //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();
