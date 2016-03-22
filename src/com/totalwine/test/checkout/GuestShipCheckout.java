@@ -122,22 +122,22 @@ public void GuestShipCheckoutTest (String Location,String StoreName,String PDP,S
     driver.findElement(By.xpath("//td[2]/div[2]/div/div/div/div/div/ul/li[3]")).click();
     driver.findElement(By.id("ssl_cvv2cvc2")).clear();
     driver.findElement(By.id("ssl_cvv2cvc2")).sendKeys(CVV);
-    driver.findElement(By.id("ssl_first_name")).clear();   // ** In UAT by default there information are selected
-    driver.findElement(By.id("ssl_first_name")).sendKeys(FirstName);
-    driver.findElement(By.id("ssl_last_name")).clear();
-    driver.findElement(By.id("ssl_last_name")).sendKeys(LastName);
-    driver.findElement(By.id("ssl_avs_address")).clear();
-    driver.findElement(By.id("ssl_avs_address")).sendKeys(Address1);
-    driver.findElement(By.id("ssl_company")).clear();
-    driver.findElement(By.id("ssl_company")).sendKeys(Company);
-    driver.findElement(By.id("ssl_address2")).clear();
-    driver.findElement(By.id("ssl_address2")).sendKeys(Address2);
-    driver.findElement(By.id("ssl_city")).clear();
-    driver.findElement(By.id("ssl_city")).sendKeys(City);
-    driver.findElement(By.xpath("//table[@id='tblAddress']/tbody/tr[7]/td[2]/div/div/span")).click();
-    driver.findElement(By.cssSelector("li[data-val=\""+State+"\"]")).click();
-    driver.findElement(By.id("ssl_avs_zip")).clear();
-    driver.findElement(By.id("ssl_avs_zip")).sendKeys(Zip);
+//    driver.findElement(By.id("ssl_first_name")).clear();   // ** In UAT by default there information are selected
+//    driver.findElement(By.id("ssl_first_name")).sendKeys(FirstName);
+//    driver.findElement(By.id("ssl_last_name")).clear();
+//    driver.findElement(By.id("ssl_last_name")).sendKeys(LastName);
+//    driver.findElement(By.id("ssl_avs_address")).clear();
+//    driver.findElement(By.id("ssl_avs_address")).sendKeys(Address1);
+//    driver.findElement(By.id("ssl_company")).clear();
+//    driver.findElement(By.id("ssl_company")).sendKeys(Company);
+//    driver.findElement(By.id("ssl_address2")).clear();
+//    driver.findElement(By.id("ssl_address2")).sendKeys(Address2);
+//    driver.findElement(By.id("ssl_city")).clear();
+//    driver.findElement(By.id("ssl_city")).sendKeys(City);
+//    driver.findElement(By.xpath("//table[@id='tblAddress']/tbody/tr[7]/td[2]/div/div/span")).click();
+//    driver.findElement(By.cssSelector("li[data-val=\""+State+"\"]")).click();
+//    driver.findElement(By.id("ssl_avs_zip")).clear();
+//    driver.findElement(By.id("ssl_avs_zip")).sendKeys(Zip);
     driver.findElement(By.name("process")).click();
     Thread.sleep(10000);
 
