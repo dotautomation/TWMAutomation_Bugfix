@@ -61,7 +61,7 @@ public class Browser {
 	protected String hubURL = "http://prt-dotautotest.totalwine.com:5566/wd/hub";
 	protected static ExtentTest logger;
 	protected static ExtentReports report = getReporter(); //Reporting v2
-	protected static SoftAssert Verify = new SoftAssert();
+	protected SoftAssert sAssert = new SoftAssert(); //Soft assertion
 	//private static SelendroidLauncher selendroidServer = null;
 	
 	@BeforeMethod

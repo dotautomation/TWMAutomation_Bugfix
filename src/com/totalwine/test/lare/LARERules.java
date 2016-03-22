@@ -26,6 +26,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
@@ -50,8 +51,8 @@ public class LARERules extends Browser {
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    //Thread.sleep(5000);
 		driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).click();
 		Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("div.header-location-nearby-stores.flyover > div.location-near-by-store-locator > table > tbody > tr > td > a.header-change-location")).click();
@@ -62,7 +63,7 @@ public class LARERules extends Browser {
 	    Thread.sleep(2000);
 	    driver.findElement(By.cssSelector("button#changeStoreBtn")).click();
 	    Thread.sleep(5000);
-	    Assert.assertEquals("Towson (Beltway), MD", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+	    Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(),"Towson (Beltway), MD","The site session wasn't correctly displayed");
 	    
 	    Actions action=new Actions(driver);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -73,7 +74,7 @@ public class LARERules extends Browser {
 		Thread.sleep(5000);
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
-		Assert.assertEquals("Towson (Beltway), MD (0.0 miles)", driver.findElement(By.cssSelector("li.toggle.separator > div.inner-items-wrapper > ul > li:nth-child(1) > a > span > label")).getText());
+		Assert.assertEquals(driver.findElement(By.cssSelector("li.toggle.separator > div.inner-items-wrapper > ul > li:nth-child(1) > a > span > label")).getText(),"Towson (Beltway), MD (0.0 miles)","The site session wasn't correctly displayed");
 		logger.log(LogStatus.PASS, "LARE: User entered location/selected store or ship-to-state");
 	}
 	
@@ -88,7 +89,7 @@ public class LARERules extends Browser {
 		Thread.sleep(3000);
 		driver.navigate().refresh();
 		Thread.sleep(3000);
-		Assert.assertEquals("McLean, VA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+		Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(),"McLean, VA","The site session wasn't correctly displayed");
 		logger.log(LogStatus.PASS, "LARE: Deep Link");
 	}
 		
@@ -102,8 +103,8 @@ public class LARERules extends Browser {
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
 		Thread.sleep(5000);
-	    driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Thread.sleep(5000);
+	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
+	    //Thread.sleep(5000);
 		driver.findElement(PageGlobal.TopNavAccount).click();
 		Thread.sleep(2000);
 	    driver.findElement(By.linkText("Sign into your account")).click();
@@ -118,7 +119,7 @@ public class LARERules extends Browser {
 	    driver.findElement(By.cssSelector("button.btn.btn-red.anLoginSubmit")).click();
 	    Thread.sleep(5000);
 	    driver.switchTo().activeElement();
-	    Assert.assertEquals(driver.findElement(PageGlobal.StoreSelection).getText(),"Fairfax, VA");
+	    Assert.assertEquals(driver.findElement(PageGlobal.StoreSelection).getText(),"Fairfax, VA","The site session wasn't correctly displayed");
 	    logger.log(LogStatus.PASS, "LARE: User profile preferred store set to \"Always Use\"");
 	}
 	
@@ -141,16 +142,11 @@ public class LARERules extends Browser {
 	    //driver.findElement(By.cssSelector("button.btn.btn-gray")).click();
 	    driver.findElement(By.xpath("//button[@onclick='closeModalSetLARE(this);']")).click();
 	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    Assert.assertEquals("Sacramento (Arden), CA", driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText());
+	    Assert.assertEquals(driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText(),"Sacramento (Arden), CA","The site session wasn't correctly displayed");
 	    logger.log(LogStatus.PASS, "LARE: Default Web Store");
 	}
 
 	public void connect(String Address) throws InterruptedException {
-		driver.get(ConfigurationFunctions.locationSet+Address);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-	    //driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-	    //Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, Address);
 	}
 }

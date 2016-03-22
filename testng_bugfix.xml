@@ -4,10 +4,10 @@
 <!--suite name="MultiBrowserSuite" verbose="2" parallel="tests" -->
 <suite name="MultiBrowserSuite" verbose="2">
 	<test name="IE Tests">
-		<parameter name="browser" value="">
+		<parameter name="browser" value="iOS">
 		</parameter>
 		<classes>
-			<class name="com.totalwine.test.seo.UserAgentSimulator"/>
+			<class name="com.totalwine.test.mobile.MobileISPGuestCheckout"/>
 		</classes>
 	</test>
 </suite>
@@ -16,6 +16,6 @@
 
 <!-- 
 			<methods>
-        		<include name="SRPLeftNavTest" />
+        		<include name="LAREUserEnteredLocationTest" />
         	</methods>
  -->

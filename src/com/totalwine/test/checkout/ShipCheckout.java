@@ -124,13 +124,12 @@ public class ShipCheckout extends Browser {
 	    logger.log(LogStatus.PASS, "Login");
 	    
 	    // Checkout Tab 1
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.shipping-tab")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsEditCart")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsPromoCode")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("section.giftmessage > div.checkStyle > label")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("section.someoneelsepicking > div.checkStyle > label")).isEmpty(),true);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false);
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("a.shipping-tab")).isEmpty(),false,"Shipping Tab 1 labelling isn't displayed correctly");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("a.analyticsEditCart")).isEmpty(),false,"Edit cart link isn't displayed correctly on Tab 1");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("a.analyticsPromoCode")).isEmpty(),false,"Promo code field isn't displayed correctly on Tab 1");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("section.giftmessage > div.checkStyle > label")).isEmpty(),false,"Gift messaging isn't displayed correctly");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("section.someoneelsepicking > div.checkStyle > label")).isEmpty(),true,"3rd Party pickup is displayed incorrectly");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("div.checkStyle > label")).isEmpty(),false,"Tab 1 label isn't displayed correctly");
 	    
 	    String regd_email = driver.findElement(By.id("shipping-email")).getAttribute("value");
 	    String regd_phone = driver.findElement(By.id("shipping-phoneNumber")).getAttribute("value");
@@ -157,8 +156,8 @@ public class ShipCheckout extends Browser {
 	    logger.log(LogStatus.PASS, "Registered Ship Checkout Tab 1");
 	    
 	    // Checkout Tab 2
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.billing-tab")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsEditCart")).isEmpty(),false);
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("a.billing-tab")).isEmpty(),false,"Shipping Tab 2 isn't displayed correctly");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("a.analyticsEditCart")).isEmpty(),false,"Edit cart link isn't displayed correctly on Tab 2");
 	    //Use Saved Credit Card
 	    driver.findElement(By.xpath("//div[4]/span")).click();
 	    driver.findElement(By.xpath("//button[@onclick='javascript:selectCard();']")).click();
@@ -166,16 +165,16 @@ public class ShipCheckout extends Browser {
 	    logger.log(LogStatus.PASS, "Registered Ship Checkout Tab 2");;
 	    
 	    // Checkout Tab 3
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.review-tab")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw co-rvw-instore\"]")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw co-rvw-pymnt\"]")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw\"]")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElement(By.cssSelector("li.co-rvw.co-rvw-instore > h3")).getText(), "Shipping method");
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-wdlogo > img")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_1\"]")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_2\"]")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total anTax\"]")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total co-pr-item-total\"]")).isEmpty(),false);
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("a.review-tab")).isEmpty(),false,"Shipping Tab 3 isn't displayed correctly");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw co-rvw-instore\"]")).isEmpty(),false,"Shipping details section isn't displayed correctly on Tab 3");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw co-rvw-pymnt\"]")).isEmpty(),false,"Payment section isn't displayed correctly on Tab 3");
+	    //Assert.assertEquals(driver.findElements(By.cssSelector("li[class=\"co-rvw\"]")).isEmpty(),false);
+	    sAssert.assertEquals(driver.findElement(By.cssSelector("li.co-rvw.co-rvw-instore > h3")).getText(),"Shipping method", "Shipping method isn't displayed correctly");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("div.plp-list-img-wdlogo > img")).isEmpty(),false,"WD Logo isn't displayed correctly in Tab 3");
+	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_1\"]")).isEmpty(),false,"Item unit price isn't displayed correctly in Tab 3");
+	    Assert.assertEquals(driver.findElements(By.cssSelector("span[data-attr=\"itemPrice_2\"]")).isEmpty(),false,"Item subtotal price isn't displayed correctly on Tab 3");
+	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total anTax\"]")).isEmpty(),false,"Taxes isn't displayed correctly on Tab 3");
+	    Assert.assertEquals(driver.findElements(By.cssSelector("span[class=\"price-text item-total co-pr-item-total\"]")).isEmpty(),false,"Total Price isn't displayed correctly on Tab 3");
 	    driver.findElement(By.id("check_box_age")).click();
 	    //driver.findElement(By.xpath("//form[@id='placeOrderForm1']/section/div/button")).click();
 	    driver.findElement(By.cssSelector("button.btn-red.btn-place-order.anPlaceOrder")).click();
@@ -183,10 +182,8 @@ public class ShipCheckout extends Browser {
 	    logger.log(LogStatus.PASS, "Registered Ship Checkout Tab 3");
 	    
 	    // Order Confirmation 
-	    //Cannot validate as credit card gets declined
-	    //Assert.assertEquals(driver.findElements(By.linkText("Post to Facebook")).isEmpty(),false);
-	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-help-link")).isEmpty(),false);
-	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
-	    //Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-help-link")).isEmpty(),false,"The help link isn't displayed on the Order confirmation page");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false,"The thank-you text isn't displayed on the Order confirmation page");
+	    sAssert.assertAll();
 	}
 }
