@@ -20,6 +20,7 @@ package com.totalwine.test.pricingpromos;
 //@author=rsud
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -36,6 +37,7 @@ import com.totalwine.test.trials.Browser;
 public class Promotion extends Browser {
 
 	private String IP="98.169.134.0";
+	JavascriptExecutor js = (JavascriptExecutor)driver;
 
 	@BeforeMethod
 	  public void setUp() throws Exception {
@@ -46,7 +48,7 @@ public class Promotion extends Browser {
 	public void EligiblePromotion () throws InterruptedException {
 		logger=report.startTest("Promotion: Eligible WD Item Test");
 		SiteAccess.ActionAccessSite(driver, IP);
-    
+
     	//Add eligible item to cart
     	driver.get(ConfigurationFunctions.accessURL+"/wine/white-wine/chardonnay/cloud-break-chardonnay/p/110892750");
     	Thread.sleep(3000);
@@ -78,7 +80,7 @@ public class Promotion extends Browser {
 
 	    //Empty the cart
 	    //driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.id("RemoveProduct_0")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.id("RemoveProduct_0")));
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is correctly applied to eligible item");
 	}
@@ -115,7 +117,7 @@ public class Promotion extends Browser {
 
 	    //Empty the cart
 	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.id("RemoveProduct_0")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.id("RemoveProduct_0")));
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is not applied to ineligible WD item");
 	}
@@ -150,7 +152,7 @@ public class Promotion extends Browser {
 
 	    //Empty the cart
 	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.id("RemoveProduct_0")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.id("RemoveProduct_0")));
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is not applied to ineligible item with pricing ending  in 0.97");
 	}
@@ -187,7 +189,7 @@ public class Promotion extends Browser {
 
 	    //Empty the cart
 	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.id("RemoveProduct_0")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.id("RemoveProduct_0")));
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion is not applied to item belonging in ineligible category");
 	}
@@ -224,7 +226,7 @@ public class Promotion extends Browser {
 
 	    //Empty the cart
 	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
-	    driver.findElement(By.id("RemoveProduct_0")).click();
+	    js.executeScript("arguments[0].click();", driver.findElement(By.id("RemoveProduct_0")));
 	    Thread.sleep(2000);
 	    logger.log(LogStatus.PASS, "Promotion considers minimum price restriction");
 	}

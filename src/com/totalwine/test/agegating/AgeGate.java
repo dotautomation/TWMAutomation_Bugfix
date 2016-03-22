@@ -34,6 +34,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.pages.PageHomepage;
@@ -73,12 +74,7 @@ public class AgeGate extends Browser {
 		System.out.println(url);
 		Assert.assertEquals(url, "http://responsibility.org/");
 		logger.log(LogStatus.PASS, "Clicking No on the Age Gate redirects customer to responsibility.org");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(PageGlobal.AgeGateYes).click();
-		Thread.sleep(5000);
-	    driver.findElement(PageGlobal.NewSiteIntroClose).click();
-	    Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 	    Assert.assertEquals(driver.findElements(PageHomepage.HomepageCarousel).isEmpty(),false); //HomePage validation
 	    logger.log(LogStatus.PASS, "Clicking Yes on the Age Gate directs customer to Home page");
     }
