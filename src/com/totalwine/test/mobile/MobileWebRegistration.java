@@ -113,7 +113,7 @@ public class MobileWebRegistration extends Browser {
 	    logger.log(LogStatus.PASS, "Mobile account registration step 3");
 	    
 	    //Confirmation Screen
-	    Assert.assertEquals(driver.findElements(By.cssSelector("a.btn-continue.clearfix")).isEmpty(),false);
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("a.btn-continue.clearfix")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("c0010")).isEmpty(),false); //Beer
 	    Assert.assertEquals(driver.findElements(By.id("c0020")).isEmpty(),false); //Wine
 	    Assert.assertEquals(driver.findElements(By.id("c0030")).isEmpty(),false); //Spirits
