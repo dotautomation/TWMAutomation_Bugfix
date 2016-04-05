@@ -79,8 +79,9 @@ public class ShoppingListAddItem extends Browser {
 	    Thread.sleep(8000);
 	    logger.log(LogStatus.PASS, "Login to account");
 		//Add to new shopping list
-	    driver.findElement(By.cssSelector("div#dWishListName > div.customselect")).click();
-	    driver.findElement(By.cssSelector("button.btn.btn-red.btn-create-list")).click();
+	    driver.findElement(By.cssSelector("#dWishListName > div > span > i")).click();
+	    driver.findElement(By.cssSelector("#dWishListName > div > div > div > div.jspPane > ul > li:nth-child(2)")).click();
+	    driver.findElement(By.cssSelector("#addToList")).click();
 	    Thread.sleep(2000);
 	    Assert.assertEquals("Your new shopping list has been created!", driver.findElement(By.cssSelector("div.add-list-confirm-right > div.add-list-success")).getText());
 	    driver.findElement(By.cssSelector("button#addToList")).click();
