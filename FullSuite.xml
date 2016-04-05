@@ -147,7 +147,8 @@
 			<class name="com.totalwine.test.checkout.GuestShipCheckout" />
 		</classes>
 	</test>
-
+	
+	
 		<!--Creating Account After Guest Shipping Checkout -->
 	<test name="Creating account after Guest Checkout">
 		<parameter name="browser" value="Chrome">
