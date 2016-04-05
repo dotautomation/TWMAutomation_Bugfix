@@ -105,8 +105,22 @@
 		</classes>
 	</test>
 	<!--End of Mobile -->
-
-
+	<!--Web Registration -->
+	<test name="Web Registration">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.aml.WebAccountRegistration" />
+		</classes>
+	</test>
+	<!-- Email/Password Combinations -->
+	<test name="Good/Bad Email/Password Combinations">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.aml.GoodBadPassword" />
+		</classes>
+	</test>
 	
 		<!--ISP Checkout (Guest) -->
 	<test name="ISP Checkout on Chrome">
@@ -133,8 +147,7 @@
 			<class name="com.totalwine.test.checkout.GuestShipCheckout" />
 		</classes>
 	</test>
-	
-	
+
 		<!--Creating Account After Guest Shipping Checkout -->
 	<test name="Creating account after Guest Checkout">
 		<parameter name="browser" value="Chrome">
@@ -222,7 +235,14 @@
 			<class name="com.totalwine.test.events.BrowseEvent" />
 		</classes>
 	</test>
-	
+	<!--Filtering using facets on the Product List -->
+	<test name="Product List Filter">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.productlist.Filter" />
+		</classes>
+	</test>
 	<!--Sorting options on the Product List -->
 	<test name="Product List Sort">
 		<parameter name="browser" value="Chrome">
@@ -231,7 +251,13 @@
 			<class name="com.totalwine.test.productlist.Sort" />
 		</classes>
 	</test>
-
+	<test name="PLP Grid View">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.productlist.PLPGridView" />
+		</classes>
+	</test>
 	<test name="PLP List View">
 		<parameter name="browser" value="Chrome">
 		</parameter>
@@ -284,8 +310,14 @@
 			<class name="com.totalwine.test.shoppinglist.ShoppingListBrowse" />
 		</classes>
 	</test>
-
-
+	<!--Adding/Deleting SL/Item in a Shopping List -->
+	<test name="Shopping List Add/Delete">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.shoppinglist.ShoppingListAddItem" />
+		</classes>
+	</test>
 	<!--Age Gating Test (executed on Cross-Browsers) -->
 	<test name="AgeGate on FF">
 		<parameter name="browser" value="FF">
@@ -332,7 +364,13 @@
 		</classes>
 	</test>
 	<!--LARE Rules -->
-
+	<test name="LARE Rules Validation on Chrome">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.lare.LARERules" />
+		</classes>
+	</test>
 	<test name="LARE Rules Validation on FF">
 		<parameter name="browser" value="FF">
 		</parameter>
@@ -341,7 +379,13 @@
 		</classes>
 	</test>
 	<!-- Promotions -->
-
+	<test name="Promotion Validity on Chrome">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.pricingpromos.Promotion" />
+		</classes>
+	</test>
 	<!-- Promotions -->
 	<test name="Pricing Validity on Chrome">
 		<parameter name="browser" value="Chrome">
@@ -372,9 +416,29 @@
 			<class name="com.totalwine.test.brandpages.AllBrands" />
 		</classes>
 	</test>
-
-
-
+	<!-- Site Navigation -->
+	<test name="Site Navigation">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.sitenav.LeftNavigation" />
+		</classes>
+	</test>
+	<!--Store Locator -->
+	<test name="Store Locator">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.storelocator.SLGeoLocate" />
+		</classes>
+	</test>
+	<test name="Store Locator Search">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.storelocator.SLSearch" />
+		</classes>
+	</test>
 	<test name="Store Locator Browse by state dropdown">
 		<parameter name="browser" value="Chrome">
 		</parameter>
@@ -389,7 +453,13 @@
 			<class name="com.totalwine.test.storelocator.SLPages" />
 		</classes>
 	</test>
-
+	<test name="Store Detail">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.storelocator.StoreDetail" />
+		</classes>
+	</test>
 	<test name="Store Locator Radius Browse">
 		<parameter name="browser" value="Chrome">
 		</parameter>
@@ -397,7 +467,14 @@
 			<class name="com.totalwine.test.storelocator.SLBrowseByRadius" />
 		</classes>
 	</test>
-
+	<!-- Global Site Navigation -->
+	<test name="Top Level Menu">
+		<parameter name="browser" value="Chrome">
+		</parameter>
+		<classes>
+			<class name="com.totalwine.test.global.TopLevelMenu" />
+		</classes>
+	</test>
 	<!-- SEO: Bot Traffic -->
 	<test name="Bots Traffic Validation">
 		<parameter name="browser" value="Chrome">
