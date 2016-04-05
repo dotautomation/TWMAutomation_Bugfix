@@ -78,9 +78,11 @@ public class BrandStoryTelling extends Browser {
 	    WebElement scroll_Country = driver.findElement(By.cssSelector("a.analyticsProductName"));
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
 	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
+	    Thread.sleep(3000);
 	    
 	    //Click the first link and validate that the PDP appears
 	    String BrandSPName = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
+	    Thread.sleep(1000);
 	    driver.findElement(By.cssSelector("a.analyticsProductName")).click();
 	    Thread.sleep(3000);
 	    String PDPName = driver.findElement(By.cssSelector("h1.product-name")).getText();
