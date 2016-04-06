@@ -52,7 +52,7 @@ public class ConfigurationFunctions {
 	//public static final String RESULTSPATH = "C:\\Users\\rsud\\.jenkins\\jobs\\Regression Suite (Bugfix)\\reports\\html\\";
 	public static final String RESULTSPATH = "C:\\autoreports\\";
 	public static final String TESTLOGIN = "rsud@live.com";
-	public static final String TESTPWD = "yoyo55";
+	public static final String TESTPWD = "grapes123";
 	
 	public static void DeleteCookies() {
 		WebDriver driver = new FirefoxDriver(testProfile);
