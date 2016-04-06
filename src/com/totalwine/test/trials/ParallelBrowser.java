@@ -60,6 +60,7 @@ public class ParallelBrowser {
 	protected String hubURLEC = "http://prt-55kxl32.totalwine.com:5566/wd/hub";
 	protected String hubURLMdH = "http://PRT-4QRSD12.totalwine.com:5566/wd/hub";
 	protected String hubURLJH = "http://PRT-JJNVWZ1.totalwine.com:5566/wd/hub";
+	protected String hubURLCP = "http://PRT-CVQ3CS1.totalwine.com:5566/wd/hub";
 	
 	protected ExtentTest logger;
 	protected static ExtentReports report = getReporter(); //Reporting v2
@@ -118,6 +119,16 @@ public class ParallelBrowser {
 				e.printStackTrace();
 			} 
 		}
+		if(browser.equalsIgnoreCase("GridCP")) {
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+		    cap.setBrowserName("firefox");
+		    cap.setPlatform(Platform.VISTA);
+		    try {
+				driver = new RemoteWebDriver(new URL(hubURLCP),cap); //Hub URL
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} 
+		}
 		//Grid - Chrome
 		if(browser.equalsIgnoreCase("GridMdH")) {
 			DesiredCapabilities cap = DesiredCapabilities.chrome();
@@ -146,7 +157,7 @@ public class ParallelBrowser {
 		if(testResult.getStatus() == ITestResult.FAILURE) { 
 			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 			String scrName = "FAIL_"+testResult.getName()+"_"+ConfigurationFunctions.now()+".png"; //Name of screenshot file
-			String scrFileName = "C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\UAT\\"+scrName;
+			String scrFileName = "C:\\Users\\rsud\\.jenkins\\userContent\\FailureScreenshots\\Bugfix\\"+scrName;
 			File FailedFile = new File (scrFileName);
 			FileUtils.copyFile(scrFile, FailedFile);
 			String relativePath = "/userContent/FailureScreenshots/UAT/"+scrName; 
