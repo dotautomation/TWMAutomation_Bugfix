@@ -80,13 +80,13 @@ public class ShoppingCartAll extends Browser {
 
 		driver.findElement(By.cssSelector("li:nth-child(3) > div > div.plp-product-desc-wrap > div.plp-product-desc > h2 > a")).click();
 	    ShoppingCart.ATC(driver);
-		ShoppingCart.MouseHoverWine(driver);	      
-	    
+		ShoppingCart.MouseHoverWine(driver);
+		
 	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js1.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("li:nth-child(4) > div > div.plp-product-desc-wrap > div.plp-product-desc > h2 > a")));
 	    ShoppingCart.ATC(driver);
 		ShoppingCart.MouseHoverWine(driver);
-
+		
 	    driver.findElement(By.cssSelector("li:nth-child(5) > div > div.plp-product-desc-wrap > div.plp-product-desc > h2 > a")).sendKeys(Keys.ARROW_DOWN); //Scrolling down
 	    driver.findElement(By.cssSelector("li:nth-child(5) > div > div.plp-product-desc-wrap > div.plp-product-desc > h2 > a")).click();
 	    ShoppingCart.ATC(driver);
@@ -163,17 +163,17 @@ public class ShoppingCartAll extends Browser {
 	    	    
 		String ProductIdReOrder = driver.findElement(By.cssSelector("span.color-dim")).getText();
 		System.out.println(ProductIdReOrder);
-		Thread.sleep(2000);   
+		Thread.sleep(2000);
 	    JavascriptExecutor js6 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js6.executeScript("arguments[0].click();", driver.findElement(By.xpath(".//*[@id='"+ProductIdReOrder+"']")));
-		Thread.sleep (5000);
+		Thread.sleep (7000);
 		
 	    String ProductIdReOrder1 = driver.findElement(By.cssSelector("div.pdp-product-nos")).getText();
 		System.out.println(ProductIdReOrder1);
 		Thread.sleep(2000);   
 	    driver.findElement(By.xpath(".//*[@id='"+ProductIdReOrder1+"']")).click(); //Clicking the ATC button
 	    logger.log(LogStatus.PASS, "Validated re-order from order history");
-	    Thread.sleep (5000);
+	    Thread.sleep (7000);
 		
 	    //**Back to main Shopping Cart
 	    JavascriptExecutor js7 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
