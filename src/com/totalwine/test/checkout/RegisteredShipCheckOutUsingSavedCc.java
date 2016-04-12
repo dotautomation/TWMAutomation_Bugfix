@@ -49,7 +49,7 @@ public class RegisteredShipCheckOutUsingSavedCc extends Browser {
 
 	@DataProvider(name="CheckoutParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredShipCheckOutUsingSavedCcBF");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredShipCheckOutUsingSavedCcUAT");
         return(retObjArr);
     } 
 
