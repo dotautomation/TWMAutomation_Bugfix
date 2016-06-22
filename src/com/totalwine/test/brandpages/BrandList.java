@@ -17,7 +17,7 @@ package com.totalwine.test.brandpages;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import java.awt.AWTException;
 import java.io.IOException;
 
@@ -28,7 +28,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -43,8 +42,8 @@ public class BrandList extends Browser {
 	}  
 	
 	@Test 
-	public void BrandListTest () throws InterruptedException, BiffException, IOException, AWTException {
-		logger=report.startTest("Brand List Page Test");
+	public void BrandListPageTest () throws InterruptedException, BiffException, IOException, AWTException {
+		logger=report.startTest("Brands List Page Test");
 		SiteAccess.ActionAccessSite(driver, IP);
 	    
 	    //Access Brand Story Telling page via PDP's View All link
@@ -54,7 +53,7 @@ public class BrandList extends Browser {
 	    Thread.sleep(3000);
 	    String BrandListPageURL = driver.getCurrentUrl();
 	    Assert.assertEquals(BrandListPageURL.toLowerCase().contains("/wine/brand/".toLowerCase()),true);
-	    logger.log(LogStatus.PASS, "Brand List page is displayed when the \"View all...\" link is clicked from the PDP");
+	    
 	    
 	    //Validate elements of the Brand List page are present
 	    Assert.assertEquals(driver.findElements(By.linkText("Cloud Break")).isEmpty(),false);
@@ -63,24 +62,24 @@ public class BrandList extends Browser {
 	    Assert.assertEquals(driver.findElements(By.id("plp-aty-tab")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.id("plp-productfull-tabs")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Stores")).isEmpty(),false);
-	    //Assert.assertEquals(driver.findElements(By.linkText("Category")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(By.linkText("Category")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Wine Varietal & Type")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Brand")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.linkText("Country & State")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(By.linkText("Country/State")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Region")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Appellation")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Top Rated")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Rating Source")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Price Range")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(By.linkText("Size")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.dropdown.plp-product-sorting-sortby-dropdown > div.customselect > span.itemval > span")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.linkText("Pick up or ship")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Brand List page elements");
+	    
 	    
 	    //Validate elements of Brand Story Telling page are absent
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.wrapper-bleed > img")).isEmpty(),true);
 	    Assert.assertEquals(driver.findElements(By.id("btnShopStoryTelling")).isEmpty(),true);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.formbg.education-container")).isEmpty(),true);
-	    logger.log(LogStatus.PASS, "Brand Story telling page elements are absent from the Brand List page");
 	    
 	    //Click the first link and validate that the PDP appears
 	    String BrandLPName = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
@@ -88,6 +87,5 @@ public class BrandList extends Browser {
 	    Thread.sleep(3000);
 	    String PDPName = driver.findElement(By.cssSelector("h1.product-name")).getText();
 	    Assert.assertEquals(BrandLPName,PDPName);
-	    logger.log(LogStatus.PASS, "PDP can be accessed from the Brand List page");
 	}
 }

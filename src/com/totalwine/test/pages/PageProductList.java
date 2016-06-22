@@ -13,7 +13,7 @@ public class PageProductList {
 	public static final By SortDropdown = By.cssSelector("div.plp-product-sorting-sortby-dropdown > div > span.itemval");
 	public static final By PLPHero = By.cssSelector("div.plp-opt-hero"); //Hero component
 	public static final By PLPATY = By.cssSelector("a#plp-aty-tab"); //ATY
-	public static final By PLPAllStores = By.cssSelector("a#plp-productfull-tabs"); //All stores
+	public static final By PLPAllStores = By.cssSelector("#plp-productfull-tabs"); //All stores
 	public static final By ATYISP = By.cssSelector("a[href*=\"tab=aty_isp\"]"); //ATY > ISP
 	public static final By ATYShip = By.cssSelector("a[href*=\"tab=aty_shipping\"]"); //ATY > Ship
 	public static final By ATYBoth = By.cssSelector("a[href*=\"tab=aty_both\"]"); //ATY > Both
@@ -21,7 +21,9 @@ public class PageProductList {
 	public static final By ListView = By.cssSelector("a.analyticsViewAsList"); //View as list
 	public static final By ListViewDefault = By.cssSelector("a.analyticsViewAsList.active.activeicon"); //Default list view
 	public static final By GridView = By.cssSelector("a.analyticsViewAsGrid"); //View as grid
-	
+	//Messaging
+	public static final By GlobalMessaging = By.cssSelector("section.plp-product-tabs > p.msg-noitems");
+	public static final By PLPMessaging = By.cssSelector("section#plp-product-tab1 > p.msg-noitems");
 	
 	
 	//List View

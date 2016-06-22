@@ -48,7 +48,7 @@ public class RegisteredIspCheckOutUsingSavedAddress extends Browser {
 
 	@DataProvider(name="CheckoutParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredIspCheckOutUsingSavedAddressBF");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredIspCheckOutUsingSavedAddressUAT");
         return(retObjArr);
     } 
 
@@ -76,12 +76,14 @@ public class RegisteredIspCheckOutUsingSavedAddress extends Browser {
 
 		// **  Adding item to Cart
 		ShoppingCart.ATC(driver);
+		Thread.sleep(3000);
 	    driver.get(ConfigurationFunctions.accessURL+"/cart");
-	    Thread.sleep(3000);
+	    Thread.sleep(5000);
 	    
 	    //  ** Shopping Cart
 	    JavascriptExecutor js = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]"))); 
+	    Thread.sleep(5000);
 	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js1.executeScript("arguments[0].click();", driver.findElement(By.id("checkout"))); 
 	    PageLoad(driver); 
@@ -101,7 +103,7 @@ public class RegisteredIspCheckOutUsingSavedAddress extends Browser {
 	    Thread.sleep(2000);
 
 	    // **  Checkout Tab-2 [ Checkout using saved billing address ]
-	    driver.findElement(By.id("card_8829320003626")).click();
+	    driver.findElement(By.cssSelector(".shippingaddress-option>span")).click();
 	    WebElement scroll6 = driver.findElement(By.cssSelector(".btn.btn-red.anContinue")); //  ** Scrolling down page
 	    scroll6.sendKeys(Keys.PAGE_DOWN);
 	    Thread.sleep(1000);
@@ -115,6 +117,7 @@ public class RegisteredIspCheckOutUsingSavedAddress extends Browser {
 	    Checkout.GuestCheckoutTab3(driver);
 	    
 	    //  ** Order Confirmation
-//				    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
+//	    sAssert.assertAll();
 	}
 }

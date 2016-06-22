@@ -18,7 +18,7 @@ package com.totalwine.test.pdp;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import java.io.IOException;
 
 import jxl.read.biff.BiffException;
@@ -32,7 +32,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -43,7 +42,7 @@ public class PDPTabs extends Browser {
 	
 	@DataProvider(name="PDPParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "pdpbf");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "pdpprod");
         return(retObjArr);
     } 
 	
@@ -65,19 +64,25 @@ public class PDPTabs extends Browser {
 		WebElement plpnav=driver.findElement(By.xpath("//a[contains(@href,'"+plp+"')]"));
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", plpnav);
-		Thread.sleep(5000);
-		logger.log(LogStatus.PASS, "PDP Access");
+		PageLoad(driver);
 		
 		//Access the PDP
 		WebElement plpmove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(plpmove).build().perform();
-		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
-		Thread.sleep(3000);
+		
+		//driver.findElement(By.xpath("//a[contains(@href,'"+plp+"?viewall=true')]")).click(); //For production since the SubCat Land page is setup
+		//driver.findElement(By.xpath("//a[contains(@href,'000002?viewall=true')]")).click(); //For production since the SubCat Land page is setup
+		PageLoad(driver);
+		
 		String winename = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
 		System.out.println(winename);
-		driver.findElement(By.cssSelector("a.analyticsProductName")).click(); //Click the first item link in the PLP
-		//driver.findElement(By.xpath("//div/h2/a")).click();
-		Thread.sleep(5000);
+		
+		
+		JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
+		js1.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("a.analyticsProductName")));        
+//		driver.findElement(By.cssSelector("a.analyticsProductName")).click(); //Click the first item link in the PLP
+		PageLoad(driver);
+		Thread.sleep(2000);
 		
 		//Tab 1 - Overview
 		Assert.assertEquals(driver.findElements(By.cssSelector("section.pdp-tab-overview-prod-img > div.pdp-tab-overview-prod-img-bottle-img.pdp-img-zoom-modal-zoom-reset > img.anPDPImage")).isEmpty(),false);
@@ -90,37 +95,37 @@ public class PDPTabs extends Browser {
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToListInit")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#overview-qty")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("#pdpTabs > section.item.pdp-tab-overview > section.pdp-tab-overview-type > #variantForm > #overview-mililitres > div.customselect > span.itemval")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span.pdp-tabs-ind-left")).isEmpty(),false);
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("span.pdp-tabs-ind-left")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.anPDPImage.active")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.breadcrumbs")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-right.anPDPTab")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "PDP Tab 1");
+	    
 	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
 	    Thread.sleep(2000);
 	    
 	    //Tab 2 - Product Details
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.css-details-pd")).isEmpty(),false);
+	    
 	    driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
-	    Thread.sleep(2000);
-	    logger.log(LogStatus.PASS, "PDP Tab 2");
+	    Thread.sleep(3000);
+	    
 	    //Tab 3 - BazaarVoice
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div.BVDITitle.BVDI_QTTitle")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVImgOrSprite")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVRRTrustMarkOverlayImage")).isEmpty(), false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("div#BVRRRatingSummaryLinkWriteID")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "PDP Tab 3");
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("div.BVDITitle.BVDI_QTTitle")).isEmpty(),false);
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVImgOrSprite")).isEmpty(),false);
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("img.BVRRTrustMarkOverlayImage")).isEmpty(), false);
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("div#BVRRRatingSummaryLinkWriteID")).isEmpty(),false);
 	    
-	  //Commented till RR is enabled in BF
-	    //driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
-	    //Thread.sleep(5000);
 	    
-	    //Tab 4 - RichRelevance 
-	    /*Assert.assertEquals(driver.findElements(By.cssSelector("div.rr-strat-msg")).isEmpty(),false);
+	    //Commenting since RR display is currently disabled in production
+	    /*driver.findElement(By.cssSelector("span.tabs-right.anPDPTab")).click();
+	    Thread.sleep(5000);
+	    
+	    //Tab 4 - RichRelevance
+	    Assert.assertEquals(driver.findElements(By.cssSelector("div.rr-strat-msg")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div.rr-priceContainer")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("img.rr-image-asset")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToCart")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("button.anAddToListInit")).isEmpty(),false);
-	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-left.anPDPTab")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "PDP Tab 4");*/
+	    Assert.assertEquals(driver.findElements(By.cssSelector("span.tabs-left.anPDPTab")).isEmpty(),false);*/
 	}
 }

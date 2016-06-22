@@ -18,13 +18,12 @@ package com.totalwine.test.storelocator;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -41,7 +40,7 @@ public class SLGeoLocate extends Browser {
 	
 	@Test //Stores in BDR
 	public void SLGeolocateStoreinBDRTest () throws InterruptedException {
-		logger=report.startTest("SL: Geolocation has Stores");
+		logger=report.startTest("SL: Stores in BDR Test");
 		//String[] IP = "71.193.51.0","131.228.17.26","208.110.83.202","98.169.134.0","174.28.39.0","208.53.192.14"};
 		String IP = "71.193.51.0";
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
@@ -55,32 +54,27 @@ public class SLGeoLocate extends Browser {
 	    Assert.assertEquals(driver.findElements(By.linkText("See all stores and shipping locations")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("address > p")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#map_canvas")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Store locator page displays list of stores in BDR");
 	}
 		
 	@Test //No stores in BDR - ship to state
 	public void SLGeolocateNoStoreinBDRTest () throws InterruptedException {
-		logger=report.startTest("SL: Geolocation has no stores");
+		logger=report.startTest("SL: Not Stores in BDR Test");
 		String IP = "208.53.192.14";
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-		Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 	    //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();
 	    Thread.sleep(3000);
-	    Assert.assertEquals("We found no stores that match your search criteria.", driver.findElement(By.cssSelector("div.strlctr-top-search-wrapper > #globalMessages > div.twm-error-server > p.error-msg")).getText());
-	    Assert.assertEquals(driver.findElements(By.id("changeShippingState")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Store locator page displays notification when no stores are found in the geolocated BDR");
+	    Assert.assertEquals("We found no stores that match your search criteria.", 
+	    			driver.findElement(By.cssSelector("div.strlctr-top-search-wrapper > #globalMessages > div.twm-error-server > p.error-msg")).getText(),
+	    			"No stores in the BDR messaging isn't displayed");
+	    Assert.assertEquals(driver.findElements(By.id("changeShippingState")).isEmpty(),false,"The \"Use this location\" link wasn't displayed");
 	}
 	
 	@Test //International
 	public void SLGeolocateInternationalTest () throws InterruptedException {
-		logger=report.startTest("SL: Geolocation is international");
+		logger=report.startTest("SL: Internationally Geolocated Test");
 		//String IP = "131.228.17.26";
 		String IP = "85.90.227.224";
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
@@ -94,7 +88,6 @@ public class SLGeoLocate extends Browser {
 	    Assert.assertEquals(driver.findElements(By.linkText("See all stores and shipping locations")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("address > p")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div#map_canvas")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Store locator page displays DWS for international geolocation");
 	}
 	
 }

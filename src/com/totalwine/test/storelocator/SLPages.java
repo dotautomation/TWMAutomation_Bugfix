@@ -19,17 +19,15 @@ package com.totalwine.test.storelocator;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -50,34 +48,34 @@ public class SLPages extends Browser {
 	
 	@Test //Charity/Donations Page
 	public void SLCharityPageTest () throws InterruptedException {
-		logger=report.startTest("Charity Page");
+		logger=report.startTest("Charity/Donations Page Test");
 		AccessStoreLocator();
 		//Access footer
-		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
-		Thread.sleep(2000);
-
+//		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
+//		Thread.sleep(2000);
+		
 		//Access Corporate Philantropy page
-		driver.findElement(By.cssSelector("a[href*=\"/corporate-philanthropy\"]")).click(); //Corporate Philantropy
+//		driver.findElement(By.cssSelector("a[href*=\"/about-us/corporate-philanthropy\"]")).click(); //Corporate Philanthropy
+		driver.findElement(By.cssSelector("div.footer-wrapper > div > div.footer-second-cont > div:nth-child(1) > ul > li:nth-child(3) > a")).click(); //Corporate Philanthropy
 		Thread.sleep(3000);
-		//driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).sendKeys(Keys.ARROW_DOWN);
-		//driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]")).sendKeys(Keys.ARROW_DOWN);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("a[href*=\"/about-us/donation-requests\"]"))); //Donation Requests
+		js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("a[href*=\"donation-requests\"]")));
+		//driver.findElement(By.cssSelector("a[href*=\"donation-requests\"]")).click(); //Donation Requests
 		Thread.sleep(3000);
 		Assert.assertEquals(driver.findElements(By.cssSelector("a[href*=\"totalwine.requestitem.com\"]")).isEmpty(),false); //Submit a request button
-		logger.log(LogStatus.PASS, "Charity Page access");
 	}
 	
 	@Test //Careers Page
 	public void CareersPageTest () throws InterruptedException {
-		logger=report.startTest("Careers Page");
+		logger=report.startTest("Careers Page Test");
 		AccessStoreLocator();
 		//Access footer
-		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
-		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("ul.footer-tabs > li:nth-child(1)")).click(); //About Us
+//		Thread.sleep(2000);
 		
 		//Access Careers page
-		driver.findElement(By.cssSelector("a[href*=\"/about-us/careers\"]")).click(); //Careers
+//		driver.findElement(By.cssSelector("a[href*=\"/about-us/careers\"]")).click(); //Careers
+		driver.findElement(By.cssSelector("div.footer-wrapper > div > div.footer-second-cont > div:nth-child(1) > ul > li:nth-child(6) > a")).click(); //Careers
 		Thread.sleep(3000);
 		int tileCount = driver.findElements(By.cssSelector("section.yCmsComponent > section.yCmsComponent.lister-component")).size();
 		
@@ -88,16 +86,15 @@ public class SLPages extends Browser {
 		    action.moveToElement(toplevelnav).build().perform(); 
 			Assert.assertEquals(driver.findElements(By.cssSelector("a[href*=\"totalwine.csod.com/ats/careersite/search.aspx\"]")).isEmpty(),false);
 		}
-		logger.log(LogStatus.PASS, "Careers page acces");
 	}
 	
 	@Test //All Stores Page
 	public void SLAllStoresPageTest () throws InterruptedException {
-		logger=report.startTest("SL: All Stores page");
+		logger=report.startTest("All Stores Page Test");
 		AccessStoreLocator();
-		JavascriptExecutor js = (JavascriptExecutor)driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("a.analyticsFindAllStores")));
-		Thread.sleep(3000);
+		PageLoad(driver);
 		//Validate state list
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.our-store-map")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#az\"]")).isEmpty(),false);
@@ -118,10 +115,9 @@ public class SLPages extends Browser {
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#tx\"]")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#va\"]")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("div#our-stores-address > ul > li[data-state=\"#wa\"]")).isEmpty(),false);
-		logger.log(LogStatus.PASS, "All states in which we have stores are displayed");
+
 		//Validate default expanded tab (Arizona)
 		Assert.assertEquals(driver.findElement(By.xpath("//address/p[1]/a")).isDisplayed(), true);
-		logger.log(LogStatus.PASS, "AZ tab is expanded by default");
 	}
 	
 	private void AccessStoreLocator () throws InterruptedException {

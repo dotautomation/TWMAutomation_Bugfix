@@ -1,6 +1,6 @@
 package com.totalwine.test.aml;
 /*
- **** Account Home
+ **** Address Book
  **** Work flow : 
  *  Click on "Account" > "Sign into your account"  (from the header) or "Account info" > "Account login" in footer section 
  *  In the Sign in popup > Signin using registered email and Password.
@@ -22,17 +22,15 @@ package com.totalwine.test.aml;
  * 		Quit WebDriver
  */
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-
-import com.relevantcodes.extentreports.LogStatus;
-import com.totalwine.test.actions.Checkout;
-import com.totalwine.test.actions.ShoppingList;
+import org.testng.annotations.Test;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
+import com.relevantcodes.extentreports.LogStatus;
+import com.totalwine.test.actions.*;
 import com.totalwine.test.pages.*;
 
 public class AddressBook extends Browser {
@@ -46,7 +44,7 @@ public class AddressBook extends Browser {
 	
 	@Test
 	public void AddressBookTest() throws InterruptedException {
-		logger=report.startTest("AML - Registered users Account Home ( Dashboard) verification. ");
+		logger=report.startTest("AML - Registered users Address Book verification. ");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		//** By Passing Age Gate and Welcome Modal
@@ -55,7 +53,7 @@ public class AddressBook extends Browser {
 	    //**Access the sign in modal
 	    driver.findElement(PageGlobal.TopNavAccount).click();
 	    Thread.sleep(2000);
-	    driver.findElement(By.cssSelector("a.btn.btn-red.acc-link.analyticsSignIn")).click();
+//	    driver.findElement(By.cssSelector("a.btn.btn-red.acc-link.analyticsSignIn")).click();
 	    
 	    //**Enter valid credentials for an account having an online and in-store order history
 	    driver.switchTo().frame("iframe-signin-overlay");
@@ -73,21 +71,24 @@ public class AddressBook extends Browser {
 	    driver.findElement(PageAccountHome.AddressBook).click();  
 	    
 	    //** Editing and verifying "Profile Address" 
-	    driver.findElement(PageAccountHome.EditProfileAddress).click();
-	    Assert.assertEquals(driver.findElements(PageAccountHome.EditProfileAddress).isEmpty(),false);
+	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of site
+	    js1.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.EditProfileAddress)); 
+//	    driver.findElement(PageAccountHome.EditProfileAddress).click();
+	    Assert.assertEquals(driver.findElements(PageAccountHome.EditProfileAddress).isEmpty(),false,"Verifying Editing of the Profile");
 	    Thread.sleep(6000);
-	    driver.findElement(PageAccountHome.EditAddressClose).click();
-	    Assert.assertEquals(driver.findElements(PageAccountHome.EditAddressClose).isEmpty(),false);
+	    JavascriptExecutor js2 = (JavascriptExecutor)driver;  // Finding out elements that are out of site
+	    js2.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.EditAddressClose));
+	    Assert.assertEquals(driver.findElements(PageAccountHome.EditAddressClose).isEmpty(),false,"Verifying Editing Popup Closing");
 	    Thread.sleep(5000);
 	    logger.log(LogStatus.PASS, "verifying Profile Address");
 	    	    
 	    //** Adding and verifying "New Address" insertion 
-	    JavascriptExecutor js = (JavascriptExecutor)driver;  // Finding out elements that are out of site
-	    js.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.AddNewAddress));     
-	    Assert.assertEquals(driver.findElements(PageAccountHome.AddNewAddress).isEmpty(),false);
+	    JavascriptExecutor js3 = (JavascriptExecutor)driver;  // Finding out elements that are out of site
+	    js3.executeScript("arguments[0].click();", driver.findElement(PageAccountHome.AddNewAddress)); 
+	    Assert.assertEquals(driver.findElements(PageAccountHome.AddNewAddress).isEmpty(),false,"Verifying Adding new address");
 	    Thread.sleep(5000);
 	    driver.findElement(PageAccountHome.AddAddressClose).click();
-	    Assert.assertEquals(driver.findElements(PageAccountHome.AddAddressClose).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(PageAccountHome.AddAddressClose).isEmpty(),false,"Verifying address popup closing");
 	    Thread.sleep(5000);
 	    logger.log(LogStatus.PASS, "verifying Profile Address");
 		}

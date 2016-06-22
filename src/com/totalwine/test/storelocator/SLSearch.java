@@ -17,13 +17,12 @@ package com.totalwine.test.storelocator;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -40,8 +39,8 @@ public class SLSearch extends Browser {
 	
 	@Test //Search by City
 	public void SLCitySearchTest () throws InterruptedException {
+		logger=report.startTest("SL: Search Stores by City Test");
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
-		logger=report.startTest("SL: Search by city");
 		String [] CitySearch = {"las vegas","orlando","phoenix","laurel md","fort myers"};
 		String [] ClosestStores = {"Las Vegas (Summerlin)","Orlando (Colonial Plaza)","Phoenix (Camelback)","Laurel (Corridor)","Fort Myers"};
 		SiteAccess.ActionAccessSite(driver, IP);
@@ -49,7 +48,7 @@ public class SLSearch extends Browser {
 		 //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();
 	    Thread.sleep(3000);
-	    logger.log(LogStatus.PASS, "Navigate to SL page");
+	    
 	    //for (String SearchTerm : CitySearchTerms) {
 	    for (int i=0;i<CitySearch.length;i++) {	
 	    	//Enter search term and search
@@ -65,13 +64,12 @@ public class SLSearch extends Browser {
 		    }
 		    //Validate search results
 		    Assert.assertEquals(driver.findElement(By.xpath("//li[1]/div/address/a/p")).getText(),ClosestStores[i]);
-		    logger.log(LogStatus.PASS, "Closest store while searching "+CitySearch[i]+" returned the Closest Store as "+ClosestStores[i]);
 	    }
 	}
 		
 	@Test //Search by State
 	public void SLStateSearchTest () throws InterruptedException {
-		logger=report.startTest("SL: State Search");
+		logger=report.startTest("SL: Search stores by State Test");
 		String [] ZipSearch = {"95630","33186"};
 		String [] ClosestStores = {"Folsom","Kendall"};
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
@@ -92,22 +90,16 @@ public class SLSearch extends Browser {
 		   
 		    //Validate search results
 		    Assert.assertEquals(driver.findElement(By.xpath("//li[1]/div/address/a/p")).getText(),ClosestStores[i]);
-		    logger.log(LogStatus.PASS, "Closest store while searching "+ZipSearch[i]);
 	    }
 	}
 	
 	@Test //Search by Zip
 	public void SLZipSearchTest () throws InterruptedException {
-		logger=report.startTest("SL: Search by zip");
+		logger=report.startTest("SL: Search stores by Zip Test");
 		String [] StateSearch = {"delaware"};
 		String [] ClosestStores = {"Wilmington"};
 		//Access the site using the remoteTestIPAddress URL parameter for all test IPs
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		driver.findElement(By.id("btnYes")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("#email-signup-overlay-new-site > div.modal-dialog > div.modal-content > div.modal-body > p.close > a.btn-close")).click();
-		Thread.sleep(5000);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 		 //Navigate to the Store Locator page
 	    driver.findElement(By.cssSelector(StoreLink)).click();
@@ -127,7 +119,6 @@ public class SLSearch extends Browser {
 		    }
 		    //Validate search results
 		    Assert.assertEquals(driver.findElement(By.xpath("//li[1]/div/address/a/p")).getText(),ClosestStores[i]);
-		    logger.log(LogStatus.PASS, "Closest store while searching "+StateSearch[i]);
 	    }
 	}
 }
