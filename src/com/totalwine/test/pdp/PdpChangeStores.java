@@ -39,10 +39,10 @@ public class PdpChangeStores extends Browser {
 	private String IP="71.193.51.0";
 	
 	@DataProvider(name="PDPParameters")
-    public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "PdpChangeStores");
-        return(retObjArr);
-    } 
+  public Object[][] createData() {
+  	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PDP", "PdpChangeStores");
+      return(retObjArr);
+  } 
 	
 	@BeforeMethod
 	  public void setUp() throws Exception {
@@ -52,32 +52,28 @@ public class PdpChangeStores extends Browser {
 	@Test (dataProvider = "PDPParameters")
 	public void PdpChangeStoresTest (String toplevel,String plp,String zip) throws InterruptedException, BiffException, IOException {
 		logger=report.startTest("Pdp Change Stores");
-		driver.get(ConfigurationFunctions.locationSet+IP);
-		Thread.sleep(5000);
-		
-		//** By Passing Age Gate and Welcome Modal
-		Checkout.AgeGateWelcome(driver);
+		SiteAccess.ActionAccessSite(driver, IP);
 		
 	    Actions action=new Actions(driver);
 		
-		//Browse to PLP
+	    // **  Browse to PLP
 		WebElement toplevelnav = driver.findElement(By.xpath("//a[contains(@href,'"+toplevel+"')]")); 
 		action.moveToElement(toplevelnav).build().perform(); //Top Level Menu Hover
 		WebElement plpnav=driver.findElement(By.xpath("//a[contains(@href,'"+plp+"')]"));
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 		js.executeScript("arguments[0].click();", plpnav);
 		Thread.sleep(5000);
-		logger.log(LogStatus.PASS, "PDP Access");
 		
-		//Access the PDP
+		// **  Access the PDP
 		WebElement plpmove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(plpmove).build().perform();
-		Thread.sleep(3000);
+		//driver.findElement(By.cssSelector("a.btn.btn-red.clpviewall")).click();
+		//Thread.sleep(5000);
 		String winename = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
 		System.out.println(winename);
 		driver.findElement(By.cssSelector("a.analyticsProductName")).click(); //Click the first item link in the PLP
 		Thread.sleep(5000);
-
+		
 		// **  Add to Cart
 	 	String productId = driver.findElement(By.cssSelector("div.anProductId")).getText();
 	 	System.out.println(productId);
@@ -86,12 +82,12 @@ public class PdpChangeStores extends Browser {
 	 	Thread.sleep (3000);
 	 	driver.get(ConfigurationFunctions.accessURL+"/cart");
 	 	Thread.sleep(3000);
-	 	driver.findElement(By.cssSelector("div.search-right-cont-add-to-cart.analyticsViewCart")).click();
+	 	driver.findElement(By.cssSelector(".fluid-icons.fluid-add-to-cart-bg.analyticsViewCart")).click();
 	    Thread.sleep(3000);
 	    
 	    // **  Changing Store location
-	 	driver.findElement(PageChangingStore.YourStore).click();
-	    Thread.sleep(5000);
+//	 	driver.findElement(PageChangingStore.YourStore).click();
+//	    Thread.sleep(5000);
 	    driver.findElement(PageChangingStore.ChangeLocation).click();
 	    Thread.sleep(5000);
 	 	driver.findElement(PageChangingStore.FindStoreTab).click();

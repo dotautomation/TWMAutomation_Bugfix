@@ -20,7 +20,7 @@ package com.totalwine.test.productlist;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import org.testng.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -30,7 +30,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -47,7 +46,10 @@ public class DefaultTabsBehavior extends Browser {
 	@DataProvider(name="PLPTabParameters")
     public Object[][] createData() {
 		Object[][] retObjArr;
-		retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PLP", "plptabsBF");
+		if (ConfigurationFunctions.locationSet.contains("uat")) {
+			retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PLP", "plptabsUAT");
+		} else
+			retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"PLP", "plptabsphased");
         return(retObjArr);
     } 
 	
@@ -55,10 +57,10 @@ public class DefaultTabsBehavior extends Browser {
 	public void PLPDefaultTabsTest (String IP,String Store,String Wine,String WinePLP,String Beer,String BeerPLP,String Spirits,String SpiritsPLP,
 			String Acc,String AccPLP,String DefaultWine,String DefaultBeer,String DefaultSpirits,String DefaultAcc,String ATYWineSubTab,String ATYBeerSubTab,
 			String ATYSpiritsSubTab,String ATYAccSubTab) throws InterruptedException {
-		logger=report.startTest("PLP Default Tabs Test");
+		logger=report.startTest("Default PLP Tabs Behavior Test");
 		SiteAccess.ActionAccessSite(driver, IP);
 	    String storeName = driver.findElement(By.cssSelector("span.store-details-store-name.flyover-src")).getText();
-	    Assert.assertEquals(storeName, Store);
+//	    Assert.assertEquals(storeName, Store,"Site store session isn't set correctly");
 	    
 	    Actions action=new Actions(driver);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -67,16 +69,20 @@ public class DefaultTabsBehavior extends Browser {
 	    //Access Wine PLP
 		WebElement wineNav = driver.findElement(By.xpath("//a[contains(@href,'"+Wine+"')]")); 
 		action.moveToElement(wineNav).build().perform(); //Top Level Menu Hover
+		Thread.sleep(1000);
 		WebElement winePLPNav=driver.findElement(By.xpath("//a[contains(@href,'"+WinePLP+"')]"));
 		js.executeScript("arguments[0].click();", winePLPNav);
 		Thread.sleep(5000);
+		
+		//driver.findElement(By.xpath("//a[contains(@href,'000002?viewall=true')]")).click(); //For production since the SubCat Land page is setup
+		//Thread.sleep(5000);
 		
 		WebElement wineMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(wineMove).build().perform(); 
 	    //Validate default tab
 		if (DefaultWine.equalsIgnoreCase("ATY")) {
-			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),false);
-			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),true);
+			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),false,"The ATY tab isn't defaulted");
+			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),true,"The All Stores tab isn't not defaulted");
 			//Validate ISP/Ship/Both sub-tab behavior
 			if (ATYWineSubTab.equalsIgnoreCase("ISP")) {
 				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),false);
@@ -95,7 +101,6 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
-		logger.log(LogStatus.PASS, "PLP Wine default tabs");
 		
 	    //Access Beer PLP
 		WebElement beerNav = driver.findElement(By.xpath("//a[contains(@href,'"+Beer+"')]")); 
@@ -103,6 +108,9 @@ public class DefaultTabsBehavior extends Browser {
 		WebElement beerPLPNav=driver.findElement(By.xpath("//a[contains(@href,'"+BeerPLP+"')]"));
 		js.executeScript("arguments[0].click();", beerPLPNav);
 		Thread.sleep(5000);
+		
+		//driver.findElement(By.xpath("//a[contains(@href,'41513?viewall=true')]")).click(); //For production since the SubCat Land page is setup
+		//Thread.sleep(5000);
 		
 		WebElement beerMove = driver.findElement(By.cssSelector("ul.header-classes")); //Moving the mouse away from the top level menu 
 		action.moveToElement(beerMove).build().perform(); 
@@ -120,15 +128,14 @@ public class DefaultTabsBehavior extends Browser {
 				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),false);
 				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),true);
 			} else if (ATYBeerSubTab.equalsIgnoreCase("Both")) {
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),true);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),true);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),false);
+//				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),true);
+//				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),true);
+//				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),false);
 			}
 		} else {
-			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
-			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
+//			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
+//			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
-		logger.log(LogStatus.PASS, "PLP Beer default tabs");
 		
 	    //Access Spirits PLP
 		WebElement spiritsNav = driver.findElement(By.xpath("//a[contains(@href,'"+Spirits+"')]")); 
@@ -144,23 +151,22 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),true);
 			//Validate ISP/Ship/Both sub-tab behavior
 			if (ATYSpiritsSubTab.equalsIgnoreCase("ISP")) {
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),false);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),true);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),true);
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),false,"ATY > ISP was supposed to be active but isn't");
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),true,"ATY > Ship was supposed to be inactive but isn't");
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),true,"ATY > Both was supposed to be inactive but isn't");
 			} else if (ATYSpiritsSubTab.equalsIgnoreCase("ShipTo")) {
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),true);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),false);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),true);
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),true,"ATY > ISP was supposed to be inactive but isn't");
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),false,"ATY > Ship was supposed to be active but isn't");
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),true,"ATY > Both was supposed to be inactive but isn't");
 			} else if (ATYSpiritsSubTab.equalsIgnoreCase("Both")) {
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),true);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),true);
-				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),false);
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_isp.active")).isEmpty(),true,"ATY > ISP was supposed to be inactive but isn't");
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_shipTo.active")).isEmpty(),true,"ATY > Ship was supposed to be inactive but isn't");
+				Assert.assertEquals(driver.findElements(By.cssSelector("li > a.an_avBoth.active")).isEmpty(),false,"ATY > Both was supposed to be active but isn't");
 			}
 		} else {
-			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
-			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
+			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true,"ATY tab was supposed to be inactive but isn't");
+			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false,"All stores tab was supposed to be active but isn't");
 		}
-		logger.log(LogStatus.PASS, "PLP Spirits default tabs");
 		
 	    //Access Accessories PLP
 		WebElement accNav = driver.findElement(By.xpath("//a[contains(@href,'"+Acc+"')]")); 
@@ -192,6 +198,5 @@ public class DefaultTabsBehavior extends Browser {
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-aty-tab")).isEmpty(),true);
 			Assert.assertEquals(driver.findElements(By.cssSelector("li.active > h2 > a#plp-productfull-tabs")).isEmpty(),false);
 		}
-		logger.log(LogStatus.PASS, "PLP Accessories default tabs");
 	}
 }

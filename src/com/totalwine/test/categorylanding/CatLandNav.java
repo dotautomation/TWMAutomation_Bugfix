@@ -19,7 +19,7 @@ package com.totalwine.test.categorylanding;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import java.io.IOException;
 
 import jxl.read.biff.BiffException;
@@ -33,7 +33,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -80,7 +79,7 @@ public class CatLandNav extends Browser {
 		//Validate PLP presence and CatLand absence
 		Assert.assertEquals(driver.findElements(By.cssSelector("div.plp-product-desc")).isEmpty(),false);
 		Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsHeroLink")).isEmpty(),true);
-		logger.log(LogStatus.PASS, "PLP is loaded for category "+plp);
+		
 		//Navigate to Category with Cat Landing
 		WebElement toplevelnav1 = driver.findElement(By.xpath("//a[contains(@href,'"+toplevel+"')]"));
 		action.moveToElement(toplevelnav1).build().perform();
@@ -93,6 +92,5 @@ public class CatLandNav extends Browser {
 		//Validate PLP presence and CatLand absence
 		Assert.assertEquals(driver.findElements(By.id("plp-aty-tab")).isEmpty(),true);
 		//Assert.assertEquals(driver.findElements(By.cssSelector("a.analyticsHeroLink")).isEmpty(),false);
-		logger.log(LogStatus.PASS, "Category Landing page is loaded for category "+plp);
 	}
 }

@@ -32,7 +32,6 @@ package com.totalwine.test.checkout;
  */
 import java.io.IOException;
 import java.util.Random;
-import org.testng.Assert;
 import jxl.read.biff.BiffException;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
@@ -41,16 +40,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
-import org.openqa.selenium.Keys;
 import com.totalwine.test.config.ConfigurationFunctions;
-import com.totalwine.test.trials.*;
+import com.totalwine.test.trials.Browser;
 import com.totalwine.test.actions.*;
 
 public class CreateAccountAfterGuestCheckout extends Browser {
 
 	@DataProvider(name="CheckoutParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "CreateAccountAfterGuestCheckoutBF");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "CreateAccountAfterGuestCheckoutUAT");
         return(retObjArr);
     } 
 	
@@ -113,7 +111,7 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    js3.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#checkoutGuestForm > div.button-container > button.btn.btn-red")));     
 	    Thread.sleep(3000);
 	    PageLoad(driver); 
-	    
+
 	    // **  Checkout Tab 1
 	    driver.findElement(By.id("firstName")).clear();
 	    driver.findElement(By.id("firstName")).sendKeys(FirstName);
@@ -139,7 +137,7 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 	    driver.findElement(By.id("shipping-phoneNumber")).sendKeys(Phone);
 	    
 	    driver.findElement(By.id("btnShipAuth1")).click();
-	    Thread.sleep(5000);
+	    Thread.sleep(7000);
 
 	    // ** Checkout Tab 2
 	    driver.findElement(By.id("ssl_account_data")).click();
@@ -172,13 +170,14 @@ public class CreateAccountAfterGuestCheckout extends Browser {
 
 	    // **  Checkout Tab 3
 	    Checkout.GuestCheckoutTab3(driver);
+	    Thread.sleep(5000);
 
 	    //  ** Order Confirmation
-//	    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
 
 	    //  ** Creating Account
 	    JavascriptExecutor js2 = (JavascriptExecutor)driver;  // Finding out elements that are out of site
-	    js2.executeScript("arguments[0].click();", driver.findElement(By.id("btnCreateAcc")));     
+	    js2.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#btnCreateAcc")));    
 
 	    //  ** Checking for survey pop-up
 	    Checkout.SurverPopup(driver);
@@ -193,12 +192,16 @@ public class CreateAccountAfterGuestCheckout extends Browser {
         	new Actions(driver).moveToElement(element1).perform();   //  ** Selecting element from drop-down
         	element1.click();
 	    Thread.sleep(2000);
+
 	    driver.findElement(By.xpath(".//*[@id='frmCOCreateAcc']/table/tbody/tr[5]/td[2]/div/div/div/div/div/div[1]/ul/li[3]")).click();
 	    Thread.sleep(2000);
+
 	    driver.findElement(By.id("check_box_100")).click();
 	    driver.findElement(By.id("check_box_101")).click();
 	    Thread.sleep(2000);
 	    driver.findElement(By.id("btnCOSaveAuth")).click();
 	    Thread.sleep(5000);
+//	    Assert.assertEquals(driver.findElements(By.cssSelector(".ahp-welcomeHeading")).isEmpty(),false, "If account doesn't create then test will fail");
+//	    sAssert.assertAll();
 		}
 	}

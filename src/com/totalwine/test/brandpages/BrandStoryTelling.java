@@ -16,7 +16,7 @@ package com.totalwine.test.brandpages;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import java.awt.AWTException;
 import java.io.IOException;
 
@@ -24,14 +24,13 @@ import jxl.read.biff.BiffException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
+import com.totalwine.test.pages.PageGlobal;
 import com.totalwine.test.trials.Browser;
 
 public class BrandStoryTelling extends Browser {
@@ -50,17 +49,17 @@ public class BrandStoryTelling extends Browser {
 	
 	@Test 
 	public void BrandStoryTellingTest () throws InterruptedException, BiffException, IOException, AWTException {
-		logger=report.startTest("Brand Storytelling Page Test");
+		logger=report.startTest("Brand StoryTelling Page Test");
 		SiteAccess.ActionAccessSite(driver, IP);
 	    
 	    //Access Brand Story Telling page via PDP's View All link
-	    driver.get(ConfigurationFunctions.accessURL+"/wine/champagne-sparkling-wine/champagne/brut/mailly-brut-collection-vtg/p/130286015");
+	    driver.get(ConfigurationFunctions.accessURL+"/wine/champagne-sparkling-wine/champagne/champagne-mailly-grand-cru-o-de-mailly/p/148096750");
 	    Thread.sleep(3000);
 	    driver.findElement(By.linkText("View all Mailly products >")).click();
 	    Thread.sleep(3000);
 	    String BrandSPURL = driver.getCurrentUrl();
 	    Assert.assertEquals(BrandSPURL.toLowerCase().contains("/wine/brand/".toLowerCase()),true);
-	    logger.log(LogStatus.PASS, "Brand Story Telling page contains /wine/brand in the URL");
+	    
 	    //Validate elements of the Brand Story Telling page are present
 	    Assert.assertEquals(driver.findElements(By.cssSelector("section.wrapper-bleed > img")).isEmpty(),false);
 	    Assert.assertEquals("MAILLY", driver.findElement(By.cssSelector("div.wrapper-bleed-t > h1")).getText());
@@ -72,21 +71,13 @@ public class BrandStoryTelling extends Browser {
 	    
 	    //Validate elements of Brand List page are absent
 	    Assert.assertEquals(driver.findElements(By.id("plp-aty-tab")).isEmpty(),true);
-	    logger.log(LogStatus.PASS, "Brand Story Telling page elements are correctly presented and PLP is not displayed");
-	    
-	    //Page Down
-	    WebElement scroll_Country = driver.findElement(By.cssSelector("a.analyticsProductName"));
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    scroll_Country.sendKeys(Keys.ARROW_DOWN);
-	    Thread.sleep(3000);
 	    
 	    //Click the first link and validate that the PDP appears
+	    driver.findElement(By.cssSelector("a.analyticsProductName")).sendKeys(Keys.ARROW_DOWN);
 	    String BrandSPName = driver.findElement(By.cssSelector("a.analyticsProductName")).getText();
-	    Thread.sleep(1000);
 	    driver.findElement(By.cssSelector("a.analyticsProductName")).click();
 	    Thread.sleep(3000);
 	    String PDPName = driver.findElement(By.cssSelector("h1.product-name")).getText();
 	    Assert.assertEquals(BrandSPName,PDPName);
-	    logger.log(LogStatus.PASS, "PDP can be accessed from the Brand Story Telling page");
 	}
 }

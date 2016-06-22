@@ -77,6 +77,7 @@ public class RegisteredShipCheckOutUsingSavedCc extends Browser {
 
 		// **  Adding item to Cart
 		ShoppingCart.ATC(driver);
+		Thread.sleep(3000);
 	    driver.get(ConfigurationFunctions.accessURL+"/cart");
 	    Thread.sleep(3000);
 
@@ -90,6 +91,7 @@ public class RegisteredShipCheckOutUsingSavedCc extends Browser {
 	    Thread.sleep(7000);
 	    PageLoad(driver); 
 	    driver.findElement(By.cssSelector("#deliveryMode > div.customselect > span.itemval")).click();
+	    Thread.sleep(7000);
 	    driver.findElement(By.cssSelector("li[data-val="+ShipOption+"]")).click();
 	    Thread.sleep(7000);
 	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
@@ -106,17 +108,16 @@ public class RegisteredShipCheckOutUsingSavedCc extends Browser {
 	    Thread.sleep(3000);
 
 	    // **  Checkout Tab-1    
-	    driver.findElement(By.cssSelector("div.shippingaddress-option > span#shiporderhere_8885321596951.twm-radio.anShipOrderHere")).click();
+	    driver.findElement(By.cssSelector(".shippingaddress-option>span")).click();
 	    WebElement scroll2 = driver.findElement(By.id("btnShipAuth1")); //  ** Scrolling down page
 	    scroll2.sendKeys(Keys.PAGE_DOWN);
 	    driver.findElement(By.id("btnShipAuth1")).click();
 	    Thread.sleep(2000);
 
-	    // **  Checkout Tab-2
-	    driver.findElement(By.id("card_8829320003626")).click();
-	    Thread.sleep(3000);
-	    WebElement scroll3 = driver.findElement(By.cssSelector(".btn.btn-red.anContinue")); //  ** Scrolling down page
-	    scroll3.sendKeys(Keys.PAGE_DOWN);
+	    // **  Checkout Tab-2 [ Checkout using saved billing address ]
+	    driver.findElement(By.cssSelector(".shippingaddress-option>span")).click();
+	    WebElement scroll6 = driver.findElement(By.cssSelector(".btn.btn-red.anContinue")); //  ** Scrolling down page
+	    scroll6.sendKeys(Keys.PAGE_DOWN);
 	    Thread.sleep(1000);
 	    driver.findElement(By.cssSelector(".btn.btn-red.anContinue")).click();
 	    Thread.sleep(2000);
@@ -129,6 +130,6 @@ public class RegisteredShipCheckOutUsingSavedCc extends Browser {
 	    Thread.sleep(3000);
 	    
 	    //  ** Order Confirmation
-//			    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
 	}
 }

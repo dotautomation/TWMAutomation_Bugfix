@@ -47,7 +47,7 @@ public class RegisteredIspCheckOutUsingNewAddress extends Browser {
 
 	@DataProvider(name="CheckoutParameters")
     public Object[][] createData() {
-    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredIspCheckOutUsingNewAddressBF");
+    	Object[][] retObjArr=ConfigurationFunctions.getTableArray(ConfigurationFunctions.resourcePath,"Checkout", "RegisteredIspCheckOutUsingNewAddressUAT");
         return(retObjArr);
     } 
 
@@ -80,15 +80,16 @@ public class RegisteredIspCheckOutUsingNewAddress extends Browser {
 
 		// **  Adding item to Cart
 		ShoppingCart.ATC(driver);
+		Thread.sleep(3000);
 	    driver.get(ConfigurationFunctions.accessURL+"/cart");
-	    Thread.sleep(3000);
+	    Thread.sleep(5000);
 	    
 	    //  ** Shopping Cart
 	    JavascriptExecutor js = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("li[data-val="+ISPOption+"]"))); 
 	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js1.executeScript("arguments[0].click();", driver.findElement(By.id("checkout"))); 
-	    PageLoad(driver);
+	    PageLoad(driver); 
 	    
 	    // **  Login
 	    driver.findElement(By.id("j_username")).clear();
@@ -128,18 +129,16 @@ public class RegisteredIspCheckOutUsingNewAddress extends Browser {
 	    driver.findElement(By.id("addressLineOne")).sendKeys(Address1);
 	    WebElement scroll6 = driver.findElement(By.id("city")); //  ** Scrolling down page
 	    scroll6.sendKeys(Keys.PAGE_DOWN);
+	    Thread.sleep(3000);
 	    driver.findElement(By.id("city")).click();
 	    driver.findElement(By.id("city")).clear();
 	    driver.findElement(By.id("city")).sendKeys(City);
-//		driver.findElement(By.xpath(".//*[@id='editCardForm']/table/tbody/tr[16]/td[2]/div/div/div/span")).click();
-//		driver.findElement(By.cssSelector("li.undefined.anOption[data-val=\""+State+"\"]")).click();		    
-//		driver.findElement(By.cssSelector("li.undefined.anOption[data-val='US-AK']")).click();
 	    driver.findElement(By.id("zipCode")).click();
 	    driver.findElement(By.id("zipCode")).clear();
 	    driver.findElement(By.id("zipCode")).sendKeys(Zip);
 	    driver.findElement(By.id("btnCOSave")).click();  	    
 	    Thread.sleep(3000);
-	    driver.findElement(By.id("card_8829320003626")).click();
+	    driver.findElement(By.cssSelector(".shippingaddress-option>span")).click();
 	    WebElement scroll7 = driver.findElement(By.cssSelector(".btn.btn-red.anContinue")); //  ** Scrolling down page
 	    scroll7.sendKeys(Keys.PAGE_DOWN);
 	    Thread.sleep(1000);
@@ -153,6 +152,6 @@ public class RegisteredIspCheckOutUsingNewAddress extends Browser {
 	    Checkout.GuestCheckoutTab3(driver);
 	    
 	    //  ** Order Confirmation
-//		Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
+//	    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false, "If Order confirmation msg doesn't appear then test will fail");
 	}
 }

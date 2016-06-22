@@ -25,6 +25,7 @@ import org.testng.Assert;
 import jxl.read.biff.BiffException;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import com.totalwine.test.config.ConfigurationFunctions;
@@ -51,7 +52,7 @@ public class ShoppingListMoveToCart extends Browser {
 					throws InterruptedException, BiffException, IOException {		    
 		driver.get(ConfigurationFunctions.locationSet+Location);
 		logger=report.startTest("Shopping List - Item move to Cart Test");
-		Browser.PageLoad(driver); // Will not trigger the next control until loading the page
+		PageLoad(driver); // Will not trigger the next control until loading the page
 
 		//**By Passing Age Gate and Welcome Modal
 		Checkout.AgeGateWelcome(driver);  
@@ -76,10 +77,12 @@ public class ShoppingListMoveToCart extends Browser {
 	    Checkout.SurverPopup(driver);
 	    
 	    //**Inserting item from the Shopping-list into the Shopping Cart
-		String ATC1 = driver.findElement(By.cssSelector("li:nth-child(2) > div > div.plp-product-desc-wrap > div.plp-product-row1.plp-product-row1-products > div.plp-product-desc > div > span.plp-product-qty.color-5b5b5b")).getText();
+			    
+	    String ATC1 = driver.findElement(By.cssSelector("li:nth-child(2) > div > div.plp-product-desc-wrap > div.plp-product-row1.plp-product-row1-products > div.plp-product-desc > div > span.plp-product-qty.color-5b5b5b")).getText();
 		System.out.println(ATC1);
-		Thread.sleep(2000);   
-	    driver.findElement(By.xpath(".//*[@id='"+ATC1+"']")).click(); //Clicking the ATC button
+		Thread.sleep(2000);
+	    JavascriptExecutor js = (JavascriptExecutor)driver;  // Finding out elements that are out of site
+	    js.executeScript("arguments[0].click();", driver.findElement(By.xpath(".//*[@id='"+ATC1+"']"))); //Clicking the ATC button   
 		Thread.sleep (5000);
 		
 	    String ATC2 = driver.findElement(By.cssSelector("div.pdp-product-nos")).getText();

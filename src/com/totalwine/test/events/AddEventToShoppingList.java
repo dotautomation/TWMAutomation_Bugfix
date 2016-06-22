@@ -1,8 +1,8 @@
 package com.totalwine.test.events;
 
 /*
- *** Workflow:
- * 	1. Log into an account which has pre-existing shopping list  
+ *** Work flow:
+ * 	1. Log into an account which has Pre-existing shopping list  
  * 	2. Click the "Classes & Events" link from the top level nav
  * 	3. Assert the presence of web elements on the Events landing page
  * 	4. Click on the "Save to list" link in a future event
@@ -37,7 +37,7 @@ import com.totalwine.test.actions.*;
 public class AddEventToShoppingList extends Browser {
 	
 	public String IP = "72.66.119.61";
-	public String Event = "/events/jun-2016/virginia/mclean?storestatename=214,203,202,201,205";
+	public String Event = "/events/jun-2016/virginia/mclean?storestatename=205,203,201,402,401";
 
 	@BeforeMethod
 	public void setUp() throws Exception {
@@ -60,19 +60,21 @@ public class AddEventToShoppingList extends Browser {
 	    // **  Selecting a Event from PDP
 		driver.get(ConfigurationFunctions.accessURL+Event);
 		Thread.sleep(3000);
-		Assert.assertEquals(driver.findElements(By.cssSelector("div.event-title")).isEmpty(),false, "If Event title not appear then test will fail");	
+//		Assert.assertEquals(driver.findElements(By.cssSelector("div.event-title")).isEmpty(),false, "If Event title not appear then test will fail");	
 				
 	    //**Adding Event to Shopping List
 	    JavascriptExecutor js1 = (JavascriptExecutor)driver;  // Finding out elements that are out of sight
 	    js1.executeScript("arguments[0].click();", driver.findElement(By.cssSelector(".btn.btn-brown-pattern.mini-add-list.anAddToListInit")));
+	    Thread.sleep (6000);   
+	    driver.findElement(By.cssSelector("#dWishListName > div > span > i")).click();
 	    Thread.sleep (6000);
-	    driver.findElement(By.cssSelector("#dWishListName > div > span > i")).click();	    
-	    driver.findElement(By.cssSelector("#dWishListName > div > div > ul > li:nth-child(2)")).click();
+	    driver.findElement(By.cssSelector("#dWishListName > div > div > div > div.jspPane > ul > li:nth-child(2)")).click();
 	    Thread.sleep (6000);
 	    driver.findElement(By.cssSelector("#addToList")).click();
 	    Thread.sleep (6000);
-	    Assert.assertEquals(driver.findElements(By.cssSelector(".add-top-redmsg-caps.msg-success")).isEmpty(),false, "If Event title not appear then test will fail");
+	    sAssert.assertEquals(driver.findElements(By.cssSelector(".add-top-redmsg-caps.msg-success")).isEmpty(),false, "If Event title not appear then test will fail");
 	    logger.log(LogStatus.PASS, "Validated event added into Shopping list");
 	    Thread.sleep (3000);
+//	    sAssert.assertAll();
 	}
 }

@@ -24,7 +24,7 @@ package com.totalwine.test.mobile;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import org.testng.*;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
@@ -32,7 +32,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.Select;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
 
@@ -42,7 +41,7 @@ public class MobileShipCheckout extends Browser {
 	
 	@Test
 	public void MobileShipCheckoutTest () throws InterruptedException {
-		logger=report.startTest("Mobile Ship Guest Checkout Test");
+		logger=report.startTest("Mobile Ship Checkout Test");
 		driver.get(ConfigurationFunctions.locationSet+IP);
 		Thread.sleep(5000);
 		driver.findElement(By.id("btnYes")).click();
@@ -55,14 +54,12 @@ public class MobileShipCheckout extends Browser {
 		driver.findElement(By.cssSelector("a.analyticsProductName[href*=\"142211750\"]")).click();
 		//driver.get(ConfigurationFunctions.accessURL+"/wine/red-wine/cabernet-sauvignon/iter-cabernet-sauvignon-napa-valley/p/142211750");
 		Thread.sleep(3000);
-		logger.log(LogStatus.PASS, "Mobile Ship Checkout PDP access");
 		
 		//Add to Cart and access cart
 		driver.findElement(By.cssSelector("button.btnAddToCartPDP")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("em.mobile-cart")).click();
 		Thread.sleep(3000);
-		logger.log(LogStatus.PASS, "Mobile Ship Checkout cart access");
 		
 		//Enter shipping zip and select shipping method
 		driver.findElement(By.cssSelector("input.cart-qty.numonly")).clear();
@@ -74,15 +71,13 @@ public class MobileShipCheckout extends Browser {
 		driver.findElement(By.cssSelector("input.anZipForm")).click();
 		Thread.sleep(5000);
 		new Select(driver.findElement(By.id("deliveryModeSelect"))).selectByVisibleText("Overnight");
-		Thread.sleep(3000);
-		logger.log(LogStatus.PASS, "Mobile Ship Checkout cart quantity adjustment and shipping method selection");
+		Thread.sleep(6000);
 		
 		//Initiate Checkout
 		 // Shopping Cart
 	    driver.findElement(By.id("checkout")).sendKeys(Keys.ARROW_DOWN);
 	    driver.findElement(By.id("checkout")).click();
 	    Thread.sleep(5000);
-	    logger.log(LogStatus.PASS, "Mobile Ship Checkout initiation");
 	    
 	    // Next Page (Login/Checkout as Guest)
 	    Assert.assertEquals(driver.findElements(By.id("j_username")).isEmpty(),false);
@@ -93,7 +88,6 @@ public class MobileShipCheckout extends Browser {
 	    JavascriptExecutor executor = (JavascriptExecutor)driver;
 	    executor.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#checkoutGuestForm > div > button.btn.btn-red.anCheckoutContinue")));
 	    Thread.sleep(3000);
-	    logger.log(LogStatus.PASS, "Mobile Ship Checkout guest/logged in user screen");
 	    
 	    // Checkout Tab 1
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.shipping-tab")).isEmpty(),false);
@@ -117,7 +111,10 @@ public class MobileShipCheckout extends Browser {
 	    driver.findElement(By.id("city")).sendKeys("Anchorage");
 	    driver.findElement(By.id("btnShipAuth1")).click();
 	    Thread.sleep(3000);
-	    logger.log(LogStatus.PASS, "Mobile Ship Checkout Checkout tab 1");
+	    
+	    
+	    //driver.findElement(By.id("btnPickup")).click();
+	    //Thread.sleep(5000);
 	    
 	    // Checkout Tab 2
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.billing-tab")).isEmpty(),false);
@@ -139,7 +136,6 @@ public class MobileShipCheckout extends Browser {
 	    //Assert.assertEquals(driver.findElement(By.id("ssl_avs_address")).getText(),"825 W 4th Ave"); //Validate that address is carried over
 	    driver.findElement(By.name("process")).click();
 	    Thread.sleep(10000);
-	    logger.log(LogStatus.PASS, "Mobile Ship Checkout Checkout tab 2");
 	    
 	    // Checkout Tab 3
 	    Assert.assertEquals(driver.findElements(By.cssSelector("a.review-tab")).isEmpty(),false);
@@ -154,11 +150,9 @@ public class MobileShipCheckout extends Browser {
 	    driver.findElement(By.id("check_box_age")).click();
 	    driver.findElement(By.cssSelector("button.btn-red.btn-place-order.anPlaceOrder")).click();
 	    Thread.sleep(10000);
-	    logger.log(LogStatus.PASS, "Mobile Ship Checkout Checkout tab 3");
 	    
 	    // Order Confirmation
-	    //Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
+	    Assert.assertEquals(driver.findElements(By.cssSelector("div.co-conf-thank-text")).isEmpty(),false);
 	    Assert.assertEquals(driver.findElements(By.cssSelector("div")).isEmpty(),false);
-	    logger.log(LogStatus.PASS, "Mobile Ship Checkout Checkout order confirmation");
 	}
 }

@@ -19,7 +19,7 @@ package com.totalwine.test.storelocator;
  * 	4. AfterClass
  * 			Quit webdriver
  */
-//@author=rsud
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -27,7 +27,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import com.totalwine.test.actions.SiteAccess;
 import com.totalwine.test.config.ConfigurationFunctions;
 import com.totalwine.test.trials.Browser;
@@ -43,7 +42,7 @@ public class SLBrowseState extends Browser {
 	
 	@Test //Stores by State dropdown
 	public void SLBrowseStateTest () throws InterruptedException {
-		logger=report.startTest("SL: Stores by state dropdown");
+		logger=report.startTest("SL: Stores by State dropdown Test");
 		String IP = "71.193.51.0";
 		SiteAccess.ActionAccessSite(driver, IP);
 		    
@@ -62,7 +61,7 @@ public class SLBrowseState extends Browser {
 	    //Iterate through list validating state names
 	    for (int i=0;i<States.length;i++) 
 	    	Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'strlctr-top-search-lft-Findstorenav')]/ul/li["+(i+3)+"]/span")).getText(), States[i]);
-	    logger.log(LogStatus.PASS, "All states in which we have stores are displayed");
+	    
 	    //Hover over state and validate stores' names display 
 	    String[] ArizonaStores = {"Gilbert","Glendale","Goodyear","Phoenix (Camelback)","Phoenix (Desert Ridge)","Scottsdale","Tempe (Emerald Center)",
 	    		"Tempe (Tempe Marketplace)","Tucson (Park Place Mall)","Tucson (The Corner)"};
@@ -71,11 +70,10 @@ public class SLBrowseState extends Browser {
 
 	    for (int i=0;i<ArizonaStores.length;i++) 
     		Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'strlctr-top-search-lft-Findstorenav')]/ul/li[3]/ul/li["+(i+1)+"]/a")).getText(), ArizonaStores[i]);
-	    logger.log(LogStatus.PASS, "All AZ stores are displayed when AZ is selected");
+	    
 		//Click on store and validate appearance of store detail page
 		driver.findElement(By.xpath("//div[contains(@class,'strlctr-top-search-lft-Findstorenav')]/ul/li[3]/ul/li[1]/a")).click();
 		Thread.sleep(3000);
 		Assert.assertEquals("Total Wine & More Gilbert", driver.findElement(By.cssSelector("div.primary-heading.span-12")).getText());
-		logger.log(LogStatus.PASS, "The store detail page is displayed when clicked from the Browse by state widget");
 	}
 }
